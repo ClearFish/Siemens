@@ -1,28 +1,48 @@
 <template>
   <Layout style="height: 100%" class="main">
-    <Sider hide-trigger collapsible :width="256" :collapsed-width="64" v-model="collapsed" class="left-sider" :style="{overflow: 'hidden'}">
+    <!-- <Sider hide-trigger collapsible :width="256" :collapsed-width="64" v-model="collapsed" class="left-sider" :style="{overflow: 'hidden'}">
+
       <side-menu accordion ref="sideMenu" :active-name="$route.name" :collapsed="collapsed" @on-select="turnToPage" :menu-list="menuList">
-        <!-- 需要放在菜单上面的内容，如Logo，写在side-menu标签内部，如下 -->
         <div class="logo-con">
           <img v-show="!collapsed" :src="maxLogo" key="max-logo" />
           <img v-show="collapsed" :src="minLogo" key="min-logo" />
         </div>
       </side-menu>
-    </Sider>
+    </Sider> -->
     <Layout>
       <Header class="header-con">
-        <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
+        <!-- <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
           <user :message-unread-count="unreadCount" :user-avatar="userAvatar"/>
           <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local"/>
           <error-store v-if="$config.plugin['error-store'] && $config.plugin['error-store'].showInHeader" :has-read="hasReadErrorPage" :count="errorCount"></error-store>
           <fullscreen v-model="isFullscreen" style="margin-right: 10px;"/>
-        </header-bar>
+        </header-bar> -->
+        <div class="left_box">
+          <p class="logo_box"></p>
+          <p class="title">GREEN Connect</p>
+        </div>
+        <div class="router_box">
+          <Menu mode="horizontal" :theme="theme1" active-name="/home" @on-select="handleSelect">
+            <Menu-item name="/home">
+                GREEN Concept
+            </Menu-item>
+            <Menu-item name="/tools_methods/tools_methods_page">
+                Factory Emission
+            </Menu-item>
+            <Menu-item name="/join/join_page">
+                Product Portfolio
+            </Menu-item>
+          </Menu>
+        </div>
+        <div class="lange">
+          <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local"/>
+        </div>
       </Header>
       <Content class="main-content-con">
         <Layout class="main-layout-con">
-          <div class="tag-nav-wrapper">
+          <!-- <div class="tag-nav-wrapper">
             <tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag"/>
-          </div>
+          </div> -->
           <Content class="content-wrapper">
             <keep-alive :include="cacheList">
               <router-view/>
@@ -44,7 +64,7 @@ import Fullscreen from './components/fullscreen'
 import Language from './components/language'
 import ErrorStore from './components/error-store'
 import { mapMutations, mapActions, mapGetters } from 'vuex'
-import { getNewTagList, routeEqual } from '@/libs/util'
+// import {routeEqual } from '@/libs/util'
 import routers from '@/router/routers'
 import minLogo from '@/assets/images/logo-min.jpg'
 import maxLogo from '@/assets/images/logo.jpg'
@@ -66,7 +86,8 @@ export default {
       collapsed: false,
       minLogo,
       maxLogo,
-      isFullscreen: false
+      isFullscreen: false,
+      theme1: 'light'
     }
   },
   computed: {
@@ -130,6 +151,10 @@ export default {
         query
       })
     },
+    handleSelect (name) {
+      console.log(name)
+      this.$router.push(name)
+    },
     handleCollapsedChange (state) {
       this.collapsed = state
     },
@@ -150,16 +175,16 @@ export default {
     }
   },
   watch: {
-    '$route' (newRoute) {
-      const { name, query, params, meta } = newRoute
-      this.addTag({
-        route: { name, query, params, meta },
-        type: 'push'
-      })
-      this.setBreadCrumb(newRoute)
-      this.setTagNavList(getNewTagList(this.tagNavList, newRoute))
-      this.$refs.sideMenu.updateOpenName(newRoute.name)
-    }
+    // '$route' (newRoute) {
+    //   const { name, query, params, meta } = newRoute
+    //   this.addTag({
+    //     route: { name, query, params, meta },
+    //     type: 'push'
+    //   })
+    //   this.setBreadCrumb(newRoute)
+    //   this.setTagNavList(getNewTagList(this.tagNavList, newRoute))
+    //   this.$refs.sideMenu.updateOpenName(newRoute.name)
+    // }
   },
   mounted () {
     /**
