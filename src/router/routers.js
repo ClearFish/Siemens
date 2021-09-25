@@ -29,6 +29,50 @@ export default [
   },
   {
     path: '/',
+    name: 'emission',
+    component: Main,
+    meta: {
+      title: 'emisssion',
+      hideInMenu: true
+    },
+    children: [
+      {
+        path: '/emission',
+        name: 'emission',
+        meta: {
+          hideInMenu: true,
+          title: 'emission',
+          notCache: true
+        },
+        component: () => import('@/view/emission/index.vue')
+      }
+    ]
+  },
+  {
+    path: '/',
+    name: 'portfolio',
+    component: Main,
+    meta: {
+      title: 'portfolio',
+      hideInMenu: true
+    },
+    children: [
+      {
+        path: '/portfolio',
+        name: 'portfolio',
+        meta: {
+          hideInMenu: true,
+          title: 'portfolio',
+          notCache: true
+          // icon: 'md-home'
+        },
+        // component: () => import('@/view/single-page/home')
+        component: () => import('@/view/portfolio/index.vue')
+      }
+    ]
+  },
+  {
+    path: '/',
     name: '_home',
     redirect: '/home',
     component: Main,

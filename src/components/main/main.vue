@@ -22,14 +22,14 @@
           <p class="title">GREEN Connect</p>
         </div>
         <div class="router_box">
-          <Menu mode="horizontal" :theme="theme1" active-name="/home" @on-select="handleSelect">
+          <Menu mode="horizontal" :theme="theme1" :active-name="this.$route.fullPath" @on-select="handleSelect">
             <Menu-item name="/home">
                 GREEN Concept
             </Menu-item>
-            <Menu-item name="/tools_methods/tools_methods_page">
+            <Menu-item name="/emission">
                 Factory Emission
             </Menu-item>
-            <Menu-item name="/join/join_page">
+            <Menu-item name="/portfolio">
                 Product Portfolio
             </Menu-item>
           </Menu>
@@ -89,6 +89,9 @@ export default {
       isFullscreen: false,
       theme1: 'light'
     }
+  },
+  created () {
+    console.log(this.$route)
   },
   computed: {
     ...mapGetters([

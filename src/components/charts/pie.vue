@@ -34,18 +34,23 @@ export default {
           x: 'center'
         },
         tooltip: {
+
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
+          formatter: '{a}<br/>{b}:{c} ({d}%)', // 处理hover显示的文本
+          textStyle: {
+            fontSize: '12'
+          }
         },
         legend: {
           orient: 'vertical',
           left: 'left',
           data: legend
         },
+
         series: [
           {
             type: 'pie',
-            radius: '55%',
+            radius: ['40%', '70%'],
             center: ['50%', '60%'],
             data: this.value,
             itemStyle: {
@@ -54,6 +59,13 @@ export default {
                 shadowOffsetX: 0,
                 shadowColor: 'rgba(0, 0, 0, 0.5)'
               }
+            },
+            labelLine: {
+              show: false
+            },
+            label: {
+              show: false,
+              position: 'center'
             }
           }
         ]
