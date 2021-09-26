@@ -43,7 +43,7 @@
           <!-- <div class="tag-nav-wrapper">
             <tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag"/>
           </div> -->
-          <Content class="content-wrapper">
+          <Content :class="this.$route.fullPath == '/home'?'content-wrapper cancle_padding':'content-wrapper'">
             <keep-alive :include="cacheList">
               <router-view/>
             </keep-alive>

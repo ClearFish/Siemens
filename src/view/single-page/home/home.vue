@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Row :gutter="20">
+  <div class="home_box">
+    <!-- <Row :gutter="20">
       <i-col :xs="12" :md="8" :lg="4" v-for="(infor, i) in inforCardData" :key="`infor-${i}`" style="height: 120px;padding-bottom: 10px;">
         <infor-card shadow :color="infor.color" :icon="infor.icon" :icon-size="36">
           <count-to :end="infor.count" count-class="count-style"/>
@@ -24,7 +24,19 @@
       <Card shadow>
         <example style="height: 310px;"/>
       </Card>
-    </Row>
+    </Row> -->
+    <div class="home_bg">
+      <!-- <div class="safe_width"> -->
+          <p class="point point1"></p>
+          <p class="point point2"></p>
+          <p class="point point3"></p>
+          <p class="point point4"></p>
+          <p class="point point5"></p>
+          <p class="point point6"></p>
+          <p class="point point7"></p>
+          <p class="point point8"></p>
+      <!-- </div> -->
+    </div>
   </div>
 </template>
 
@@ -33,6 +45,7 @@ import InforCard from '_c/info-card'
 import CountTo from '_c/count-to'
 import { ChartPie, ChartBar } from '_c/charts'
 import Example from './example.vue'
+import { getHomeData } from '@/api/home'
 export default {
   name: 'home',
   components: {
@@ -72,6 +85,9 @@ export default {
   },
   mounted () {
     //
+    // getHomeData().then(res=>{
+    //   console.log(res,"///")
+    // })
   }
 }
 </script>
@@ -79,5 +95,83 @@ export default {
 <style lang="less">
 .count-style{
   font-size: 50px;
+}
+.home_box {
+  width: 100%;
+  height: 100%;
+  // overflow: hidden;
+  // img {
+  //   width: 100%;
+  //   position: relative;
+  //   height: 100%
+  // }
+  .home_bg {
+    // margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    background: url("../../../assets/images/home_bg.gif") center no-repeat;
+    background-size: cover;
+    .safe_width {
+      position: relative;
+      width: 1200px;
+      height: 100%;
+      margin: 0 auto;
+    }
+    .point {
+      width: 24px;
+      height: 29px;
+      background: url("../../../assets/images/poin_gr.svg") no-repeat center;
+      background-size: cover;
+      position: absolute;
+      cursor: pointer;
+    }
+    .point1 {
+      bottom: 20%;
+      left: 44%;
+    }
+    .point2 {
+      bottom: 37%;
+      left: 31%;
+    }
+    .point3 {
+     bottom: 52%;
+      left: 35%;
+    }
+    .point4 {
+      bottom: 79%;
+      left: 73%;
+    }
+    .point5 {
+      bottom: 66%;
+      left: 71%;
+    }
+    .point6 {
+      bottom: 75%;
+      left: 31%;
+    }
+    .point7 {
+      bottom: 82%;
+      left: 40%;
+    }
+    .point8 {
+      bottom: 86%;
+      left: 46%;
+    }
+    .text_box {
+      position: absolute;
+      bottom: 340px;
+      left: 470px;
+      p {
+        color: #308508;
+        font-size: 12px;
+        text-align: center;
+        line-height: 16px;
+        font-weight: 600;
+      }
+      .text {
+        margin-bottom: -8px;
+      }
+    }
+  }
 }
 </style>

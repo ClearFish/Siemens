@@ -108,11 +108,49 @@
                         <span class="title_add">1,265,823t </span>
                         <span>CO2e</span>
                     </p>
-                     <Card shadow>
-          <chart-pie style="height: 300px;" :value="pieData"></chart-pie>
-        </Card>
+                     <!-- <Card shadow> -->
+                    <chart-pie style="height: 120px;" :value="pieData"></chart-pie>
+                    <!-- </Card> -->
                 </div>
-                <div class="right_bottom"></div>
+                <div class="right_top right_bottom">
+                    <p class="title">Scope 1& Scope 2 CO2e Emission</p>
+                    <p class="sup_title">Total Emission</p>
+                    <p class="title_count">
+                        <span class="title_add">1,265,823t </span>
+                        <span>CO2e</span>
+                    </p>
+                     <!-- <Card shadow> -->
+                    <chart-pie style="height: 120px;" :value="pieData2"></chart-pie>
+                    <!-- </Card> -->
+                    <div class="right_progress">
+                        <div class="top">
+                            <p class="top_left">SMT：1,265,823t</p>
+                            <p class="top_percent">25%</p>
+                        </div>
+                        <Progress :percent="25" hide-info :status="'SMT'"/>
+                    </div>
+                    <div class="right_progress">
+                        <div class="top">
+                            <p class="top_left">THT：1,265,823t</p>
+                            <p class="top_percent">25%</p>
+                        </div>
+                        <Progress :percent="25" hide-info :status="'SMT THT'"/>
+                    </div>
+                    <div class="right_progress">
+                        <div class="top">
+                            <p class="top_left">Assembling：1,265,823t</p>
+                            <p class="top_percent">25%</p>
+                        </div>
+                        <Progress :percent="25" hide-info :status="'SMT Assembling'"/>
+                    </div>
+                    <div class="right_progress">
+                        <div class="top">
+                            <p class="top_left">Public utilities：1,265,823t</p>
+                            <p class="top_percent">25%</p>
+                        </div>
+                        <Progress :percent="25" hide-info :status="'SMT Public utilities'"/>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -171,11 +209,17 @@ export default {
         Sun: 1324
       },
       pieData: [
-        { value: 400, name: '直接访问', itemStyle: { color: '#2661FF' } },
-        { value: 300, name: '邮件营销', itemStyle: { color: '#638EFF' } },
-        { value: 298, name: '联盟广告', itemStyle: { color: '#99B6FF' } },
-        { value: 248, name: '视频广告', itemStyle: { color: '#FFA722' } },
-        { value: 268, name: '搜索引擎', itemStyle: { color: '#FFCD81' } }
+        { value: 400, name: '直接访问', itemStyle: { color: '#006D80' } },
+        { value: 300, name: '邮件营销', itemStyle: { color: '#00D3C9' } }
+        // { value: 298, name: '联盟广告', itemStyle: { color: '#99B6FF' } },
+        // { value: 248, name: '视频广告', itemStyle: { color: '#FFA722' } },
+        // { value: 268, name: '搜索引擎', itemStyle: { color: '#FFCD81' } }
+      ],
+      pieData2: [
+        { value: 400, name: '直接访问', itemStyle: { color: '#006D80' } },
+        { value: 300, name: '邮件营销', itemStyle: { color: '#00D3C9' } },
+        { value: 298, name: '联盟广告', itemStyle: { color: '#A4DC94' } },
+        { value: 248, name: '视频广告', itemStyle: { color: '#FFE898' } }
       ]
     }
   }
@@ -262,7 +306,6 @@ export default {
                                     background-size: cover;
                                 }
                                 .icon3 {
-                                    height: 14px;
                                     background: url("../../assets/images/icon3.svg") no-repeat center;
                                     background-size: cover;
                                 }
@@ -383,6 +426,9 @@ export default {
         }
         .right {
             width: 24%;
+            display: flex;
+            flex-direction: column;
+
             .right_top {
                 background: #fff;
                 padding: 20px;
@@ -415,6 +461,86 @@ export default {
                             color: #000;
                             font-weight: 800;
                         }
+                }
+            }
+            .right_bottom {
+                margin-top: 20px;
+                flex: 1;
+                .right_progress {
+                    margin-top: 20px;
+                    .top {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        p {
+                            font-size: 14px;
+                        }
+                        .top_left {
+                            color: #000;
+                            opacity: 0.6;
+                        }
+                        .top_percent {
+                            color: #000;
+                        }
+                    }
+                    .ivu-progress-SMT {
+                        ::v-deep {
+                            .ivu-progress-outer {
+                                .ivu-progress-inner {
+                                    border-radius: 0;
+                                    .ivu-progress-bg {
+                                        height: 6px !important;
+                                        border-radius: 0;
+                                        background: #006D80;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .THT {
+                        ::v-deep {
+                            .ivu-progress-outer {
+                                .ivu-progress-inner {
+                                    border-radius: 0;
+                                    .ivu-progress-bg {
+                                        height: 6px !important;
+                                        border-radius: 0;
+                                        background: #00D3C9;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .Assembling {
+                        ::v-deep {
+                            .ivu-progress-outer {
+                                .ivu-progress-inner {
+                                    border-radius: 0;
+                                    .ivu-progress-bg {
+                                        height: 6px !important;
+                                        border-radius: 0;
+                                        background: #A4DC94;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .utilities {
+                        ::v-deep {
+                            .ivu-progress-outer {
+                                .ivu-progress-inner {
+                                    border-radius: 0;
+                                    .ivu-progress-bg {
+                                        height: 6px !important;
+                                        border-radius: 0;
+                                        background: #FFE898;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
         }

@@ -29,6 +29,10 @@ export default [
   },
   {
     path: '/',
+    redirect: '/home'
+  },
+  {
+    path: '/',
     name: 'emission',
     component: Main,
     meta: {
