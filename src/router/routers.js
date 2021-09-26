@@ -48,7 +48,17 @@ export default [
           title: 'emission',
           notCache: true
         },
-        component: () => import('@/view/emission/index.vue')
+        component: () => import('@/view/emission/index.vue'),
+      },
+      {
+        path: '/emission/history',
+        name: 'emission',
+        meta: {
+          hideInMenu: true,
+          title: 'history',
+          notCache: true
+        },
+        component: () => import('@/view/emission//history/index.vue'),
       }
     ]
   },

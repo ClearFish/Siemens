@@ -22,7 +22,7 @@
           <p class="title">GREEN Connect</p>
         </div>
         <div class="router_box">
-          <Menu mode="horizontal" :theme="theme1" :active-name="this.$route.fullPath" @on-select="handleSelect">
+          <Menu mode="horizontal" :theme="theme1" :active-name="this.$route.name" @on-select="handleSelect">
             <Menu-item name="/home">
                 GREEN Concept
             </Menu-item>

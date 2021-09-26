@@ -33,7 +33,7 @@
                             <p class="title">Emission History</p>
                             <p class="sup_title">Based on the average product volume</p>
                         </div>
-                        <Button type="text">Load More</Button>
+                        <Button type="text" @click="gotoHitory">Load More</Button>
                     </div>
                     <div class="bottom_content">
                         <div class="canvas_box">
@@ -222,6 +222,12 @@ export default {
         { value: 248, name: '视频广告', itemStyle: { color: '#FFE898' } }
       ]
     }
+  },
+  methods:{
+      gotoHitory() {
+          this.$router.push("/emission/history");
+          console.log(this.$route)
+      }
   }
 }
 </script>
