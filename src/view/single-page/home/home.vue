@@ -111,8 +111,8 @@ export default {
     height: 100%;
     background: url("../../../assets/images/home_bg.gif") center no-repeat;
     background-size: cover;
-    .safe_width {
       position: relative;
+    .safe_width {
       width: 1200px;
       height: 100%;
       margin: 0 auto;
