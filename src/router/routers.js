@@ -59,6 +59,16 @@ export default [
           notCache: true
         },
         component: () => import('@/view/emission//history/index.vue'),
+      },
+      {
+        path: '/emission/history/details/:id',
+        name: 'emission',
+        meta: {
+          hideInMenu: true,
+          title: 'moredetails',
+          notCache: true
+        },
+        component: () => import('@/view/emission/moredetails/index.vue'),
       }
     ]
   },

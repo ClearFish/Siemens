@@ -22,7 +22,7 @@
           <p class="title">GREEN Connect</p>
         </div>
         <div class="router_box">
-          <Menu mode="horizontal" :theme="theme1" :active-name="this.$route.name" @on-select="handleSelect">
+          <Menu mode="horizontal" :theme="theme1" :active-name="this.$route.fullPath" @on-select="handleSelect">
             <Menu-item name="/home">
                 GREEN Concept
             </Menu-item>
@@ -193,23 +193,23 @@ export default {
     /**
      * @description 初始化设置面包屑导航和标签导航
      */
-    this.setTagNavList()
-    this.setHomeRoute(routers)
-    const { name, params, query, meta } = this.$route
-    this.addTag({
-      route: { name, params, query, meta }
-    })
-    this.setBreadCrumb(this.$route)
-    // 设置初始语言
-    this.setLocal(this.$i18n.locale)
-    // 如果当前打开页面不在标签栏中，跳到homeName页
-    if (!this.tagNavList.find(item => item.name === this.$route.name)) {
-      this.$router.push({
-        name: this.$config.homeName
-      })
-    }
+    // this.setTagNavList()
+    // this.setHomeRoute(routers)
+    // const { name, params, query, meta } = this.$route
+    // this.addTag({
+    //   route: { name, params, query, meta }
+    // })
+    // this.setBreadCrumb(this.$route)
+    // // 设置初始语言
+    // this.setLocal(this.$i18n.locale)
+    // // 如果当前打开页面不在标签栏中，跳到homeName页
+    // if (!this.tagNavList.find(item => item.name === this.$route.name)) {
+    //   this.$router.push({
+    //     name: this.$config.homeName
+    //   })
+    // }
     // 获取未读消息条数
-    this.getUnreadMessageCount()
+    // this.getUnreadMessageCount()
   }
 }
 </script>
