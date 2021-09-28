@@ -10,14 +10,14 @@
       </side-menu>
     </Sider> -->
     <Layout>
-      <Header class="header-con">
+      <!-- <Header class="header-con"> -->
         <!-- <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
           <user :message-unread-count="unreadCount" :user-avatar="userAvatar"/>
           <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local"/>
           <error-store v-if="$config.plugin['error-store'] && $config.plugin['error-store'].showInHeader" :has-read="hasReadErrorPage" :count="errorCount"></error-store>
           <fullscreen v-model="isFullscreen" style="margin-right: 10px;"/>
         </header-bar> -->
-        <div class="left_box">
+        <!-- <div class="left_box">
           <p class="logo_box"></p>
           <p class="title">GREEN Connect</p>
         </div>
@@ -37,7 +37,7 @@
         <div class="lange">
           <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local"/>
         </div>
-      </Header>
+      </Header> -->
       <Content class="main-content-con">
         <Layout class="main-layout-con">
           <!-- <div class="tag-nav-wrapper">

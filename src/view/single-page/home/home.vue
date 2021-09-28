@@ -87,9 +87,36 @@
               <p>CO2e</p>
           </div>
         </Poptip> 
-          
+        <div class="box_click" @click="showDialog"></div>
       <!-- </div> -->
     </div>
+    <Modal
+        v-model="show"
+        title="Product Carbon Footprint"
+        >
+        <div class="content">
+          <div class="top">
+            <div class="left">
+              <p class="title">Product ID</p>
+              <p class="number">A5E45446993</p>
+              <p class="title">Serial No：2187</p>
+            </div>
+            <div class="right">
+                <p class="img_box"></p>
+            </div>
+          </div>
+          <div class="bottom">
+            <p class="first_title">Emission Per Piece</p>
+            <p class="acount">
+              <span>0.03kg </span>
+              <span>CO2e</span>
+            </p>
+            <p class="bottom_acount">Emission Scope 1&2：<span>0.2kg</span> CO2e</p>
+            <p class="bottom_acount chang_color">Emission Scope 3：<span>0.2kg</span> CO2e</p>
+          </div>
+        </div>
+        <div slot="footer"></div>
+    </Modal>
   </div>
 </template>
 
@@ -133,7 +160,8 @@ export default {
         Fri: 24643,
         Sat: 1322,
         Sun: 1324
-      }
+      },
+      show:false
     }
   },
   mounted () {
@@ -141,6 +169,11 @@ export default {
     // getHomeData().then(res=>{
     //   console.log(res,"///")
     // })
+  },
+  methods:{
+    showDialog() {
+      this.show = true
+    }
   }
 }
 </script>
@@ -174,13 +207,13 @@ export default {
       width: 24px;
       height: 29px;
       background: url("../../../assets/images/poin_gr.svg") no-repeat center;
-      background-size: cover;
+      background-size: contain;
       
       cursor: pointer;
     }
     .point1 {
       position: absolute;
-      bottom: 20%;
+      bottom: 21%;
       left: 44%;
     }
     .point2 {
@@ -207,7 +240,7 @@ export default {
     }
     .point4 {
       position: absolute;
-      bottom: 79%;
+      bottom: 77%;
       left: 73%;
     }
     .point5 {
@@ -217,18 +250,27 @@ export default {
     }
     .point6 {
       position: absolute;
-      bottom: 75%;
+      bottom: 73%;
       left: 31%;
     }
     .point7 {
       position: absolute;
-      bottom: 82%;
+      bottom: 79%;
       left: 40%;
     }
     .point8 {
       position: absolute;
-      bottom: 86%;
+      bottom: 83%;
       left: 46%;
+      animation: showhide 3s 0s infinite;;
+    }
+    @-webkit-keyframes showhide {
+       0%{
+         transparent :1
+        }
+        100%{
+          transparent :0
+        }
     }
     .text_box {
       position: absolute;
@@ -276,6 +318,105 @@ export default {
           }
         }
     }
+    .box_click {
+      width: 126px;
+      height: 107px;
+      background: transparent;
+      position: absolute;
+      left: 33%;
+      bottom: 5%;
+      cursor: pointer;
+    }
   }
+
 }
+  .ivu-modal-wrap {
+    .ivu-modal {
+      .ivu-modal-content {
+        border-radius: 0;
+        .ivu-modal-header {
+          background: #11435C;
+          .ivu-modal-header-inner {
+            font-size: 18px;
+            color: #fff;
+          }
+        }
+        .ivu-modal-body {
+          .content {
+            .top {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              border-bottom: 1px solid #cdcdcd;
+              padding-bottom: 20px;
+              .left {
+                p {
+                  font-size: 16px;
+                  color: #000;
+                  margin-bottom: 10px;
+                }
+                .number {
+                  font-weight: 600;
+                }
+              }
+              .right {
+                width: 150px;
+                height: 100px;
+                background: #F3F3F3;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .img_box {
+                  width: 70px;
+                  height: 85px;
+                  background: url("../../../assets/images/image75.png") no-repeat center;
+                  background-size: cover;
+                }
+              }
+            }
+            .bottom {
+              padding-top: 20px;
+              font-size: 16px;
+              color:#000;
+              .first_title {
+                font-weight: 400;
+                margin-bottom: 10px;
+              }
+              .acount {
+                margin-bottom: 10px;
+                span:first-child {
+                  font-weight: 600;
+                }
+              }
+              .bottom_acount {
+                padding-left: 20px;
+                position: relative;
+              }
+              .chang_color {
+                margin-top: 10px;
+                position: relative;
+              }
+              .bottom_acount:before {
+                content: "";
+                width: 8px;
+                height: 8px;
+                border-radius: 4px;
+                display: block;
+                position: absolute;
+                top:7px;
+                left:5px;
+                background: #00D3C9;
+              }
+              .chang_color::before {
+                background: #006D80;
+              }
+            }
+          }
+        }
+        .ivu-modal-footer {
+          display: none;
+        }
+      }
+    }
+  }
 </style>
