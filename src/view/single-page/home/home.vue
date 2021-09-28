@@ -1,94 +1,67 @@
 <template>
   <div class="home_box">
-    <!-- <Row :gutter="20">
-      <i-col :xs="12" :md="8" :lg="4" v-for="(infor, i) in inforCardData" :key="`infor-${i}`" style="height: 120px;padding-bottom: 10px;">
-        <infor-card shadow :color="infor.color" :icon="infor.icon" :icon-size="36">
-          <count-to :end="infor.count" count-class="count-style"/>
-          <p>{{ infor.title }}</p>
-        </infor-card>
-      </i-col>
-    </Row>
-    <Row :gutter="20" style="margin-top: 10px;">
-      <i-col :md="24" :lg="8" style="margin-bottom: 20px;">
-        <Card shadow>
-          <chart-pie style="height: 300px;" :value="pieData" text="用户访问来源"></chart-pie>
-        </Card>
-      </i-col>
-      <i-col :md="24" :lg="16" style="margin-bottom: 20px;">
-        <Card shadow>
-          <chart-bar style="height: 300px;" :value="barData" text="每周用户活跃量"/>
-        </Card>
-      </i-col>
-    </Row>
-    <Row>
-      <Card shadow>
-        <example style="height: 310px;"/>
-      </Card>
-    </Row> -->
     <div class="home_bg">
-      <!-- <div class="safe_width"> -->
-        <Poptip  placement="top" class="point1">
+        <Poptip  placement="top" class="point1" @click="getData('D')">
           <p class="point point1"></p>
           <div slot="content">
-              <p>269.001kg</p>
+              <p>{{poptipData.module_count}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip>
-        <Poptip  placement="top" class="point2">
+        <Poptip  placement="top" class="point2" @click="getData('B')">
           <p class="point point2"></p>
-          <div class="has_get">
+          <div class="has_get fadeout">
             <p class="text">+</p>
             <p>0.02kg</p>
           </div>
           <div slot="content">
-              <p>269.001kg</p>
+              <p>{{poptipData.module_count}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip>
-        <Poptip  placement="top" class="point3">
+        <Poptip  placement="top" class="point3" @click="getData('transportation')">
            <p class="point point3"></p>
           <div slot="content">
               <p>269.001kg</p>
               <p>CO2e</p>
           </div>
         </Poptip>
-         <Poptip  placement="top" class="point4">
+         <Poptip  placement="top" class="point4" @click="getData('air')">
            <p class="point point4"></p>
           <div slot="content">
-              <p>269.001kg</p>
+              <p>{{poptipData.module_count}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip>
-        <Poptip  placement="top" class="point5">
+        <Poptip  placement="top" class="point5" @click="getData('A')">
            <p class="point point5"></p>
           <div slot="content">
-              <p>269.001kg</p>
+              <p>{{poptipData.module_count}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip>
-        <Poptip  placement="top" class="point6">
+        <Poptip  placement="top" class="point6" @click="getData('A')">
           <p class="point point6"></p>
           <div slot="content">
-              <p>269.001kg</p>
+              <p>{{poptipData.module_count}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip>
-         <Poptip  placement="top" class="point7">
+         <Poptip  placement="top" class="point7" @click="getData('A')">
           <p class="point point7"></p>
           <div slot="content">
-              <p>269.001kg</p>
+              <p>{{poptipData.module_count}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip> 
-          <Poptip  placement="top" class="point8">
+          <Poptip  placement="top" class="point8" @click="getData('A')">
           <p class="point point8"></p>
           <div slot="content">
-              <p>269.001kg</p>
+              <p>{{poptipData.module_count}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip> 
         <div class="box_click" @click="showDialog"></div>
-      <!-- </div> -->
     </div>
     <Modal
         v-model="show"
@@ -98,8 +71,8 @@
           <div class="top">
             <div class="left">
               <p class="title">Product ID</p>
-              <p class="number">A5E45446993</p>
-              <p class="title">Serial No：2187</p>
+              <p class="number">{{dialogData.productId}}</p>
+              <p class="title">Serial No：{{dialogData.serial}}</p>
             </div>
             <div class="right">
                 <p class="img_box"></p>
@@ -108,11 +81,12 @@
           <div class="bottom">
             <p class="first_title">Emission Per Piece</p>
             <p class="acount">
-              <span>0.03kg </span>
-              <span>CO2e</span>
+              <span>{{dialogData.scope2.smt}}kg </span>
+              <span>{{dialogData.scope2.tht}}</span>
             </p>
-            <p class="bottom_acount">Emission Scope 1&2：<span>0.2kg</span> CO2e</p>
-            <p class="bottom_acount chang_color">Emission Scope 3：<span>0.2kg</span> CO2e</p>
+            <p class="bottom_acount" v-for="(item,index) in dialogData.scope3" :key="index">
+              {{item.materialName}}：<span>{{item.pcf}}kg</span> CO2e</p>
+            <!-- <p class="bottom_acount chang_color">Emission Scope 3：<span>0.2kg</span> CO2e</p> -->
           </div>
         </div>
         <div slot="footer"></div>
@@ -161,7 +135,9 @@ export default {
         Sat: 1322,
         Sun: 1324
       },
-      show:false
+      show:false,
+      dialogData:{},
+      poptipData:{}
     }
   },
   mounted () {
@@ -172,7 +148,15 @@ export default {
   },
   methods:{
     showDialog() {
+      getHomeData().then(res=>{
+        this.dialogData = res.data;
+      })
       this.show = true
+    },
+    getData(item) {
+      getDialog('2021',item).then(res=>{
+        this.poptipData = res.data
+      })
     }
   }
 }
@@ -196,7 +180,7 @@ export default {
     width: 100%;
     height: 100%;
     background: url("../../../assets/images/home_bg.gif") center no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
       position: relative;
     .safe_width {
       width: 1200px;
@@ -224,6 +208,36 @@ export default {
         position: absolute;
         bottom: 32px;
         left: -8px;
+        // opacity: 1;
+        -webkit-animation-name: fadeout; /*动画名称*/
+        -webkit-animation-duration: 2s; /*动画持续时间*/
+        -webkit-animation-iteration-count: 2; /*动画次数*/
+        -webkit-animation-delay: 0s;
+        -webkit-transition-timing-function: linear;
+        -webkit-animation-fill-mode:forwards;
+        
+@-webkit-keyframes fadeout {
+0% {
+opacity: 0; /*初始状态 透明度为0*/
+bottom: 32px;
+}
+25% {
+  opacity: 0.25;
+  bottom: 40px;
+}
+50% {
+opacity: 0.5; /*中间状态 透明度为0*/
+bottom: 32px;
+}
+75% {
+  opacity: 0.75;
+  bottom: 40px;
+}
+100% {
+opacity: 0; /*结尾状态 透明度为1*/
+bottom: 32px;
+}
+}
         p {
           color: #308508;
           font-size: 12px;

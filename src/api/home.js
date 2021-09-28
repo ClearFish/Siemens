@@ -6,3 +6,13 @@ export const getHomeData = () => {
     method: 'get'
   })
 }
+export const getDialog = (year,factory)=>{
+  return axios.request({
+    url:"/statistics/product",
+    params :{
+      year,
+      factory
+    },
+    method:"get"
+  })
+}
