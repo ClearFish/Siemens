@@ -18,7 +18,7 @@ export default {
    */
   baseUrl: {
     dev: '',
-    pro: 'http://139.24.142.187:8082/v1'
+    pro: 'http://139.24.142.187:8082'
   },
   /**
    * @description 默认打开的首页的路由name值，默认为home

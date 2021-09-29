@@ -81,8 +81,8 @@
           <div class="bottom">
             <p class="first_title">Emission Per Piece</p>
             <p class="acount">
-              <span>{{dialogData.scope2.smt}}kg </span>
-              <span>{{dialogData.scope2.tht}}</span>
+              <span>{{dialogData && dialogData.scope2 && dialogData.scope2.smt}}kg </span>
+              <span>{{dialogData && dialogData.scope2 && dialogData.scope2.tht}}</span>
             </p>
             <p class="bottom_acount" v-for="(item,index) in dialogData.scope3" :key="index">
               {{item.materialName}}：<span>{{item.pcf}}kg</span> CO2e</p>
@@ -99,7 +99,7 @@ import InforCard from '_c/info-card'
 import CountTo from '_c/count-to'
 import { ChartPie, ChartBar } from '_c/charts'
 import Example from './example.vue'
-import { getHomeData } from '@/api/home'
+import { getHomeData,getDialog } from '@/api/home'
 export default {
   name: 'home',
   components: {
@@ -142,21 +142,22 @@ export default {
   },
   mounted () {
     //
-    // getHomeData().then(res=>{
-    //   console.log(res,"///")
-    // })
+    getHomeData().then(res=>{
+      // console.log(res,"///")
+      this.dialogData = res.data;
+    })
   },
   methods:{
     showDialog() {
-      getHomeData().then(res=>{
-        this.dialogData = res.data;
-      })
+      // getHomeData().then(res=>{
+      //   this.dialogData = res.data;
+      // })
       this.show = true
     },
     getData(item) {
-      getDialog('2021',item).then(res=>{
-        this.poptipData = res.data
-      })
+      // getDialog('2021',item).then(res=>{
+      //   this.poptipData = res.data
+      // })
     }
   }
 }
