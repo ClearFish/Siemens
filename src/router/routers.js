@@ -69,6 +69,16 @@ export default [
           notCache: true
         },
         component: () => import('@/view/emission/moredetails/index.vue'),
+      },
+      {
+        path: '/emission/history/pcfvalue/:id',
+        name: 'emission',
+        meta: {
+          hideInMenu: true,
+          title: 'pcfvalue',
+          notCache: true
+        },
+        component: () => import('@/view/emission/pcfvalue/index.vue'),
       }
     ]
   },

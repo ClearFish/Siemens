@@ -55,7 +55,32 @@
                     </li>
                 </ul>
             </div>
-            <div class="bottom_cont"></div>
+            <div class="center_cont bottom_cont">
+                <div class="top_con">
+                    <div class="cont_title">
+                        <p class="icon_img"></p>
+                        <p class="icon_right">
+                            <span>Scope 3：</span>
+                            <span class="add_weight">8.01kg</span>
+                            <span>CO2e</span>
+                        </p>
+                    </div>
+                    <Button type="text" size="small" @click="gotoValus">Load More</Button>
+                </div>
+                <div class="ul_list2">
+                    <ul>
+                        <li v-for="(item,index) in list2" :key="index">
+                            <div class="left">
+                                <img src="../../../assets/images/imageli.png" alt="">
+                            </div>
+                            <div class="right">
+                                <p class="name">{{item.name}}</p>
+                                <p class="number">{{item.num}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -68,11 +93,24 @@ export default {
                 {name:"SMT",num:'0.1kg'},
                 {name:"SMT",num:'0.1kg'},
                 {name:"SMT",num:'0.1kg'},
+            ],
+            list2:[
+                {name:"SMT",num:'0.1kg'},
+                {name:"SMT",num:'0.1kg'},
+                {name:"SMT",num:'0.1kg'},
+                {name:"SMT",num:'0.1kg'},
+                {name:"SMT",num:'0.1kg'},
+                {name:"SMT",num:'0.1kg'},
             ]
         }
     },
     created(){
         console.log(this.$route,"//")
+    },
+    methods:{
+        gotoValus() {
+            this.$router.push('/emission/history/pcfvalue/'+this.$route.params.id)
+        }
     }
 }
 </script>
@@ -221,6 +259,75 @@ export default {
                 }
                 .list_li3::before {
                      background: #FFE898;
+                }
+            }
+        }
+        .bottom_cont {
+            border-bottom: none;
+            .top_con {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .ivu-btn-text {
+                    color: #006D80;
+                }
+                .ivu-btn {
+                    outline: none;
+                    border: none !important;
+                }
+                .ivu-btn:hover {
+                    background: none;
+                    border: none;
+                    box-shadow: none;
+                }
+                .ivu-btn:focus {
+                    background: none;
+                    border: none;
+                    box-shadow: none;
+                }
+                .ivu-btn:active {
+                    background: none;
+                    border: none;
+                    box-shadow: none;
+                }
+            }
+            .ul_list2 {
+                margin-top: 20px;
+                ul {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    li {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding:10px;
+                        border: 1px solid #cdcdcd;
+                        .left {
+                            width: 78px;
+                            height: 52px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            background: #F3F3F3;
+                            margin-right: 10px;
+                            img {
+                                width: 37px;
+                                height: 47px;
+                            }
+                        }
+                        .right {
+                            .name {
+                                font-size: 14px;
+                                color: #000;
+                                opacity: 0.6;
+                            }
+                            .number {
+                                font-size: 14px;
+                                color: #000;
+                            }
+                        }
+                    }
                 }
             }
         }

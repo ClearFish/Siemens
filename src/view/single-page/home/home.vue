@@ -1,63 +1,63 @@
 <template>
   <div class="home_box">
     <div class="home_bg">
-        <Poptip  placement="top" class="point1" @click="getData('D')">
+        <Poptip  placement="top" class="point1">
           <p class="point point1"></p>
           <div slot="content">
-              <p>{{poptipData.module_count}}kg</p>
+              <p>{{homeData.scope2 && homeData.scope2.assembling}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip>
-        <Poptip  placement="top" class="point2" @click="getData('B')">
+        <Poptip  placement="top" class="point2">
           <p class="point point2"></p>
           <div class="has_get fadeout">
             <p class="text">+</p>
             <p>0.02kg</p>
           </div>
           <div slot="content">
-              <p>{{poptipData.module_count}}kg</p>
+              <p>{{homeData.scope2 && homeData.scope2.smt}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip>
-        <Poptip  placement="top" class="point3" @click="getData('transportation')">
+        <Poptip  placement="top" class="point3">
            <p class="point point3"></p>
           <div slot="content">
-              <p>269.001kg</p>
+              <p>{{homeData.scope1}}</p>
               <p>CO2e</p>
           </div>
         </Poptip>
-         <Poptip  placement="top" class="point4" @click="getData('air')">
+         <Poptip  placement="top" class="point4">
            <p class="point point4"></p>
           <div slot="content">
-              <p>{{poptipData.module_count}}kg</p>
+              <p>{{homeData.scope2 && homeData.scope2.public}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip>
-        <Poptip  placement="top" class="point5" @click="getData('A')">
+        <Poptip  placement="top" class="point5">
            <p class="point point5"></p>
           <div slot="content">
-              <p>{{poptipData.module_count}}kg</p>
+              <p>{{homeData.scope2 && homeData.scope2.tht}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip>
-        <Poptip  placement="top" class="point6" @click="getData('A')">
+        <Poptip  placement="top" class="point6">
           <p class="point point6"></p>
           <div slot="content">
-              <p>{{poptipData.module_count}}kg</p>
+              <p>{{homeData.scope3 && homeData.scope3[0].pcf}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip>
-         <Poptip  placement="top" class="point7" @click="getData('A')">
+         <Poptip  placement="top" class="point7">
           <p class="point point7"></p>
           <div slot="content">
-              <p>{{poptipData.module_count}}kg</p>
+              <p>{{homeData.scope3 && homeData.scope3[1].pcf}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip> 
-          <Poptip  placement="top" class="point8" @click="getData('A')">
+          <Poptip  placement="top" class="point8">
           <p class="point point8"></p>
           <div slot="content">
-              <p>{{poptipData.module_count}}kg</p>
+              <p>{{homeData.scope3 && homeData.scope3[2].pcf}}kg</p>
               <p>CO2e</p>
           </div>
         </Poptip> 
@@ -71,8 +71,8 @@
           <div class="top">
             <div class="left">
               <p class="title">Product ID</p>
-              <p class="number">{{dialogData.productId}}</p>
-              <p class="title">Serial No：{{dialogData.serial}}</p>
+              <p class="number">{{homeData.product_id}}</p>
+              <p class="title">Serial No：{{homeData.serial}}</p>
             </div>
             <div class="right">
                 <p class="img_box"></p>
@@ -81,12 +81,13 @@
           <div class="bottom">
             <p class="first_title">Emission Per Piece</p>
             <p class="acount">
-              <span>{{dialogData && dialogData.scope2 && dialogData.scope2.smt}}kg </span>
-              <span>{{dialogData && dialogData.scope2 && dialogData.scope2.tht}}</span>
+              <span>{{ homeData.scope2 && homeData.scope1+homeData.scope2.assembling+homeData.scope2.public+homeData.scope2.smt+homeData.scope2.tht+homeData.scope3_total}}kg </span>
+              <span>CO2e</span>
             </p>
-            <p class="bottom_acount" v-for="(item,index) in dialogData.scope3" :key="index">
-              {{item.materialName}}：<span>{{item.pcf}}kg</span> CO2e</p>
-            <!-- <p class="bottom_acount chang_color">Emission Scope 3：<span>0.2kg</span> CO2e</p> -->
+            <p class="bottom_acount">
+              Emission Scope 1 & 2:
+              <span>{{homeData.scope2 && homeData.scope1+homeData.scope2.assembling+homeData.scope2.public+homeData.scope2.smt+homeData.scope2.tht}}kg</span> CO2e</p>
+            <p class="bottom_acount chang_color">Emission Scope 3：<span>{{homeData.scope3_total}}kg</span> CO2e</p>
           </div>
         </div>
         <div slot="footer"></div>
@@ -99,6 +100,7 @@ import InforCard from '_c/info-card'
 import CountTo from '_c/count-to'
 import { ChartPie, ChartBar } from '_c/charts'
 import Example from './example.vue'
+import mockData from "../../../../test.js"
 import { getHomeData,getDialog } from '@/api/home'
 export default {
   name: 'home',
@@ -111,53 +113,44 @@ export default {
   },
   data () {
     return {
-      inforCardData: [
-        { title: '新增用户', icon: 'md-person-add', count: 803, color: '#2d8cf0' },
-        { title: '累计点击', icon: 'md-locate', count: 232, color: '#19be6b' },
-        { title: '新增问答', icon: 'md-help-circle', count: 142, color: '#ff9900' },
-        { title: '分享统计', icon: 'md-share', count: 657, color: '#ed3f14' },
-        { title: '新增互动', icon: 'md-chatbubbles', count: 12, color: '#E46CBB' },
-        { title: '新增页面', icon: 'md-map', count: 14, color: '#9A66E4' }
-      ],
-      pieData: [
-        { value: 335, name: '直接访问' },
-        { value: 310, name: '邮件营销' },
-        { value: 234, name: '联盟广告' },
-        { value: 135, name: '视频广告' },
-        { value: 1548, name: '搜索引擎' }
-      ],
-      barData: {
-        Mon: 13253,
-        Tue: 34235,
-        Wed: 26321,
-        Thu: 12340,
-        Fri: 24643,
-        Sat: 1322,
-        Sun: 1324
-      },
       show:false,
+      homeData:{},
       dialogData:{},
-      poptipData:{}
+      poptipData:{},
+      dataTotal:[],
+      count:0
     }
   },
+  created() {
+    this.getlist()
+  },
   mounted () {
-    //
-    getHomeData().then(res=>{
-      // console.log(res,"///")
-      this.dialogData = res.data;
-    })
+    // this.homeData = mockData.data[this.count];
+    setInterval(()=>{
+      this.count ++;
+      // console.log(this.count);
+      this.homeData = this.dataTotal[this.count];
+      // console.log(this.homeData,"999")
+
+    },500*3600)
   },
   methods:{
-    showDialog() {
-      // getHomeData().then(res=>{
-      //   this.dialogData = res.data;
-      // })
-      this.show = true
+    getlist() {
+      console.log(123123,mockData)
+       
+      getHomeData().then(res=>{
+        console.log(res,"00999")
+        if(res.code == 0) {
+          this.dataTotal = res.data
+          this.homeData = res.data[this.count];
+        }else {
+           this.dataTotal = mockData.data
+           this.homeData = mockData.data[this.count];
+        }
+      })
     },
-    getData(item) {
-      // getDialog('2021',item).then(res=>{
-      //   this.poptipData = res.data
-      // })
+    showDialog() {
+      this.show = true
     }
   }
 }
