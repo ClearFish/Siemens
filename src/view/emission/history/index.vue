@@ -1,7 +1,7 @@
 <template>
     <div class="big_box">
         <div class="top">
-            <p class="title">Factory Emission</p>
+            <p class="title" @click="goBack">Factory Emission</p>
             <p class="change_color">/</p>
             <p class="change_color">Emission History</p>
         </div>
@@ -110,6 +110,9 @@ export default {
         }
     },
     methods:{
+        goBack() {
+            this.$router.go(-1)
+        },
         gotoDetails(id,serial) {
             // this.$router.push({
             //     name:"/emission/history/details",
@@ -150,6 +153,7 @@ export default {
             font-size: 14px;
             color: #00183C;
             position: relative;
+            cursor: pointer;
         }
         // .title::after {
         //     content: "";
