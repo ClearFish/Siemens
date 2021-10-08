@@ -40,7 +40,7 @@
                         <strong>{{ row.name }}</strong>
                     </template>
                     <template slot-scope="{ row, index }" slot="action">
-                        <Button type="text" size="small" @click="gotoDetails(row.product_id,row.serial)">More Details</Button>
+                        <Button type="text" size="small" @click="gotoDetails(row.product_id,row.serial,index)">More Details</Button>
                     </template>
                  </Table>
             </div>

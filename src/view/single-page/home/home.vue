@@ -222,28 +222,28 @@ export default {
         -webkit-transition-timing-function: linear;
         -webkit-animation-fill-mode:forwards;
         
-@-webkit-keyframes fadeout {
-0% {
-opacity: 0; /*初始状态 透明度为0*/
-bottom: 32px;
-}
-25% {
-  opacity: 0.25;
-  bottom: 40px;
-}
-50% {
-opacity: 0.5; /*中间状态 透明度为0*/
-bottom: 32px;
-}
-75% {
-  opacity: 0.75;
-  bottom: 40px;
-}
-100% {
-opacity: 0; /*结尾状态 透明度为1*/
-bottom: 32px;
-}
-}
+        @-webkit-keyframes fadeout {
+        0% {
+        opacity: 0; /*初始状态 透明度为0*/
+        bottom: 32px;
+        }
+        25% {
+          opacity: 0.25;
+          bottom: 40px;
+        }
+        50% {
+        opacity: 0.5; /*中间状态 透明度为0*/
+        bottom: 32px;
+        }
+        75% {
+          opacity: 0.75;
+          bottom: 40px;
+        }
+        100% {
+        opacity: 0; /*结尾状态 透明度为1*/
+        bottom: 32px;
+        }
+      }
         p {
           color: #308508;
           font-size: 12px;
