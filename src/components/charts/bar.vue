@@ -46,7 +46,13 @@ export default {
         //   type: 'bar'
         // }]
         color:["#006D80","#00D3C9","#A4DC94","#FFE898"],
-          legend: {},
+          legend: {
+            icon: 'circle',
+            itemWidth: 8,
+            itemHeight: 8,
+            x: 'right',
+            y: 'top',
+          },
           tooltip: {},
           dataset: {
             source: [

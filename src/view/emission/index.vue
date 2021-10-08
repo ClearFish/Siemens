@@ -71,10 +71,10 @@
                                         <p class="active">Day</p>
                                     </div>
                                 </div>
-                                <div class="right_canvas">
+                                <!-- <div class="right_canvas">
                                     <p>Emission Scope 1&2</p>
                                     <p>Emission Scope 3</p>
-                                </div>
+                                </div> -->
                             </div>
                             <Card shadow>
                              <chart-bar style="height: 300px;" :value="barData" text="每周用户活跃量"/>
