@@ -16,16 +16,16 @@
           <p class="title">GREEN Connect</p>
         </div>
         <div class="router_box">
-          <Menu mode="horizontal" :theme="theme1" :active-name="this.$route.fullPath" @on-select="handleSelect">
-            <Menu-item name="/home">
+          <Menu mode="horizontal" :theme="theme1" :active-name="this.$route.name" @on-select="handleSelect">
+            <Menu-item name="home">
                 GREEN Concept
             </Menu-item>
-            <Menu-item name="/emission">
+            <Menu-item name="emission">
                 Factory Emission
             </Menu-item>
-            <Menu-item name="/portfolio">
+            <!-- <Menu-item name="/portfolio">
                 Product Portfolio
-            </Menu-item>
+            </Menu-item> -->
           </Menu>
         </div>
         <div class="lange">
@@ -150,7 +150,7 @@ export default {
     },
     handleSelect (name) {
       console.log(name)
-      this.$router.push(name)
+      this.$router.push('/'+name)
     },
     handleCollapsedChange (state) {
       this.collapsed = state
