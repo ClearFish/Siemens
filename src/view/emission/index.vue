@@ -45,9 +45,9 @@
                                 <div class="left_canvas">
                                     <p class="name">Emission</p>
                                     <div class="types">
-                                        <p>Quarter</p>
-                                        <p>Month</p>
-                                        <p class="active">Day</p>
+                                        <p @click="firstChose('Quarter')" :class="firstFilter == 'Quarter'?'active':''">Quarter</p>
+                                        <p @click="firstChose('Month')" :class="firstFilter == 'Month'?'active':''">Month</p>
+                                        <p @click="firstChose('Day')" :class="firstFilter == 'Day'?'active':''">Day</p>
                                     </div>
                                 </div>
                                 <div class="right_canvas">
@@ -66,9 +66,9 @@
                                 <div class="left_canvas">
                                     <p class="name">Emission</p>
                                     <div class="types">
-                                        <p>Quarter</p>
-                                        <p>Month</p>
-                                        <p class="active">Day</p>
+                                        <p @click="secondChose('Quarter')" :class="secondFilter == 'Quarter'?'active':''">Quarter</p>
+                                        <p  @click="secondChose('Month')" :class="secondFilter == 'Month'?'active':''">Month</p>
+                                        <p  @click="secondChose('Day')" :class="secondFilter == 'Day'?'active':''">Day</p>
                                     </div>
                                 </div>
                                 <!-- <div class="right_canvas">
@@ -83,15 +83,15 @@
                         <div class="canvas_box">
                             <div class="top_canvas">
                                 <div class="left_canvas">
-                                    <p class="name">Emission</p>
+                                    <p class="name">产品碳足迹平均值</p>
                                     <div class="types">
-                                        <p>Quarter</p>
-                                        <p>Month</p>
-                                        <p class="active">Day</p>
+                                        <p @click="thirdChose('Quarter')" :class="thirdFilter == 'Quarter'?'active':''">Quarter</p>
+                                        <p @click="thirdChose('Month')" :class="thirdFilter == 'Month'?'active':''">Month</p>
+                                        <p @click="thirdChose('Day')" :class="thirdFilter == 'Day'?'active':''">Day</p>
                                     </div>
                                 </div>
                                 <div class="right_canvas">
-                                    <p>Emission Scope 1&2</p>
+                                    <p class="first_p">Emission Scope 1&2</p>
                                     <p>Emission Scope 3</p>
                                 </div>
                             </div>
@@ -204,7 +204,10 @@ export default {
         { value: 300, name: '邮件营销', itemStyle: { color: '#00D3C9' } },
         { value: 298, name: '联盟广告', itemStyle: { color: '#A4DC94' } },
         { value: 248, name: '视频广告', itemStyle: { color: '#FFE898' } }
-      ]
+      ],
+      firstFilter:"Day",
+      secondFilter:'Day',
+      thirdFilter:'Day'
     }
   },
   computed: {
@@ -214,6 +217,15 @@ export default {
     }
   },
   methods:{
+      firstChose(type) {
+          this.firstFilter = type
+      },
+      secondChose(type) {
+          this.secondFilter = type
+      },
+      thirdChose(type) {
+          this.thirdFilter = type
+      },
       gotoHitory() {
           this.$router.push("/emission/history");
           console.log(this.$route)
@@ -419,6 +431,7 @@ export default {
                                         color: #000;
                                         opacity: 0.6;
                                         font-size: 14px;
+                                        cursor: pointer;
                                     }
                                     .active {
                                         color: #11435C;
