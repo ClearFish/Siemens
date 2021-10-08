@@ -10,7 +10,7 @@
       </side-menu>
     </Sider> -->
     <Layout>
-      <!-- <Header class="header-con">
+      <Header class="header-con">
         <div class="left_box">
           <p class="logo_box"></p>
           <p class="title">GREEN Connect</p>
@@ -31,7 +31,7 @@
         <div class="lange">
           <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local"/>
         </div>
-      </Header> -->
+      </Header>
       <Content class="main-content-con">
         <Layout class="main-layout-con">
           <!-- <div class="tag-nav-wrapper">

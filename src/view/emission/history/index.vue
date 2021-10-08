@@ -16,22 +16,23 @@
             <div class="form_box">
                 <Form ref="formInline" :model="formInline" inline :label-width="80">
                     <FormItem prop="productId" label="Product Id">
-                        <Input type="text" v-model="formInline.productId" placeholder="Product ID"></Input>
+                        <Input type="text" v-model="formInline.product_id" placeholder="Product ID"></Input>
                     </FormItem>
                     <FormItem prop="productId" label="Serial No">
-                        <Input type="text" v-model="formInline.serialNo" placeholder="Serial No"></Input>
+                        <Input type="text" v-model="formInline.serial" placeholder="Serial No"></Input>
                     </FormItem>
                     
                     <FormItem prop="productId" label="Start Time">
-                        <!-- <Input type="text" v-model="formInline.startTime" placeholder="Product ID"></Input> -->
-                        <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+                        <DatePicker type="date" placeholder="Select date" 
+                                    style="width: 200px" v-model="formInline.start_datetime"
+                                    format="yyyy-MM-dd"
+                        ></DatePicker>
                     </FormItem>
                     <FormItem prop="productId" label="End Time">
-                        <!-- <Input type="text" v-model="formInline.startTime" placeholder="Product ID"></Input> -->
-                        <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+                        <DatePicker type="date" format="yyyy-MM-dd" placeholder="Select date" style="width: 200px" v-model="formInline.end_datetime"></DatePicker>
                     </FormItem>
                 </Form>
-                <Button icon="ios-search" type="primary">Search</Button>
+                <Button icon="ios-search" type="primary" @click="searchData">Search</Button>
             </div>
             <div class="table_box">
                  <Table :columns="columns1" :data="data1">
@@ -39,22 +40,29 @@
                         <strong>{{ row.name }}</strong>
                     </template>
                     <template slot-scope="{ row, index }" slot="action">
-                        <Button type="text" size="small" @click="gotoDetails(row.ProductID)">More Details</Button>
+                        <Button type="text" size="small" @click="gotoDetails(row.product_id,row.serial)">More Details</Button>
                     </template>
                  </Table>
             </div>
             <div class="page_box">
-                <Page :total="40" size="small"/>
+                <Page :total="formInline.page_total" size="small" @on-change="changePageNumber"/>
             </div>
         </div>
     </div>
 </template>
 <script>
+import {getHistory } from "@/api/home"
 export default {
     data() {
         return {
             formInline:{
-                productId:''
+                product_id:'',
+                serial:'',
+                start_datetime:'',
+                end_datetime:'',
+                page_size:10,
+                page_number:1,
+                page_total:20
             },
             columns1: [
                     {
@@ -66,22 +74,22 @@ export default {
                     {
                         title: 'Product ID',
                          align: 'center',
-                        key: 'ProductID'
+                        key: 'product_id'
                     },
                     {
                         title: 'Serial No',
                          align: 'center',
-                        key: 'SerialNo'
+                        key: 'serial'
                     },
                     {
                         title: 'Generation Time',
                          align: 'center',
-                        key: 'GenerationTime'
+                        key: 'pcf_calculation_datetime'
                     },
                     {
                         title: 'PCF VALUE',
                          align: 'center',
-                        key: 'PCFVALUE'
+                        key: 'pcf_total'
                     },
                     {
                         title: 'Details',
@@ -92,69 +100,42 @@ export default {
                 ],
             data1: [
                 {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
+                    number: 0,
+                    product_id: "123123",
+                    serial: "345234523423234",
+                    pcf_calculation_datetime: "2016-10-03",
+                    pcf_total: 0
                 },
             ]
         }
     },
     methods:{
-        gotoDetails(id) {
+        gotoDetails(id,serial) {
             // this.$router.push({
             //     name:"/emission/history/details",
             //     query:id
             // })
-            this.$router.push('/emission/history/details/'+id)
+            this.$router.push({
+                path:'/emission/history/details',
+                query:{
+                    id:id,
+                    serial:serial
+                }
+            })
+        },
+        searchData() {
+            console.log(this.formInline,"/.//");
+            getHistory({...this.formInline}).then(res=>{
+                if(res.code  == 0) {
+                    this.formInline.page_total = res.data.pagination.page_total;
+                    this.formInline.page_number = res.data.pagination.page_number;
+                    this.data1 = res.data.items;
+                }
+            })
+        },
+        changePageNumber(val) {
+            this.formInline.page_number = val;
+            this.searchData()
         }
     }
 }
@@ -181,6 +162,7 @@ export default {
         //     background: #11435C;
         //     opacity: 0.12;
         // }
+
         .change_color {
             color: #999999;
             margin-left: 15px;

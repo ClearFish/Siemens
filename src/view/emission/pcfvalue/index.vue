@@ -1,161 +1,135 @@
 <template>
     <div class="big_box">
         <div class="top">
-            <p class="title">Factory Emission</p>
+           <p class="title"  @click="goBack(-3)">Factory Emission</p>
+            <p class="title add_margin">/</p>
+            <p class="title add_margin" @click="goBack(-2)">Emission History</p>
+            <p class="title add_margin">/</p>
+            <p class="title add_margin" @click="goBack(-1)">More Details</p>
             <p class="change_color">/</p>
-            <p class="change_color">Emission History</p>
+            <p class="change_color">Specific PCF Value</p>
         </div>
         <div class="content_box">
             <div class="top_title">
-                <p class="title">Emission History</p>
+                <p class="title">Product ID：A5E45446993 <span style="margin-left:20px">Specific PCF Value</span></p>
                 <div class="export">
                     <p class="export_icon"></p>
                     <p class="export_text">Table Export</p>
                 </div>
             </div>
             <div class="form_box">
-                <Form ref="formInline" :model="formInline" inline :label-width="80">
-                    <FormItem prop="productId" label="Product Id">
-                        <Input type="text" v-model="formInline.productId" placeholder="Product ID"></Input>
+                <Form ref="formInline" :model="formInline" inline :label-width="120">
+                    <FormItem prop="productId" label="BOM Line Ti">
+                        <Input type="text" v-model="formInline.bom_line_ti" placeholder="Product ID"></Input>
                     </FormItem>
-                    <FormItem prop="productId" label="Serial No">
-                        <Input type="text" v-model="formInline.serialNo" placeholder="Serial No"></Input>
-                    </FormItem>
-                    
-                    <FormItem prop="productId" label="Start Time">
-                        <!-- <Input type="text" v-model="formInline.startTime" placeholder="Product ID"></Input> -->
-                        <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
-                    </FormItem>
-                    <FormItem prop="productId" label="End Time">
-                        <!-- <Input type="text" v-model="formInline.startTime" placeholder="Product ID"></Input> -->
-                        <DatePicker type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+                    <FormItem prop="productId" label="Suppliers">
+                        <Input type="text" v-model="formInline.suppliers" placeholder="Suppliers"></Input>
                     </FormItem>
                 </Form>
-                <Button icon="ios-search" type="primary">Search</Button>
+                <Button icon="ios-search" type="primary" @click="getData">Search</Button>
             </div>
             <div class="table_box">
                  <Table :columns="columns1" :data="data1">
                      <template slot-scope="{ row }" slot="name">
                         <strong>{{ row.name }}</strong>
                     </template>
-                    <template slot-scope="{ row, index }" slot="action">
+                    <!-- <template slot-scope="{ row, index }" slot="action">
                         <Button type="text" size="small" @click="gotoDetails(row.ProductID)">More Details</Button>
-                    </template>
+                    </template> -->
                  </Table>
             </div>
             <div class="page_box">
-                <Page :total="40" size="small"/>
+                <Page :total="formInline.page_total" size="small"/>
             </div>
         </div>
     </div>
 </template>
 <script>
+import {getDetailBom} from "@/api/home"
 export default {
     data() {
         return {
             formInline:{
-                productId:''
+                product_id:'',
+                bom_line_ti:'',
+                suppliers:'',
+                page_size:10,
+                page_number:1,
+                page_total:null
             },
             columns1: [
                     {
-                       type: 'index',
-                        width: 60,
                         align: 'center',
                         title: 'No.',
+                        key:"number"
                     },
                     {
-                        title: 'Product ID',
-                         align: 'center',
-                        key: 'ProductID'
+                        title: 'BOM Line Ti',
+                        align: 'center',
+                        key: 'ti'
                     },
                     {
-                        title: 'Serial No',
-                         align: 'center',
-                        key: 'SerialNo'
+                        title: 'Suppliers',
+                        align: 'center',
+                        key: 'suppliers'
                     },
                     {
-                        title: 'Generation Time',
-                         align: 'center',
-                        key: 'GenerationTime'
+                        title: 'Commodity',
+                        align: 'center',
+                        key: 'commodity'
                     },
                     {
                         title: 'PCF VALUE',
-                         align: 'center',
-                        key: 'PCFVALUE'
+                        align: 'center',
+                        key: 'pcf'
                     },
-                    {
-                        title: 'Details',
-                        slot: 'action',
-                        width: 150,
-                        align: 'center'
-                    }
                 ],
             data1: [
                 {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
-                },
-                {
-                    ProductID: '123123',
-                    SerialNo: '345234523423234',
-                    GenerationTime: '2016-10-03',
-                    PCFVALUE:"asdasdasd123"
+                    number: '123123',
+                    ti: '345234523423234',
+                    suppliers: '2016-10-03',
+                    commodity:"12312",
+                    pcf:"asdasdasd123"
                 },
             ]
         }
     },
+    created() {
+        this.formInline.product_id = this.$route.params.id;
+        // this.data1 = this.data1.map(item=>{
+        //     item.pcf = item.pcf+'kg CO2e'
+        // })
+        console.log(this.data1,"////")
+        var data = this.data1;
+        data.map(item=>{
+            item.pcf = item.pcf+'kg CO2e'
+        })
+        console.log(data,"[]===",this.data1)
+        this.getData()
+    },
     methods:{
-        gotoDetails(id) {
-            // this.$router.push({
-            //     name:"/emission/history/details",
-            //     query:id
-            // })
-            this.$router.push('/emission/history/details/'+id)
+        /**
+         * "number": "string",
+        "ti": "string",
+        "suppliers": "string",
+        "commodity": "string",
+        "pcf": 0
+         */
+        getData(){
+            getDetailBom({...this.formInline}).then(res=>{
+                if(res.code == 0) {
+                    this.formInline.page_total = res.data.pagination.page_total;
+                    this.data1 = res.data.items;
+                }
+            })
+        },
+        goBack(steps) {
+            this.$router.go(steps)
         }
+        // doSearch() {
+
+        // }
     }
 }
 </script>
@@ -181,10 +155,16 @@ export default {
         //     background: #11435C;
         //     opacity: 0.12;
         // }
+        .add_margin {
+            margin-left: 15px;
+        }
         .change_color {
             color: #999999;
             margin-left: 15px;
             font-size: 14px;
+        }
+        p {
+            cursor: pointer;
         }
     }
     .content_box {

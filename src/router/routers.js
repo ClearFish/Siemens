@@ -61,7 +61,7 @@ export default [
         component: () => import('@/view/emission//history/index.vue'),
       },
       {
-        path: '/emission/history/details/:id',
+        path: '/emission/history/details',
         name: 'emission',
         meta: {
           hideInMenu: true,

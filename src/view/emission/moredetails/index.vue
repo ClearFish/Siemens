@@ -1,9 +1,9 @@
 <template>
     <div class="big_box">
         <div class="top">
-            <p class="title">Factory Emission</p>
+            <p class="title"  @click="goBack(-2)">Factory Emission</p>
             <p class="title add_margin">/</p>
-            <p class="title add_margin">Emission History</p>
+            <p class="title add_margin"  @click="goBack(-1)">Emission History</p>
             <p class="change_color">/</p>
             <p class="change_color">More Details</p>
         </div>
@@ -13,25 +13,25 @@
             </div>
             <div class="top_content">
                 <div class="left_content">
-                    <p class="name">Simatic S7 - 1500</p>
-                    <p class="acount">Total PCF value：0.1kg CO2e</p>
+                    <p class="name">{{detailData.product_name}}</p>
+                    <p class="acount">Total PCF value：{{detailData.pcf_total}}kg CO2e</p>
                     <ul class="bottom_list">
                         <li>
-                            <p>Product ID:1500</p>
+                            <p>Product ID:{{detailData.product_id}}</p>
                         </li>
                         <li>
-                            <p>Serial No:1500</p>
+                            <p>Serial No:{{detailData.serial}}</p>
                         </li>
                         <li>
-                            <p>Weight:1500</p>
+                            <p>Weight:{{detailData.weight}}</p>
                         </li>
                         <li>
-                            <p>Cost Per Piece:1500</p>
+                            <p>Cost Per Piece:{{detailData.cost}}</p>
                         </li>
                     </ul>
                 </div>
                 <div class="right_content">
-                    <img src="../../../assets/images/image_detail.png" alt="">
+                    <img :src="detailData.image_url" alt="">
                 </div>
             </div>
         </div>
@@ -44,14 +44,14 @@
                     <p class="icon_img"></p>
                     <p class="icon_right">
                         <span>Scope 1&2：</span>
-                        <span class="add_weight">8.01kg</span>
+                        <span class="add_weight">{{detailData.pcf_scope12.public+detailData.pcf_scope12.smt+detailData.pcf_scope12.tht+detailData.pcf_scope12.assembling}}kg</span>
                         <span>CO2e</span>
                     </p>
                 </div>
                 <ul class="ul_list">
                     <li v-for="(item,index) in list" :key="index" :class="'list_li list_li'+index">
                         <p>{{item.name}}：</p>
-                        <p><span class="num">{{item.num}}</span> CO2e</p>
+                        <p><span class="num">{{item.num}}kg</span> CO2e</p>
                     </li>
                 </ul>
             </div>
@@ -61,7 +61,7 @@
                         <p class="icon_img"></p>
                         <p class="icon_right">
                             <span>Scope 3：</span>
-                            <span class="add_weight">8.01kg</span>
+                            <span class="add_weight">{{scope3Total}}kg</span>
                             <span>CO2e</span>
                         </p>
                     </div>
@@ -69,13 +69,13 @@
                 </div>
                 <div class="ul_list2">
                     <ul>
-                        <li v-for="(item,index) in list2" :key="index">
+                        <li v-for="(item,index) in detailData.pcf_scope3" :key="index">
                             <div class="left">
-                                <img src="../../../assets/images/imageli.png" alt="">
+                                <img :src="item.image_url" alt="">
                             </div>
                             <div class="right">
-                                <p class="name">{{item.name}}</p>
-                                <p class="number">{{item.num}}</p>
+                                <p class="name">{{item.material_name}}</p>
+                                <p class="number">{{item.pcf}}</p>
                             </div>
                         </li>
                     </ul>
@@ -85,14 +85,15 @@
     </div>
 </template>
 <script>
+import {getDetails} from "@/api/home"
 export default {
     data() {
         return {
             list:[
-                {name:"SMT",num:'0.1kg'},
-                {name:"SMT",num:'0.1kg'},
-                {name:"SMT",num:'0.1kg'},
-                {name:"SMT",num:'0.1kg'},
+                {name:"SMT",num:''},
+                {name:"THT",num:''},
+                {name:"Assembling",num:''},
+                {name:"Public utilities",num:''},
             ],
             list2:[
                 {name:"SMT",num:'0.1kg'},
@@ -101,15 +102,89 @@ export default {
                 {name:"SMT",num:'0.1kg'},
                 {name:"SMT",num:'0.1kg'},
                 {name:"SMT",num:'0.1kg'},
-            ]
+            ],
+            detailData:{
+                "product_id": "123123",
+                "product_name": "123123aqaaa",
+                "serial": "123132",
+                "image_url": "null",
+                "location": "asd",
+                "weight": 0,
+                "cost": 0,
+                "pcf_total": 0,
+                "pcf_scope12": {
+                "public": 0,
+                "smt": 0,
+                "tht": 0,
+                "assembling": 0
+                },
+                "pcf_scope3": [
+                {
+                    "material_id": "asdasd",
+                    "material_name": "asdasd",
+                    "pcf": 0,
+                    "image_url": "null"
+                }
+                ]
+
+            },
+            scope3Total:null
         }
     },
     created(){
-        console.log(this.$route,"//")
+        console.log(this.$route,"//");
+        var obj = {
+            product_id :this.$route.query.id,
+            serial :this.$route.query.serial,
+        }
+
+        /**
+         *   "data": {
+                "product_id": "string",
+                "product_name": "string",
+                "serial": "string",
+                "image_url": "string",
+                "location": "string",
+                "weight": 0,
+                "cost": 0,
+                "pcf_total": 0,
+                "pcf_scope12": {
+                "public": 0,
+                "smt": 0,
+                "tht": 0,
+                "assembling": 0
+                },
+                "pcf_scope3": [
+                {
+                    "material_id": "string",
+                    "material_name": "string",
+                    "pcf": 0,
+                    "image_url": "string"
+                }
+                ]
+            }
+         * 
+         * 
+         */
+        getDetails({...obj}).then(res=>{
+            if(res.code == 0) {
+                this.detailData = res.data;
+                this.list[0].num = res.data.pcf_scope12.smt;
+                this.list[1].num = res.data.pcf_scope12.tht;
+                this.list[2].num = res.data.pcf_scope12.assembling;
+                this.list[3].num = res.data.pcf_scope12.public;
+                this.scope3Total = res.data.pcf_scope3.reduce((pre,next)=>{
+                    return pre+next
+                })
+            }
+        })
     },
     methods:{
         gotoValus() {
-            this.$router.push('/emission/history/pcfvalue/'+this.$route.params.id)
+            this.$router.push('/emission/history/pcfvalue/'+this.$route.query.id)
+        },
+        goBack(steps) {
+            this.$router.go(steps)
         }
     }
 }
@@ -132,6 +207,9 @@ export default {
             color: #999999;
             margin-left: 15px;
             font-size: 14px;
+        }
+        p {
+            cursor: pointer;
         }
     }
     .content_box {

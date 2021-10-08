@@ -2,11 +2,15 @@
     <div class="big_box">
         <div class="top">
             <p>Factory Emission</p>
-            <Select v-model="year" style="width:120px">
-                <Option v-for="(item,index) in cityList" :value="item.value" :key="index">{{ item.label }}</Option>
-            </Select>
-            <Select v-model="year" style="width:120px">
-                <Option v-for="(item,index) in cityList" :value="item.value" :key="index">{{ item.label }}</Option>
+           <DatePicker type="year" 
+                       placeholder="Select year" 
+                       style="width: 200px"
+                       v-model="querForm.year"
+                       format="yyyy"
+                       @on-change="queryData"
+            ></DatePicker>
+            <Select v-model="querForm.factory" style="width:200px" @on-change="queryData">
+                <Option v-for="(item,index) in productList" :value="item.id" :key="index">{{ item.name }}</Option>
             </Select>
         </div>
         <div class="content_box">
@@ -20,7 +24,7 @@
                                     <p :class="'icon icon'+index"></p>
                                 </div>
                                 <div class="list_right">
-                                    <p class="number">123</p>
+                                    <p class="number">{{item.count}}</p>
                                     <p class="number_bottom">{{item.title}}</p>
                                 </div>
                             </li>
@@ -47,7 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="right_canvas">
-                                    <p>Emission Scope 1&2</p>
+                                    <p class="first_p">Emission Scope 1&2</p>
                                     <p>Emission Scope 3</p>
                                 </div>
                             </div>
@@ -158,6 +162,8 @@
 <script>
 import example from '../single-page/home/example.vue'
 import { ChartPie, ChartBar } from '_c/charts'
+import {getChartData} from "@/api/home"
+// import { mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   components: {
     example,
@@ -166,38 +172,16 @@ export default {
   },
   data () {
     return {
-      year: null,
-      cityList: [
-        {
-          value: 'beijing',
-          label: '北京市'
-        },
-        {
-          value: 'shanghai',
-          label: '上海市'
-        },
-        {
-          value: 'shenzhen',
-          label: '深圳市'
-        },
-        {
-          value: 'hangzhou',
-          label: '杭州市'
-        },
-        {
-          value: 'nanjing',
-          label: '南京市'
-        },
-        {
-          value: 'chongqing',
-          label: '重庆市'
-        }
-      ],
+      querForm:{
+          year: null,
+          factory:null
+      },
+      countData:{},
       topList: [
-        { title: 'Products', id: 0 },
-        { title: 'Total Products', id: 1 },
-        { title: 'Total Components', id: 2 },
-        { title: 'Supplies', id: 3 }
+        { title: 'Products', id: 0, count:0 },
+        { title: 'Total Products', id: 1, count:0 },
+        { title: 'Total Components', id: 2, count:0 },
+        { title: 'Supplies', id: 3, count:0 }
       ],
       barData: {
         Mon: 13253,
@@ -223,10 +207,33 @@ export default {
       ]
     }
   },
+  computed: {
+    productList () {
+        console.log(this.$store.state.app.productList,"////")
+      return this.$store.state.app.productList
+    }
+  },
   methods:{
       gotoHitory() {
           this.$router.push("/emission/history");
           console.log(this.$route)
+      },
+      queryData() {
+          getChartData({...querForm}).then(res=>{
+              if(res.code == 0) {
+                  this.topList[0].count = res.data.module_count;
+                  this.topList[1].count = res.data.product_count;
+                  this.topList[2].count = res.data.component_count;
+                  this.topList[3].count = res.data.supplier_count;
+              }else {
+                  this.countData = {
+                    module_count: 0,
+                    product_count: 0,
+                    component_count: 0,
+                    supplier_count: 0
+                  }
+              }
+          })
       }
   }
 }
@@ -245,6 +252,20 @@ export default {
                 margin-left: 20px;
                 .ivu-select-selection {
                     border-color:#11435C;
+                }
+            }
+        }
+        .ivu-date-picker {
+            margin-left: 20px;
+            ::v-deep {
+                .ivu-date-picker-rel {
+                    .ivu-input-wrapper {
+                        .ivu-input-inner-container {
+                            .ivu-input {
+                                border-color: #11435C;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -423,6 +444,9 @@ export default {
                                     border-radius: 4px;
                                     display: block;
                                     background: #11435C;
+                                }
+                                .first_p::before {
+                                    background: #A4DC94;
                                 }
                             }
                         }

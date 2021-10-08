@@ -101,7 +101,8 @@ import CountTo from '_c/count-to'
 import { ChartPie, ChartBar } from '_c/charts'
 import Example from './example.vue'
 import mockData from "../../../../test.js"
-import { getHomeData,getDialog } from '@/api/home'
+import { getHomeData,getDialog } from '@/api/home';
+import { mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   name: 'home',
   components: {
@@ -135,19 +136,30 @@ export default {
     },500*3600)
   },
   methods:{
+    ...mapMutations([
+      'setProducts'
+    ]),
     getlist() {
       console.log(123123,mockData)
-       
       getHomeData().then(res=>{
         console.log(res,"00999")
         if(res.code == 0) {
-          this.dataTotal = res.data
+          this.dataTotal = res.data;
           this.homeData = res.data[this.count];
         }else {
            this.dataTotal = mockData.data
            this.homeData = mockData.data[this.count];
-        }
+        };
       })
+      var idList = mockData.data.map(item=>{
+        var obj = {
+          name : item.product_name,
+          id:item.product_id
+        }
+        return obj
+      });
+      console.log(idList,"--==");
+      this.setProducts(idList)
     },
     showDialog() {
       this.show = true
