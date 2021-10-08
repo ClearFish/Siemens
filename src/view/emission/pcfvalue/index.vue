@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="form_box">
-                <Form ref="formInline" :model="formInline" inline :label-width="120">
+                <Form ref="formInline" :model="formInline" inline :label-width="90" label-position="right">
                     <FormItem prop="productId" label="BOM Line Ti">
                         <Input type="text" v-model="formInline.bom_line_ti" placeholder="Product ID"></Input>
                     </FormItem>
@@ -221,10 +221,13 @@ export default {
                         border: 1px  solid #11435C;
                         .ivu-form-item-label {
                             font-size: 14px;
+                            height: 40px;
+                            line-height: 20px;
                         }
                         .ivu-form-item-content {
                             .ivu-input-type {
                                 .ivu-input-inner-container {
+                                    width: 240px;
                                     .ivu-input {
                                         border-radius: 0;
                                         border: none;

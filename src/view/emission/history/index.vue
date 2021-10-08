@@ -223,6 +223,8 @@ export default {
                         border: 1px  solid #11435C;
                         .ivu-form-item-label {
                             font-size: 14px;
+                            height: 40px;
+                            line-height: 20px;
                         }
                         .ivu-form-item-content {
                             .ivu-input-type {
