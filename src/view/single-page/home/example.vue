@@ -24,14 +24,15 @@ export default {
         axisPointer: {
           type: 'cross',
           label: {
-            backgroundColor: '#fff'
+            backgroundColor: '#006D80'
           }
         }
       },
+      color:["#A4DC94","#00D3C9"],
       grid: {
         top: '3%',
         left: '1.2%',
-        right: '1%',
+        right: '2%',
         bottom: '3%',
         containLabel: true
       },
@@ -49,7 +50,7 @@ export default {
       ],
       series: [
         {
-          name: '运营商/网络服务',
+          name: 'Emission Scope 1&2',
           type: 'line',
           stack: '总量',
           areaStyle: { normal: {
@@ -74,7 +75,7 @@ export default {
           data: [120, 132, 101, 134]
         },
         {
-          name: '银行/证券',
+          name: 'Emission Scope 3',
           type: 'line',
           stack: '总量',
           areaStyle: { normal: {

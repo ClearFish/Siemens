@@ -131,28 +131,28 @@
                             <p class="top_left">SMT：1,265,823t</p>
                             <p class="top_percent">25%</p>
                         </div>
-                        <Progress :percent="25" hide-info :status="'SMT'"/>
+                        <Progress :percent="25" hide-info status="smt"/>
                     </div>
                     <div class="right_progress">
                         <div class="top">
                             <p class="top_left">THT：1,265,823t</p>
                             <p class="top_percent">25%</p>
                         </div>
-                        <Progress :percent="25" hide-info :status="'SMT THT'"/>
+                        <Progress :percent="25" hide-info status="tht"/>
                     </div>
                     <div class="right_progress">
                         <div class="top">
                             <p class="top_left">Assembling：1,265,823t</p>
                             <p class="top_percent">25%</p>
                         </div>
-                        <Progress :percent="25" hide-info :status="'SMT Assembling'"/>
+                        <Progress :percent="25" hide-info status="assembling"/>
                     </div>
                     <div class="right_progress">
                         <div class="top">
                             <p class="top_left">Public utilities：1,265,823t</p>
                             <p class="top_percent">25%</p>
                         </div>
-                        <Progress :percent="25" hide-info :status="'SMT Public utilities'"/>
+                        <Progress :percent="25" hide-info status="utilities"/>
                     </div>
                 </div>
             </div>
@@ -456,7 +456,7 @@ export default {
                                     bottom: 7px;
                                     border-radius: 4px;
                                     display: block;
-                                    background: #11435C;
+                                    background: #00D3C9;
                                 }
                                 .first_p::before {
                                     background: #A4DC94;
@@ -527,7 +527,7 @@ export default {
                             color: #000;
                         }
                     }
-                    .ivu-progress-SMT {
+                    .ivu-progress-smt {
                         ::v-deep {
                             .ivu-progress-outer {
                                 .ivu-progress-inner {
@@ -541,7 +541,7 @@ export default {
                             }
                         }
                     }
-                    .THT {
+                    .ivu-progress-tht {
                         ::v-deep {
                             .ivu-progress-outer {
                                 .ivu-progress-inner {
@@ -555,7 +555,7 @@ export default {
                             }
                         }
                     }
-                    .Assembling {
+                    .ivu-progress-assembling {
                         ::v-deep {
                             .ivu-progress-outer {
                                 .ivu-progress-inner {
@@ -569,7 +569,7 @@ export default {
                             }
                         }
                     }
-                    .utilities {
+                    .ivu-progress-utilities {
                         ::v-deep {
                             .ivu-progress-outer {
                                 .ivu-progress-inner {
