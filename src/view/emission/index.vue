@@ -131,28 +131,28 @@
                             <p class="top_left">SMT：1,265,823t</p>
                             <p class="top_percent">25%</p>
                         </div>
-                        <Progress :percent="25" hide-info status="smt"/>
+                        <Progress :percent="25" hide-info status="normal"/>
                     </div>
                     <div class="right_progress">
                         <div class="top">
                             <p class="top_left">THT：1,265,823t</p>
                             <p class="top_percent">25%</p>
                         </div>
-                        <Progress :percent="25" hide-info status="tht"/>
+                        <Progress :percent="25" hide-info status="active"/>
                     </div>
                     <div class="right_progress">
                         <div class="top">
                             <p class="top_left">Assembling：1,265,823t</p>
                             <p class="top_percent">25%</p>
                         </div>
-                        <Progress :percent="25" hide-info status="assembling"/>
+                        <Progress :percent="25" hide-info status="wrong"/>
                     </div>
                     <div class="right_progress">
                         <div class="top">
                             <p class="top_left">Public utilities：1,265,823t</p>
                             <p class="top_percent">25%</p>
                         </div>
-                        <Progress :percent="25" hide-info status="utilities"/>
+                        <Progress :percent="25" hide-info status="success"/>
                     </div>
                 </div>
             </div>
@@ -527,7 +527,7 @@ export default {
                             color: #000;
                         }
                     }
-                    .ivu-progress-smt {
+                    .ivu-progress-normal {
                         ::v-deep {
                             .ivu-progress-outer {
                                 .ivu-progress-inner {
@@ -541,7 +541,7 @@ export default {
                             }
                         }
                     }
-                    .ivu-progress-tht {
+                    .ivu-progress-active {
                         ::v-deep {
                             .ivu-progress-outer {
                                 .ivu-progress-inner {
@@ -555,7 +555,7 @@ export default {
                             }
                         }
                     }
-                    .ivu-progress-assembling {
+                    .ivu-progress-wrong {
                         ::v-deep {
                             .ivu-progress-outer {
                                 .ivu-progress-inner {
@@ -569,7 +569,7 @@ export default {
                             }
                         }
                     }
-                    .ivu-progress-utilities {
+                    .ivu-progress-success {
                         ::v-deep {
                             .ivu-progress-outer {
                                 .ivu-progress-inner {
