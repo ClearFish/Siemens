@@ -49,13 +49,13 @@ export default {
                   show: true,
                   realtime: true,
                   start: 0,
-                  end: 12
+                  end: 2
               },
               {
                   type: 'inside',
                   realtime: true,
                   start: 0,
-                  end: 12
+                  end: 2
               }
           ],
           legend: {
