@@ -1,4 +1,4 @@
-{
+const data ={
     "timestamp": 1633920523398,
     "code": 200,
     "message": "success",
@@ -876,3 +876,5 @@
         ]
     }
 }
+
+export default data;

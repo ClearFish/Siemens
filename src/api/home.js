@@ -36,6 +36,14 @@ export const getPcfbyproduct = (query)=>{
   })
 }
 
+export const getPcfTotal = (query)=>{
+  return axios.request({
+    url:"/v1/statistics/pcftotal",
+    params :query,
+    method:"get"
+  })
+}
+
 export const getHistory = (query)=>{
   return axios.request({
     url:"/history",
@@ -43,6 +51,8 @@ export const getHistory = (query)=>{
     method:"get"
   })
 }
+
+
 
 
 export const getDetails = (query)=>{

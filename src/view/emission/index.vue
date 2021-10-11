@@ -103,8 +103,8 @@
                                 <Card shadow>
                                      <example style="height: 310px;" 
                                             :xdata="dataChrts2.periods"
-                                            :data1="dataChrts2.scope12_sequence"
-                                            :data2="dataChrts2.scope3_sequence"
+                                            :data1="dataChrts2.product_pcf_sequences[0].product_pcf_sequence"
+                                            :data2="dataChrts2.product_pcf_sequences[1].product_pcf_sequence"
                                     />
                                 </Card>
                             </div>
@@ -117,7 +117,7 @@
                     <p class="title">CO2e Emission</p>
                     <p class="sup_title">Total Emission</p>
                     <p class="title_count">
-                        <span class="title_add">1,265,823t </span>
+                        <span class="title_add">{{(totalData.pcf_total).toFixed(2)}}t </span>
                         <span>CO2e</span>
                     </p>
                      <!-- <Card shadow> -->
@@ -128,7 +128,7 @@
                     <p class="title">Scope 1& Scope 2 CO2e Emission</p>
                     <p class="sup_title">Total Emission</p>
                     <p class="title_count">
-                        <span class="title_add">1,265,823t </span>
+                        <span class="title_add">{{pieData[0].value}}t </span>
                         <span>CO2e</span>
                     </p>
                      <!-- <Card shadow> -->
@@ -136,31 +136,31 @@
                     <!-- </Card> -->
                     <div class="right_progress">
                         <div class="top">
-                            <p class="top_left">SMT：1,265,823t</p>
-                            <p class="top_percent">25%</p>
+                            <p class="top_left">SMT：{{pieData2[0].value}}t</p>
+                            <p class="top_percent">{{(pieData2[0].value/pieData[0].value).toFixed(2)*100}}%</p>
                         </div>
-                        <Progress :percent="25" hide-info status="normal"/>
+                        <Progress :percent="(pieData2[0].value/pieData[0].value).toFixed(2)*100" hide-info status="normal"/>
                     </div>
                     <div class="right_progress">
                         <div class="top">
-                            <p class="top_left">THT：1,265,823t</p>
-                            <p class="top_percent">25%</p>
+                            <p class="top_left">THT：{{pieData2[1].value}}t</p>
+                            <p class="top_percent">{{(pieData2[1].value/pieData[0].value).toFixed(2)*100}}%</p>
                         </div>
-                        <Progress :percent="25" hide-info status="active"/>
+                        <Progress :percent="(pieData2[1].value/pieData[0].value).toFixed(2)*100" hide-info status="active"/>
                     </div>
                     <div class="right_progress">
                         <div class="top">
-                            <p class="top_left">Assembling：1,265,823t</p>
-                            <p class="top_percent">25%</p>
+                            <p class="top_left">Assembling：{{pieData2[2].value}}t</p>
+                            <p class="top_percent">{{(pieData2[2].value/pieData[0].value).toFixed(2)*100}}%</p>
                         </div>
-                        <Progress :percent="25" hide-info status="wrong"/>
+                        <Progress :percent="(pieData2[2].value/pieData[0].value).toFixed(2)*100" hide-info status="wrong"/>
                     </div>
                     <div class="right_progress">
                         <div class="top">
-                            <p class="top_left">Public utilities：1,265,823t</p>
-                            <p class="top_percent">25%</p>
+                            <p class="top_left">Public utilities：{{pieData2[3].value}}t</p>
+                            <p class="top_percent">{{(pieData2[3].value/pieData[0].value).toFixed(2)*100}}%</p>
                         </div>
-                        <Progress :percent="25" hide-info status="success"/>
+                        <Progress :percent="(pieData2[3].value/pieData[0].value).toFixed(2)*100" hide-info status="success"/>
                     </div>
                 </div>
             </div>
@@ -170,10 +170,12 @@
 <script>
 import example from '../single-page/home/example.vue'
 import { ChartPie, ChartBar } from '_c/charts'
-import {getChartData,getPcfbyscope,getPcfbyprocess,getPcfbyproduct} from "@/api/home"
+import {getChartData,getPcfbyscope,getPcfbyprocess,getPcfbyproduct,getPcfTotal} from "@/api/home"
 // import { mapMutations, mapActions, mapGetters } from 'vuex';
 import mockData from "../../../mock.js"
+import mock2Data from "../../../mock2.js"
 import mock3Data from "../../../mock3.js"
+import toalmock from "../../../totalmock.js"
 export default {
   components: {
     example,
@@ -203,17 +205,14 @@ export default {
         Sun: 1324
       },
       pieData: [
-        { value: 400, name: '直接访问', itemStyle: { color: '#006D80' } },
-        { value: 300, name: '邮件营销', itemStyle: { color: '#00D3C9' } }
-        // { value: 298, name: '联盟广告', itemStyle: { color: '#99B6FF' } },
-        // { value: 248, name: '视频广告', itemStyle: { color: '#FFA722' } },
-        // { value: 268, name: '搜索引擎', itemStyle: { color: '#FFCD81' } }
+        { value: 400, name: 'Scope 1& Scope 2', itemStyle: { color: '#006D80' } },
+        { value: 300, name: 'Scope 3', itemStyle: { color: '#00D3C9' }}
       ],
       pieData2: [
-        { value: 400, name: '直接访问', itemStyle: { color: '#006D80' } },
-        { value: 300, name: '邮件营销', itemStyle: { color: '#00D3C9' } },
-        { value: 298, name: '联盟广告', itemStyle: { color: '#A4DC94' } },
-        { value: 248, name: '视频广告', itemStyle: { color: '#FFE898' } }
+        { value: 400, name: 'SMT', itemStyle: { color: '#006D80' } },
+        { value: 300, name: 'THT', itemStyle: { color: '#00D3C9' } },
+        { value: 298, name: 'Assembling', itemStyle: { color: '#A4DC94' } },
+        { value: 248, name: 'Public utilities', itemStyle: { color: '#FFE898' } }
       ],
       firstFilter:"day",
       secondFilter:'day',
@@ -224,7 +223,7 @@ export default {
     }
   },
   created() {
-      console.log(mockData,mock3Data,"[]====");
+    //   console.log(mockData,mock3Data,"[]====");
         //   面积图
       this.dataChrts = mockData.data;
       var obj = {
@@ -249,21 +248,23 @@ export default {
           arr.push(mock3Data.data.process_pcf_sequence[index].tht)
           arr.push(mock3Data.data.process_pcf_sequence[index].assembling)
           arr.push(mock3Data.data.process_pcf_sequence[index].public)
-          console.log(arr);
+        //   console.log(arr);
           return arr
       })
-      console.log(valueList,"[]]]-=---");
+    //   console.log(valueList,"[]]]-=---");
       valueList[0] = ['product', 'SMT', 'THT', 'Assembling','Public utilities']
       this.barValue = valueList
 
     //   面积
-     this.dataChrts2 = mockData.data;
+     this.dataChrts2 = mock2Data.data;
       var obj = {
           year : this.querForm.year,
           factory:this.querForm.factory,
           frequency:this.thirdFilter
       }
-      this.getPcfProduct(obj)
+      this.getPcfProduct(obj);
+      this.totalData = toalmock.data;  
+      this.getTotalData()
   },
   computed: {
     productList () {
@@ -304,7 +305,7 @@ export default {
           console.log(this.$route)
       },
       queryData() {
-          getChartData({...querForm}).then(res=>{
+          getChartData({...this.querForm}).then(res=>{
               if(res.code == 0) {
                   this.topList[0].count = res.data.module_count;
                   this.topList[1].count = res.data.product_count;
@@ -319,6 +320,24 @@ export default {
                   }
               }
           })
+      },
+      getTotalData() {
+          getPcfTotal({...this.querForm}).then(res=>{
+              if(res.code == 0) {
+                  this.totalData = res.data;
+              }else {
+                    this.totalData = toalmock;  
+              }
+          })
+          console.log(this.totalData,"99888")
+          this.pieData[0].value = Number((this.totalData.pcf_scope12.smt+this.totalData.pcf_scope12.tht+this.totalData.pcf_scope12.assembling+this.totalData.pcf_scope12.public).toFixed(2));
+          this.pieData[1].value = Number(this.totalData.pcf_scope3.toFixed(2));
+
+          this.pieData2[0].value = Number(this.totalData.pcf_scope12.smt.toFixed(2))
+          this.pieData2[1].value = Number(this.totalData.pcf_scope12.tht.toFixed(2))
+          this.pieData2[2].value = Number(this.totalData.pcf_scope12.assembling.toFixed(2))
+          this.pieData2[3].value = Number(this.totalData.pcf_scope12.public.toFixed(2))
+          console.log(this.pieData,"99pieData")
       },
       getPcfData(obj) {
           getPcfbyscope({...obj}).then(res=>{
@@ -343,7 +362,7 @@ export default {
                     console.log(arr);
                     return arr
                 })
-                console.log(valueList,"[]]]-=---");
+                // console.log(valueList,"[]]]-=---");
                 valueList[0] = ['product', 'SMT', 'THT', 'Assembling','Public utilities']
                 this.barValue = valueList
               }
@@ -355,7 +374,7 @@ export default {
                   this.dataChrts2 = res.data;
               }else {
                   //   面积图
-                 this.dataChrts2 = mockData.data;
+                 this.dataChrts2 = mock2Data.data;
               }
           })
       }
