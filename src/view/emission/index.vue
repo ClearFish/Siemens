@@ -195,15 +195,6 @@ export default {
         { title: 'Total Components', id: 2, count:0 },
         { title: 'Supplies', id: 3, count:0 }
       ],
-      barData: {
-        Mon: 13253,
-        Tue: 34235,
-        Wed: 26321,
-        Thu: 12340,
-        Fri: 24643,
-        Sat: 1322,
-        Sun: 1324
-      },
       pieData: [
         { value: 400, name: 'Scope 1& Scope 2', itemStyle: { color: '#006D80' } },
         { value: 300, name: 'Scope 3', itemStyle: { color: '#00D3C9' }}
