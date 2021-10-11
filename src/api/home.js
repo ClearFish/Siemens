@@ -13,6 +13,29 @@ export const getChartData = (query)=>{
     method:"get"
   })
 }
+export const getPcfbyscope = (query)=>{
+  return axios.request({
+    url:"/v1/statistics/pcfbyscope",
+    params :query,
+    method:"get"
+  })
+}
+export const getPcfbyprocess = (query)=>{
+  return axios.request({
+    url:"/v1/statistics/pcfbyprocess",
+    params :query,
+    method:"get"
+  })
+}
+
+export const getPcfbyproduct = (query)=>{
+  return axios.request({
+    url:"/v1/statistics/pcfbyproduct",
+    params :query,
+    method:"get"
+  })
+}
+
 export const getHistory = (query)=>{
   return axios.request({
     url:"/history",

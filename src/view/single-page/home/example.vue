@@ -7,6 +7,7 @@ import echarts from 'echarts'
 import { on, off } from '@/libs/tools'
 export default {
   name: 'serviceRequests',
+  props:['xdata','data1','data2'],
   data () {
     return {
       dom: null
@@ -40,7 +41,8 @@ export default {
         {
           type: 'category',
           boundaryGap: false,
-          data: ['Q1', 'Q2', 'Q3', 'Q4']
+          // data: ['Q1', 'Q2', 'Q3', 'Q4']
+          data:this.xdata
         }
       ],
       yAxis: [
@@ -72,7 +74,8 @@ export default {
 
               }
           },
-          data: [120, 132, 101, 134]
+          // data: [120, 132, 101, 134]
+          data:this.data1
         },
         {
           name: 'Emission Scope 3',
@@ -97,7 +100,8 @@ export default {
 
               }
           },
-          data: [257, 358, 278, 234]
+          // data: [257, 358, 278, 234]
+           data:this.data2
         },
         // {
         //   name: '游戏/视频',

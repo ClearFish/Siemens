@@ -45,9 +45,9 @@
                                 <div class="left_canvas">
                                     <p class="name">Emission</p>
                                     <div class="types">
-                                        <p @click="firstChose('Quarter')" :class="firstFilter == 'Quarter'?'active':''">Quarter</p>
-                                        <p @click="firstChose('Month')" :class="firstFilter == 'Month'?'active':''">Month</p>
-                                        <p @click="firstChose('Day')" :class="firstFilter == 'Day'?'active':''">Day</p>
+                                        <p @click="firstChose('quarter')" :class="firstFilter == 'Quarter'?'active':''">Quarter</p>
+                                        <p @click="firstChose('month')" :class="firstFilter == 'Month'?'active':''">Month</p>
+                                        <p @click="firstChose('day')" :class="firstFilter == 'Day'?'active':''">Day</p>
                                     </div>
                                 </div>
                                 <div class="right_canvas">
@@ -57,7 +57,11 @@
                             </div>
                             <div>
                                 <Card shadow>
-                                    <example style="height: 310px;"/>
+                                    <example style="height: 310px;" 
+                                            :xdata="dataChrts.periods"
+                                            :data1="dataChrts.scope12_sequence"
+                                            :data2="dataChrts.scope3_sequence"
+                                    />
                                 </Card>
                             </div>
                         </div>
@@ -66,9 +70,9 @@
                                 <div class="left_canvas">
                                     <p class="name">Emission</p>
                                     <div class="types">
-                                        <p @click="secondChose('Quarter')" :class="secondFilter == 'Quarter'?'active':''">Quarter</p>
-                                        <p  @click="secondChose('Month')" :class="secondFilter == 'Month'?'active':''">Month</p>
-                                        <p  @click="secondChose('Day')" :class="secondFilter == 'Day'?'active':''">Day</p>
+                                        <p @click="secondChose('quarter')" :class="secondFilter == 'Quarter'?'active':''">Quarter</p>
+                                        <p  @click="secondChose('month')" :class="secondFilter == 'Month'?'active':''">Month</p>
+                                        <p  @click="secondChose('day')" :class="secondFilter == 'Day'?'active':''">Day</p>
                                     </div>
                                 </div>
                                 <!-- <div class="right_canvas">
@@ -77,7 +81,7 @@
                                 </div> -->
                             </div>
                             <Card shadow>
-                             <chart-bar style="height: 300px;" :value="barData" text="每周用户活跃量"/>
+                                <chart-bar style="height: 300px;" :value="barValue" text="每周用户活跃量"/>
                             </Card>
                         </div>
                         <div class="canvas_box">
@@ -85,9 +89,9 @@
                                 <div class="left_canvas">
                                     <p class="name">产品碳足迹平均值</p>
                                     <div class="types">
-                                        <p @click="thirdChose('Quarter')" :class="thirdFilter == 'Quarter'?'active':''">Quarter</p>
-                                        <p @click="thirdChose('Month')" :class="thirdFilter == 'Month'?'active':''">Month</p>
-                                        <p @click="thirdChose('Day')" :class="thirdFilter == 'Day'?'active':''">Day</p>
+                                        <p @click="thirdChose('quarter')" :class="thirdFilter == 'Quarter'?'active':''">Quarter</p>
+                                        <p @click="thirdChose('month')" :class="thirdFilter == 'Month'?'active':''">Month</p>
+                                        <p @click="thirdChose('day')" :class="thirdFilter == 'Day'?'active':''">Day</p>
                                     </div>
                                 </div>
                                 <div class="right_canvas">
@@ -97,7 +101,11 @@
                             </div>
                             <div>
                                 <Card shadow>
-                                    <example style="height: 310px;"/>
+                                     <example style="height: 310px;" 
+                                            :xdata="dataChrts2.periods"
+                                            :data1="dataChrts2.scope12_sequence"
+                                            :data2="dataChrts2.scope3_sequence"
+                                    />
                                 </Card>
                             </div>
                         </div>
@@ -162,8 +170,10 @@
 <script>
 import example from '../single-page/home/example.vue'
 import { ChartPie, ChartBar } from '_c/charts'
-import {getChartData} from "@/api/home"
-// import { mapMutations, mapActions, mapGetters } from 'vuex'
+import {getChartData,getPcfbyscope,getPcfbyprocess,getPcfbyproduct} from "@/api/home"
+// import { mapMutations, mapActions, mapGetters } from 'vuex';
+import mockData from "../../../mock.js"
+import mock3Data from "../../../mock3.js"
 export default {
   components: {
     example,
@@ -173,7 +183,7 @@ export default {
   data () {
     return {
       querForm:{
-          year: null,
+          year: new Date(),
           factory:null
       },
       countData:{},
@@ -205,10 +215,55 @@ export default {
         { value: 298, name: '联盟广告', itemStyle: { color: '#A4DC94' } },
         { value: 248, name: '视频广告', itemStyle: { color: '#FFE898' } }
       ],
-      firstFilter:"Day",
-      secondFilter:'Day',
-      thirdFilter:'Day'
+      firstFilter:"day",
+      secondFilter:'day',
+      thirdFilter:'day',
+      dataChrts:{},
+      dataChrts2:{},
+      barValue:[]
     }
+  },
+  created() {
+      console.log(mockData,mock3Data,"[]====");
+        //   面积图
+      this.dataChrts = mockData.data;
+      var obj = {
+          year : this.querForm.year,
+          factory:this.querForm.factory,
+          frequency:this.firstFilter
+      }
+      this.getPcfData(obj)
+
+      
+    //   柱状图
+    var obj2 = {
+         year : this.querForm.year,
+        factory:this.querForm.factory,
+        frequency:this.secondFilter
+    }
+    this.getProgressData(obj2)
+      var valueList = mock3Data.data.periods.map((item,index)=>{
+          var arr = [];
+          arr.push(item)
+          arr.push(mock3Data.data.process_pcf_sequence[index].smt)
+          arr.push(mock3Data.data.process_pcf_sequence[index].tht)
+          arr.push(mock3Data.data.process_pcf_sequence[index].assembling)
+          arr.push(mock3Data.data.process_pcf_sequence[index].public)
+          console.log(arr);
+          return arr
+      })
+      console.log(valueList,"[]]]-=---");
+      valueList[0] = ['product', 'SMT', 'THT', 'Assembling','Public utilities']
+      this.barValue = valueList
+
+    //   面积
+     this.dataChrts2 = mockData.data;
+      var obj = {
+          year : this.querForm.year,
+          factory:this.querForm.factory,
+          frequency:this.thirdFilter
+      }
+      this.getPcfProduct(obj)
   },
   computed: {
     productList () {
@@ -218,13 +273,31 @@ export default {
   },
   methods:{
       firstChose(type) {
-          this.firstFilter = type
+          this.firstFilter = type;
+          var obj = {
+              year : this.querForm.year,
+            factory:this.querForm.factory,
+            frequency:type
+          }
+          this.getPcfData(obj)
       },
       secondChose(type) {
           this.secondFilter = type
+          var obj = {
+              year : this.querForm.year,
+            factory:this.querForm.factory,
+            frequency:type
+          }
+          this.getProgressData(obj)
       },
       thirdChose(type) {
           this.thirdFilter = type
+          var obj = {
+              year : this.querForm.year,
+            factory:this.querForm.factory,
+            frequency:type
+          }
+          this.getPcfProduct(obj)
       },
       gotoHitory() {
           this.$router.push("/emission/history");
@@ -244,6 +317,45 @@ export default {
                     component_count: 0,
                     supplier_count: 0
                   }
+              }
+          })
+      },
+      getPcfData(obj) {
+          getPcfbyscope({...obj}).then(res=>{
+              if(res.code == 0) {
+                  this.dataChrts = res.data;
+              }else {
+                  //   面积图
+                 this.dataChrts = mockData.data;
+              }
+          })
+      },
+      getProgressData(obj) {
+          getPcfbyprocess({...obj}).then(res=>{
+              if(res.code == 0) {
+                   var valueList = res.data.periods.map((item,index)=>{
+                    var arr = [];
+                    arr.push(item)
+                    arr.push(mock3Data.data.process_pcf_sequence[index].smt)
+                    arr.push(mock3Data.data.process_pcf_sequence[index].tht)
+                    arr.push(mock3Data.data.process_pcf_sequence[index].assembling)
+                    arr.push(mock3Data.data.process_pcf_sequence[index].public)
+                    console.log(arr);
+                    return arr
+                })
+                console.log(valueList,"[]]]-=---");
+                valueList[0] = ['product', 'SMT', 'THT', 'Assembling','Public utilities']
+                this.barValue = valueList
+              }
+          })
+      },
+      getPcfProduct(obj) {
+          getPcfbyproduct({...obj}).then(res=>{
+              if(res.code == 0) {
+                  this.dataChrts2 = res.data;
+              }else {
+                  //   面积图
+                 this.dataChrts2 = mockData.data;
               }
           })
       }
@@ -267,7 +379,7 @@ export default {
                 }
             }
         }
-        .ivu-date-picker {
+        .ivu-date-picker { 
             margin-left: 20px;
             ::v-deep {
                 .ivu-date-picker-rel {
