@@ -109,6 +109,9 @@ export default {
             ]
         }
     },
+    created() {
+        this.searchData()
+    },
     methods:{
         goBack() {
             this.$router.go(-1)
