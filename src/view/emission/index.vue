@@ -117,7 +117,7 @@
                     <p class="title">CO2e Emission</p>
                     <p class="sup_title">Total Emission</p>
                     <p class="title_count">
-                        <span class="title_add">{{(totalData.pcf_total).toFixed(2)}}t </span>
+                        <span class="title_add">{{(totalData.pcf_total).toFixed(3)}}t </span>
                         <span>CO2e</span>
                     </p>
                      <!-- <Card shadow> -->
@@ -137,30 +137,30 @@
                     <div class="right_progress">
                         <div class="top">
                             <p class="top_left">SMT：{{pieData2[0].value}}t</p>
-                            <p class="top_percent">{{(pieData2[0].value/pieData[0].value).toFixed(2)*100}}%</p>
+                            <p class="top_percent">{{(pieData2[0].value/pieData[0].value).toFixed(3)*100}}%</p>
                         </div>
-                        <Progress :percent="(pieData2[0].value/pieData[0].value).toFixed(2)*100" hide-info status="normal"/>
+                        <Progress :percent="(pieData2[0].value/pieData[0].value).toFixed(3)*100" hide-info status="normal"/>
                     </div>
                     <div class="right_progress">
                         <div class="top">
                             <p class="top_left">THT：{{pieData2[1].value}}t</p>
-                            <p class="top_percent">{{(pieData2[1].value/pieData[0].value).toFixed(2)*100}}%</p>
+                            <p class="top_percent">{{(pieData2[1].value/pieData[0].value).toFixed(3)*100}}%</p>
                         </div>
-                        <Progress :percent="(pieData2[1].value/pieData[0].value).toFixed(2)*100" hide-info status="active"/>
+                        <Progress :percent="(pieData2[1].value/pieData[0].value).toFixed(3)*100" hide-info status="active"/>
                     </div>
                     <div class="right_progress">
                         <div class="top">
                             <p class="top_left">Assembling：{{pieData2[2].value}}t</p>
-                            <p class="top_percent">{{(pieData2[2].value/pieData[0].value).toFixed(2)*100}}%</p>
+                            <p class="top_percent">{{(pieData2[2].value/pieData[0].value).toFixed(3)*100}}%</p>
                         </div>
-                        <Progress :percent="(pieData2[2].value/pieData[0].value).toFixed(2)*100" hide-info status="wrong"/>
+                        <Progress :percent="(pieData2[2].value/pieData[0].value).toFixed(3)*100" hide-info status="wrong"/>
                     </div>
                     <div class="right_progress">
                         <div class="top">
                             <p class="top_left">Public utilities：{{pieData2[3].value}}t</p>
-                            <p class="top_percent">{{(pieData2[3].value/pieData[0].value).toFixed(2)*100}}%</p>
+                            <p class="top_percent">{{(pieData2[3].value/pieData[0].value).toFixed(3)*100}}%</p>
                         </div>
-                        <Progress :percent="(pieData2[3].value/pieData[0].value).toFixed(2)*100" hide-info status="success"/>
+                        <Progress :percent="(pieData2[3].value/pieData[0].value).toFixed(3)*100" hide-info status="success"/>
                     </div>
                 </div>
             </div>
@@ -214,6 +214,7 @@ export default {
     }
   },
   created() {
+    //   this.querForm.year = this.querForm.year.getFullYear()
     //   console.log(mockData,mock3Data,"[]====");
         //   面积图
       this.dataChrts = mockData.data;
@@ -222,16 +223,15 @@ export default {
           factory:this.querForm.factory,
           frequency:this.firstFilter
       }
-      this.getPcfData(obj)
+    //   this.getPcfData(obj)
 
-      
     //   柱状图
     var obj2 = {
          year : this.querForm.year,
         factory:this.querForm.factory,
         frequency:this.secondFilter
     }
-    this.getProgressData(obj2)
+    // this.getProgressData(obj2)
       var valueList = mock3Data.data.periods.map((item,index)=>{
           var arr = [];
           arr.push(item)
@@ -253,13 +253,13 @@ export default {
           factory:this.querForm.factory,
           frequency:this.thirdFilter
       }
-      this.getPcfProduct(obj);
+    //   this.getPcfProduct(obj);
       this.totalData = toalmock.data;  
-      this.getTotalData()
+    //   this.getTotalData();
+      this.queryData()
   },
   computed: {
     productList () {
-        console.log(this.$store.state.app.productList,"////")
       return this.$store.state.app.productList
     }
   },
@@ -267,9 +267,9 @@ export default {
       firstChose(type) {
           this.firstFilter = type;
           var obj = {
-              year : this.querForm.year,
-            factory:this.querForm.factory,
-            frequency:type
+                year : this.querForm.year,
+                factory:this.querForm.factory,
+                frequency:type
           }
           this.getPcfData(obj)
       },
@@ -285,9 +285,9 @@ export default {
       thirdChose(type) {
           this.thirdFilter = type
           var obj = {
-              year : this.querForm.year,
-            factory:this.querForm.factory,
-            frequency:type
+                year : this.querForm.year,
+                factory:this.querForm.factory,
+                frequency:type
           }
           this.getPcfProduct(obj)
       },
@@ -296,6 +296,7 @@ export default {
           console.log(this.$route)
       },
       queryData() {
+          this.querForm.year = this.querForm.year.getFullYear()
           getChartData({...this.querForm}).then(res=>{
               if(res.code == 0) {
                   this.topList[0].count = res.data.module_count;
@@ -311,6 +312,10 @@ export default {
                   }
               }
           })
+          this.getPcfData({ year : this.querForm.year,factory:this.querForm.factory,frequency:this.firstFilter});
+          this.getProgressData({ year : this.querForm.year,factory:this.querForm.factory,frequency:this.secondFilter})
+          this.getPcfProduct({ year : this.querForm.year,factory:this.querForm.factory,frequency:this.thirdFilter});
+          this.getTotalData()
       },
       getTotalData() {
           getPcfTotal({...this.querForm}).then(res=>{
@@ -321,13 +326,13 @@ export default {
               }
           })
           console.log(this.totalData,"99888")
-          this.pieData[0].value = Number((this.totalData.pcf_scope12.smt+this.totalData.pcf_scope12.tht+this.totalData.pcf_scope12.assembling+this.totalData.pcf_scope12.public).toFixed(2));
-          this.pieData[1].value = Number(this.totalData.pcf_scope3.toFixed(2));
+          this.pieData[0].value = Number((this.totalData.pcf_scope12.smt+this.totalData.pcf_scope12.tht+this.totalData.pcf_scope12.assembling+this.totalData.pcf_scope12.public).toFixed(3));
+          this.pieData[1].value = Number(this.totalData.pcf_scope3.toFixed(3));
 
-          this.pieData2[0].value = Number(this.totalData.pcf_scope12.smt.toFixed(2))
-          this.pieData2[1].value = Number(this.totalData.pcf_scope12.tht.toFixed(2))
-          this.pieData2[2].value = Number(this.totalData.pcf_scope12.assembling.toFixed(2))
-          this.pieData2[3].value = Number(this.totalData.pcf_scope12.public.toFixed(2))
+          this.pieData2[0].value = Number(this.totalData.pcf_scope12.smt.toFixed(3))
+          this.pieData2[1].value = Number(this.totalData.pcf_scope12.tht.toFixed(3))
+          this.pieData2[2].value = Number(this.totalData.pcf_scope12.assembling.toFixed(3))
+          this.pieData2[3].value = Number(this.totalData.pcf_scope12.public.toFixed(3))
           console.log(this.pieData,"99pieData")
       },
       getPcfData(obj) {
