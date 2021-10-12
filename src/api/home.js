@@ -46,7 +46,7 @@ export const getPcfTotal = (query)=>{
 
 export const getHistory = (query)=>{
   return axios.request({
-    url:"/history",
+    url:"/v1/history",
     params :query,
     method:"get"
   })
@@ -57,7 +57,7 @@ export const getHistory = (query)=>{
 
 export const getDetails = (query)=>{
   return axios.request({
-    url:"/history/details",
+    url:"/v1/history/details",
     params :query,
     method:"get"
   })
@@ -65,7 +65,7 @@ export const getDetails = (query)=>{
 
 export const getDetailBom = (query)=>{
   return axios.request({
-    url:"/history/details/bom",
+    url:"/v1/history/details/bom",
     params :query,
     method:"get"
   })
