@@ -16,20 +16,21 @@
           <p class="title">GREEN Connect</p>
         </div>
         <div class="router_box">
-          <Menu mode="horizontal" :theme="theme1" :active-name="this.$route.name" @on-select="handleSelect">
-            <Menu-item name="home">
-                GREEN Concept
-            </Menu-item>
-            <Menu-item name="emission">
-                Factory Emission
-            </Menu-item>
+          <Menu
+            mode="horizontal"
+            :theme="theme1"
+            :active-name="this.$route.name"
+            @on-select="handleSelect"
+          >
+            <Menu-item name="home"> GREEN Concept </Menu-item>
+            <Menu-item name="emission"> Factory Emission </Menu-item>
             <!-- <Menu-item name="/portfolio">
                 Product Portfolio
             </Menu-item> -->
           </Menu>
         </div>
         <div class="lange">
-          <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local"/>
+          <!-- <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local"/> -->
         </div>
       </Header>
       <Content class="main-content-con">
@@ -37,11 +38,22 @@
           <!-- <div class="tag-nav-wrapper">
             <tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag"/>
           </div> -->
-          <Content :class="this.$route.fullPath == '/home'?'content-wrapper cancle_padding':'content-wrapper'">
+          <Content
+            :class="
+              this.$route.fullPath == '/home'
+                ? 'content-wrapper cancle_padding'
+                : 'content-wrapper'
+            "
+          >
             <keep-alive :include="cacheList">
-              <router-view/>
+              <router-view />
             </keep-alive>
-            <ABackTop :height="100" :bottom="80" :right="50" container=".content-wrapper"></ABackTop>
+            <ABackTop
+              :height="100"
+              :bottom="80"
+              :right="50"
+              container=".content-wrapper"
+            ></ABackTop>
           </Content>
         </Layout>
       </Content>
@@ -49,22 +61,22 @@
   </Layout>
 </template>
 <script>
-import SideMenu from './components/side-menu'
-import HeaderBar from './components/header-bar'
-import TagsNav from './components/tags-nav'
-import User from './components/user'
-import ABackTop from './components/a-back-top'
-import Fullscreen from './components/fullscreen'
-import Language from './components/language'
-import ErrorStore from './components/error-store'
-import { mapMutations, mapActions, mapGetters } from 'vuex'
+import SideMenu from "./components/side-menu";
+import HeaderBar from "./components/header-bar";
+import TagsNav from "./components/tags-nav";
+import User from "./components/user";
+import ABackTop from "./components/a-back-top";
+import Fullscreen from "./components/fullscreen";
+import Language from "./components/language";
+import ErrorStore from "./components/error-store";
+import { mapMutations, mapActions, mapGetters } from "vuex";
 // import {routeEqual } from '@/libs/util'
-import routers from '@/router/routers'
-import minLogo from '@/assets/images/logo-min.jpg'
-import maxLogo from '@/assets/images/logo.jpg'
-import './main.less'
+import routers from "@/router/routers";
+import minLogo from "@/assets/images/logo-min.jpg";
+import maxLogo from "@/assets/images/logo.jpg";
+import "./main.less";
 export default {
-  name: 'Main',
+  name: "Main",
   components: {
     SideMenu,
     HeaderBar,
@@ -73,103 +85,105 @@ export default {
     Fullscreen,
     ErrorStore,
     User,
-    ABackTop
+    ABackTop,
   },
-  data () {
+  data() {
     return {
       collapsed: false,
       minLogo,
       maxLogo,
       isFullscreen: false,
-      theme1: 'light'
-    }
+      theme1: "light",
+    };
   },
-  created () {
-    console.log(this.$route)
+  created() {
+    console.log(this.$route);
   },
   computed: {
-    ...mapGetters([
-      'errorCount'
-    ]),
-    tagNavList () {
-      return this.$store.state.app.tagNavList
+    ...mapGetters(["errorCount"]),
+    tagNavList() {
+      return this.$store.state.app.tagNavList;
     },
-    tagRouter () {
-      return this.$store.state.app.tagRouter
+    tagRouter() {
+      return this.$store.state.app.tagRouter;
     },
-    userAvatar () {
-      return this.$store.state.user.avatarImgPath
+    userAvatar() {
+      return this.$store.state.user.avatarImgPath;
     },
-    cacheList () {
-      const list = ['ParentView', ...this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : []]
-      return list
+    cacheList() {
+      const list = [
+        "ParentView",
+        ...(this.tagNavList.length
+          ? this.tagNavList
+              .filter((item) => !(item.meta && item.meta.notCache))
+              .map((item) => item.name)
+          : []),
+      ];
+      return list;
     },
-    menuList () {
-      return this.$store.getters.menuList
+    menuList() {
+      return this.$store.getters.menuList;
     },
-    local () {
-      return this.$store.state.app.local
+    local() {
+      return this.$store.state.app.local;
     },
-    hasReadErrorPage () {
-      return this.$store.state.app.hasReadErrorPage
+    hasReadErrorPage() {
+      return this.$store.state.app.hasReadErrorPage;
     },
-    unreadCount () {
-      return this.$store.state.user.unreadCount
-    }
+    unreadCount() {
+      return this.$store.state.user.unreadCount;
+    },
   },
   methods: {
     ...mapMutations([
-      'setBreadCrumb',
-      'setTagNavList',
-      'addTag',
-      'setLocal',
-      'setHomeRoute',
-      'closeTag'
+      "setBreadCrumb",
+      "setTagNavList",
+      "addTag",
+      "setLocal",
+      "setHomeRoute",
+      "closeTag",
     ]),
-    ...mapActions([
-      'handleLogin',
-      'getUnreadMessageCount'
-    ]),
-    turnToPage (route) {
-      let { name, params, query } = {}
-      if (typeof route === 'string') name = route
+    ...mapActions(["handleLogin", "getUnreadMessageCount"]),
+    turnToPage(route) {
+      let { name, params, query } = {};
+      if (typeof route === "string") name = route;
       else {
-        name = route.name
-        params = route.params
-        query = route.query
+        name = route.name;
+        params = route.params;
+        query = route.query;
       }
-      if (name.indexOf('isTurnByHref_') > -1) {
-        window.open(name.split('_')[1])
-        return
+      if (name.indexOf("isTurnByHref_") > -1) {
+        window.open(name.split("_")[1]);
+        return;
       }
       this.$router.push({
         name,
         params,
-        query
-      })
+        query,
+      });
     },
-    handleSelect (name) {
-      console.log(name)
-      this.$router.push('/'+name)
+    handleSelect(name) {
+      console.log(name);
+      this.$router.push("/" + name);
     },
-    handleCollapsedChange (state) {
-      this.collapsed = state
+    handleCollapsedChange(state) {
+      this.collapsed = state;
     },
-    handleCloseTag (res, type, route) {
-      if (type !== 'others') {
-        if (type === 'all') {
-          this.turnToPage(this.$config.homeName)
+    handleCloseTag(res, type, route) {
+      if (type !== "others") {
+        if (type === "all") {
+          this.turnToPage(this.$config.homeName);
         } else {
           if (routeEqual(this.$route, route)) {
-            this.closeTag(route)
+            this.closeTag(route);
           }
         }
       }
-      this.setTagNavList(res)
+      this.setTagNavList(res);
     },
-    handleClick (item) {
-      this.turnToPage(item)
-    }
+    handleClick(item) {
+      this.turnToPage(item);
+    },
   },
   watch: {
     // '$route' (newRoute) {
@@ -183,7 +197,7 @@ export default {
     //   this.$refs.sideMenu.updateOpenName(newRoute.name)
     // }
   },
-  mounted () {
+  mounted() {
     /**
      * @description 初始化设置面包屑导航和标签导航
      */
@@ -204,6 +218,6 @@ export default {
     // }
     // 获取未读消息条数
     // this.getUnreadMessageCount()
-  }
-}
+  },
+};
 </script>

@@ -129,6 +129,29 @@ export default [
     ]
   },
   {
+    path: '/sharerules',
+    name: 'home',
+    redirect: '/sharerules',
+    component: Main,
+    meta: {
+      hideInMenu: true,
+      notCache: true
+    },
+    children: [
+      {
+        path: '/sharerules',
+        name: 'home',
+        meta: {
+          hideInMenu: true,
+          title: '共享机制',
+          notCache: true,
+          icon: 'md-home'
+        },
+        component: () => import('@/view/sharerules')
+      }
+    ]
+  },
+  {
     path: '',
     name: 'doc',
     meta: {
