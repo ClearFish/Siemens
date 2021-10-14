@@ -137,7 +137,7 @@ export default {
          */
     getData() {
       getDetailBom({ ...this.formInline }).then((res) => {
-        if (res.code == 0) {
+        if (res.code == 200) {
           this.formInline.page_total = res.data.pagination.page_total;
           this.data1 = res.data.items;
         }

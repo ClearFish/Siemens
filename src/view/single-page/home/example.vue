@@ -27,6 +27,10 @@ export default {
           label: {
             backgroundColor: '#006D80'
           }
+        },
+        formatter:function(val) {
+          return '<div><span>Emission Scope 1&2：</span>'+(val[0].data).toFixed(3)+'</div>' +
+                  '<div><span>Emission Scope 3：</span>'+(val[1].data).toFixed(3)+'</div>'
         }
       },
       color:["#A4DC94","#00D3C9"],

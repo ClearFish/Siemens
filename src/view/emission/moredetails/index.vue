@@ -13,25 +13,41 @@
             </div>
             <div class="top_content">
                 <div class="left_content">
+                    <p class="serial_num">Serial No：{{detailData.serial}}</p>
                     <p class="name">{{detailData.product_name}}</p>
-                    <p class="acount">Total PCF value：{{detailData.pcf_total}}kg CO2e</p>
+                    <p class="acount">
+                        <span class="icon_box"></span>
+                        <span class="value_box">Total PCF value：{{detailData.pcf_total}}kg CO2e</span>    
+                    </p>
                     <ul class="bottom_list">
                         <li>
-                            <p>Product ID:{{detailData.product_id}}</p>
+                            <p>
+                                <span class="icon_box icon1"></span>
+                                <span>Date:{{timestampToTime(detailData.date)}}</span>
+                            </p>
                         </li>
                         <li>
-                            <p>Serial No:{{detailData.serial}}</p>
+                            <p>
+                                <span class="icon_box icon2"></span>
+                                <span>Product ID:{{detailData.product_id}}</span>
+                            </p>
                         </li>
                         <li>
-                            <p>Weight:{{detailData.weight}}</p>
+                            <p>
+                                <span class="icon_box icon3"></span>
+                                <span>Weight:{{detailData.weight}}</span>
+                            </p>
                         </li>
                         <li>
-                            <p>Cost Per Piece:{{detailData.cost}}</p>
+                            <p>
+                                <span class="icon_box icon4"></span>
+                                <span>Cost Per Piece:{{detailData.cost}}</span>
+                            </p>
                         </li>
                     </ul>
                 </div>
                 <div class="right_content">
-                    <img :src="detailData.image_url" alt="">
+                    <img :src="require(`../../../assets/images/${detailData.product_id}.jpg`)" alt="">
                 </div>
             </div>
         </div>
@@ -71,7 +87,7 @@
                     <ul>
                         <li v-for="(item,index) in detailData.pcf_scope3" :key="index">
                             <div class="left">
-                                <img :src="item.image_url" alt="">
+                                <img src="../../../assets/images/more _details.png" alt="">
                             </div>
                             <div class="right">
                                 <p class="name">{{item.material_name}}</p>
@@ -104,7 +120,7 @@ export default {
                 {name:"SMT",num:'0.1kg'},
             ],
             detailData:{
-                "product_id": "123123",
+                "product_id": "6ES75111CK010AB0",
                 "product_name": "123123aqaaa",
                 "serial": "123132",
                 "image_url": "null",
@@ -116,8 +132,9 @@ export default {
                 "public": 0,
                 "smt": 0,
                 "tht": 0,
-                "assembling": 0
+                "assembling": 0,
                 },
+                "date":1634225785,
                 "pcf_scope3": [
                 {
                     "material_id": "asdasd",
@@ -167,7 +184,7 @@ export default {
          * 
          */
         getDetails({...obj}).then(res=>{
-            if(res.code == 0) {
+            if(res.code == 200) {
                 this.detailData = res.data;
                 this.list[0].num = res.data.pcf_scope12.smt;
                 this.list[1].num = res.data.pcf_scope12.tht;
@@ -185,8 +202,21 @@ export default {
         },
         goBack(steps) {
             this.$router.go(steps)
-        }
-    }
+        },
+        timestampToTime(timestamp) {
+            console.log(timestamp,this.detailData,"[]===")
+            var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            console.log(date,"[][]")
+            var Y = date.getFullYear() + '-';
+            console.log(Y,"===")
+            var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+            var D = date.getDate() + ' ';
+            var h = date.getHours() + ':';
+            var m = date.getMinutes() + ':';
+            var s = date.getSeconds();
+            return Y + M + D + h + m + s;
+       }
+    }   
 }
 </script>
 <style lang="less" scoped>
@@ -247,10 +277,30 @@ export default {
                     color: #11435C;
                     font-size: 36px;
                 }
+                .serial_num {
+                    background:#11435C;
+                    padding: 5px 10px;
+                    border-radius: 40px;
+                    color: #fff;
+                    width: 250px;
+                    margin-bottom: 20px;
+                }
                 .acount {
                     margin-top: 20px;
                     font-size: 14px;
                     color: #000000;
+                    display: flex;
+                    align-items: center;
+                    span {
+                        display: block;
+                    }
+                    .icon_box {
+                        width: 24px;
+                        height: 24px;
+                        background: url("../../../assets/images/pcf_total.png") no-repeat center;
+                        background-size: cover;
+                        margin-right: 5px;
+                    }
                 }
                 .bottom_list {
                     margin-top: 20px;
@@ -262,6 +312,32 @@ export default {
                         p {
                             font-size: 14px;
                             color: #000;
+                            display: flex;
+                            align-items: center;
+                            span {
+                                display: block;
+                            }
+                            .icon_box {
+                                width: 24px;
+                                height: 24px;
+                                margin-right: 5px;
+                            }
+                            .icon1 {
+                                background: url("../../../assets/images/date.png") no-repeat center;
+                                background-size: cover;
+                            }
+                            .icon2 {
+                                background: url("../../../assets/images/pcf_id.png") no-repeat center;
+                                background-size: cover;
+                            }
+                            .icon3 {
+                                background: url("../../../assets/images/pcf_weight.png") no-repeat center;
+                                background-size: cover;
+                            }
+                            .icon4 {
+                                background: url("../../../assets/images/pcf_piece.png") no-repeat center;
+                                background-size: cover;
+                            }
                         }
                     }
                 }
@@ -273,6 +349,10 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                img {
+                    width: 139px;
+                    height: 177px;
+                }
             }
         }
         .center_cont {

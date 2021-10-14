@@ -36,6 +36,7 @@
               placeholder="Select date"
               style="width: 200px"
               v-model="formInline.start_datetime"
+              :options="options"
               format="yyyy-MM-dd"
             ></DatePicker>
           </FormItem>
@@ -45,6 +46,7 @@
               format="yyyy-MM-dd"
               placeholder="Select date"
               style="width: 200px"
+              :options="options"
               v-model="formInline.end_datetime"
             ></DatePicker>
           </FormItem>
@@ -91,6 +93,11 @@ export default {
         page_size: 10,
         page_number: 1,
         page_total: 20,
+      },
+      options:{
+          disabledDate (date) {
+                return date && date.valueOf() > Date.now();
+            }
       },
       columns1: [
         {
@@ -168,7 +175,7 @@ export default {
         page_number: this.formInline.page_number,
       };
       getHistory({ ...obj }).then((res) => {
-        if (res.code == 0) {
+        if (res.code == 200) {
           this.formInline.page_total = res.data.pagination.page_total;
           this.formInline.page_number = res.data.pagination.page_number;
           this.data1 = res.data.items;

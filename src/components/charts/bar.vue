@@ -65,7 +65,13 @@ export default {
             x: 'right',
             y: 'top',
           },
-          tooltip: {},
+          tooltip: {
+            formatter:function(val) {
+              // console.log(val,"[]===")
+              return '<div>'+val.dimensionNames[val.componentIndex+1]+'</div>' +
+                  '<div>'+(val.data[val.componentIndex+1]).toFixed(3)+'</div>'
+            }
+          },
           dataset: {
             source: this.value
             // [

@@ -5,6 +5,7 @@
       <DatePicker
         type="year"
         placeholder="Select year"
+        :options="options"
         style="width: 200px"
         v-model="querForm.year"
         format="yyyy"
@@ -57,19 +58,19 @@
                   <div class="types">
                     <p
                       @click="firstChose('quarter')"
-                      :class="firstFilter == 'Quarter' ? 'active' : ''"
+                      :class="firstFilter == 'quarter' ? 'active' : ''"
                     >
                       Quarter
                     </p>
                     <p
                       @click="firstChose('month')"
-                      :class="firstFilter == 'Month' ? 'active' : ''"
+                      :class="firstFilter == 'month' ? 'active' : ''"
                     >
                       Month
                     </p>
                     <p
                       @click="firstChose('day')"
-                      :class="firstFilter == 'Day' ? 'active' : ''"
+                      :class="firstFilter == 'day' ? 'active' : ''"
                     >
                       Day
                     </p>
@@ -98,19 +99,19 @@
                   <div class="types">
                     <p
                       @click="secondChose('quarter')"
-                      :class="secondFilter == 'Quarter' ? 'active' : ''"
+                      :class="secondFilter == 'quarter' ? 'active' : ''"
                     >
                       Quarter
                     </p>
                     <p
                       @click="secondChose('month')"
-                      :class="secondFilter == 'Month' ? 'active' : ''"
+                      :class="secondFilter == 'month' ? 'active' : ''"
                     >
                       Month
                     </p>
                     <p
                       @click="secondChose('day')"
-                      :class="secondFilter == 'Day' ? 'active' : ''"
+                      :class="secondFilter == 'day' ? 'active' : ''"
                     >
                       Day
                     </p>
@@ -136,19 +137,19 @@
                   <div class="types">
                     <p
                       @click="thirdChose('quarter')"
-                      :class="thirdFilter == 'Quarter' ? 'active' : ''"
+                      :class="thirdFilter == 'quarter' ? 'active' : ''"
                     >
                       Quarter
                     </p>
                     <p
                       @click="thirdChose('month')"
-                      :class="thirdFilter == 'Month' ? 'active' : ''"
+                      :class="thirdFilter == 'month' ? 'active' : ''"
                     >
                       Month
                     </p>
                     <p
                       @click="thirdChose('day')"
-                      :class="thirdFilter == 'Day' ? 'active' : ''"
+                      :class="thirdFilter == 'day' ? 'active' : ''"
                     >
                       Day
                     </p>
@@ -287,11 +288,16 @@ export default {
       },
       countData: {},
       topList: [
-        { title: "Products", id: 0, count: 0 },
+        { title: "Modules", id: 0, count: 0 },
         { title: "Total Products", id: 1, count: 0 },
         { title: "Total Components", id: 2, count: 0 },
         { title: "Supplies", id: 3, count: 0 },
       ],
+      options: {
+            disabledDate (date) {
+                return date && date.valueOf() > Date.now();
+            }
+        },
       pieData: [
         {
           value: 400,
@@ -370,6 +376,7 @@ export default {
     // },
   },
   methods: {
+
     firstChose(type) {
       this.firstFilter = type;
       var obj = {
@@ -411,20 +418,14 @@ export default {
         frequency: this.firstFilter,
       };
       getChartData({ ...obj }).then((res) => {
-        if (res.code == 0) {
+        if (res.code == 200) {
           this.topList[0].count = res.data.module_count;
           this.topList[1].count = res.data.product_count;
           this.topList[2].count = res.data.component_count;
           this.topList[3].count = res.data.supplier_count;
-        } else {
-          this.countData = {
-            module_count: 0,
-            product_count: 0,
-            component_count: 0,
-            supplier_count: 0,
-          };
         }
       });
+      
       this.getPcfData({
         year: this.querForm.year.getFullYear(),
         factory: this.querForm.factory,
@@ -440,16 +441,16 @@ export default {
         factory: this.querForm.factory,
         frequency: this.thirdFilter,
       });
-      this.getTotalData();
+      this.getTotalData(year);
     },
-    getTotalData() {
+    getTotalData(year) {
       var obj = {
         year: year.getFullYear(),
         factory: this.querForm.factory,
         frequency: this.firstFilter,
       };
       getPcfTotal({ ...obj }).then((res) => {
-        if (res.code == 0) {
+        if (res.code == 200) {
           this.totalData = res.data;
         } else {
           this.totalData = toalmock;
@@ -480,9 +481,10 @@ export default {
       );
       console.log(this.pieData, "99pieData");
     },
+
     getPcfData(obj) {
       getPcfbyscope({ ...obj }).then((res) => {
-        if (res.code == 0) {
+        if (res.code == 200) {
           this.dataChrts = res.data;
         } else {
           //   面积图
@@ -490,9 +492,10 @@ export default {
         }
       });
     },
+
     getProgressData(obj) {
       getPcfbyprocess({ ...obj }).then((res) => {
-        if (res.code == 0) {
+        if (res.code == 200) {
           var valueList = res.data.periods.map((item, index) => {
             var arr = [];
             arr.push(item);
@@ -515,9 +518,10 @@ export default {
         }
       });
     },
+
     getPcfProduct(obj) {
       getPcfbyproduct({ ...obj }).then((res) => {
-        if (res.code == 0) {
+        if (res.code == 200) {
           this.dataChrts2 = res.data;
         } else {
           //   面积图
