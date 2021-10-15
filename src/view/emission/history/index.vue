@@ -175,10 +175,10 @@ export default {
         page_number: this.formInline.page_number,
       };
       getHistory({ ...obj }).then((res) => {
-        if (res.code == 200) {
-          this.formInline.page_total = res.data.pagination.page_total;
-          this.formInline.page_number = res.data.pagination.page_number;
-          this.data1 = res.data.items;
+        if (res.data.code == 200) {
+          this.formInline.page_total = res.data.data.pagination.page_total;
+          this.formInline.page_number = res.data.data.pagination.page_number;
+          this.data1 = res.data.data.items;
         }
       });
     },

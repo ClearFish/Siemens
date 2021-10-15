@@ -12,7 +12,7 @@
         <p class="point point2"></p>
         <div class="has_get fadeout">
           <p class="text">+</p>
-          <p>0.02kg</p>
+          <p>{{homeData.scope2 && homeData.scope2.smt.toFixed(3) == '0.000' ? 0 : homeData.scope2.smt.toFixed(3)}}kg</p>
         </div>
         <div slot="content">
           <p>{{ homeData.scope2 && homeData.scope2.smt.toFixed(3) == '0.000' ? 0 : homeData.scope2.smt.toFixed(3)}}kg</p>
@@ -168,8 +168,8 @@ export default {
       this.homeData = mockData.data[this.count];
       getHomeData().then((res) => {
         console.log(res, "00999");
-        if (res.code == 200) {
-          this.dataTotal = res.data;
+        if (res.data.code == 200) {
+          this.dataTotal = res.data.data;
           this.homeData = res.data[this.count];
         } else {
           this.dataTotal = mockData.data;

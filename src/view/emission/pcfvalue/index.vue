@@ -137,9 +137,9 @@ export default {
          */
     getData() {
       getDetailBom({ ...this.formInline }).then((res) => {
-        if (res.code == 200) {
-          this.formInline.page_total = res.data.pagination.page_total;
-          this.data1 = res.data.items;
+        if (res.data.code == 200) {
+          this.formInline.page_total = res.data.data.pagination.page_total;
+          this.data1 = res.data.data.items;
         }
       });
     },

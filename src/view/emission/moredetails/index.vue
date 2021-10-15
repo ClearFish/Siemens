@@ -184,13 +184,13 @@ export default {
          * 
          */
         getDetails({...obj}).then(res=>{
-            if(res.code == 200) {
-                this.detailData = res.data;
-                this.list[0].num = res.data.pcf_scope12.smt;
-                this.list[1].num = res.data.pcf_scope12.tht;
-                this.list[2].num = res.data.pcf_scope12.assembling;
-                this.list[3].num = res.data.pcf_scope12.public;
-                this.scope3Total = res.data.pcf_scope3.reduce((pre,next)=>{
+            if(res.data.code == 200) {
+                this.detailData = res.data.data;
+                this.list[0].num = res.data.data.pcf_scope12.smt;
+                this.list[1].num = res.data.data.pcf_scope12.tht;
+                this.list[2].num = res.data.data.pcf_scope12.assembling;
+                this.list[3].num = res.data.data.pcf_scope12.public;
+                this.scope3Total = res.data.data.pcf_scope3.reduce((pre,next)=>{
                     return pre+next
                 })
             }

@@ -418,11 +418,11 @@ export default {
         frequency: this.firstFilter,
       };
       getChartData({ ...obj }).then((res) => {
-        if (res.code == 200) {
-          this.topList[0].count = res.data.module_count;
-          this.topList[1].count = res.data.product_count;
-          this.topList[2].count = res.data.component_count;
-          this.topList[3].count = res.data.supplier_count;
+        if (res.data.code == 200) {
+          this.topList[0].count = res.data.data.module_count;
+          this.topList[1].count = res.data.data.product_count;
+          this.topList[2].count = res.data.data.component_count;
+          this.topList[3].count = res.data.data.supplier_count;
         }
       });
       
@@ -450,8 +450,8 @@ export default {
         frequency: this.firstFilter,
       };
       getPcfTotal({ ...obj }).then((res) => {
-        if (res.code == 200) {
-          this.totalData = res.data;
+        if (res.data.code == 200) {
+          this.totalData = res.data.data;
         } else {
           this.totalData = toalmock;
         }
@@ -484,8 +484,8 @@ export default {
 
     getPcfData(obj) {
       getPcfbyscope({ ...obj }).then((res) => {
-        if (res.code == 200) {
-          this.dataChrts = res.data;
+        if (res.data.code == 200) {
+          this.dataChrts = res.data.data;
         } else {
           //   面积图
           this.dataChrts = mockData.data;
@@ -495,8 +495,8 @@ export default {
 
     getProgressData(obj) {
       getPcfbyprocess({ ...obj }).then((res) => {
-        if (res.code == 200) {
-          var valueList = res.data.periods.map((item, index) => {
+        if (res.data.code == 200) {
+          var valueList = res.data.data.periods.map((item, index) => {
             var arr = [];
             arr.push(item);
             arr.push(mock3Data.data.process_pcf_sequence[index].smt);
@@ -521,8 +521,8 @@ export default {
 
     getPcfProduct(obj) {
       getPcfbyproduct({ ...obj }).then((res) => {
-        if (res.code == 200) {
-          this.dataChrts2 = res.data;
+        if (res.data.code == 200) {
+          this.dataChrts2 = res.data.data;
         } else {
           //   面积图
           this.dataChrts2 = mock2Data.data;
