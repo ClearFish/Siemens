@@ -1,0 +1,84 @@
+{
+    "timestamp": 1633933278682,
+    "code": 200,
+    "message": "success",
+    "data": {
+        "year": 2021,
+        "factory": "SEWC",
+        "frequency": "month",
+        "periods": [
+            "2021-JANUARY",
+            "2021-FEBRUARY",
+            "2021-MARCH",
+            "2021-APRIL",
+            "2021-MAY",
+            "2021-JUNE",
+            "2021-JULY",
+            "2021-AUGUST",
+            "2021-SEPTEMBER",
+            "2021-OCTOBER"
+        ],
+        "process_pcf_sequence": [
+            {
+                "smt": 0.0,
+                "tht": 0.0,
+                "assembling": 0.0,
+                "public": 0.0
+            },
+            {
+                "smt": 0.0,
+                "tht": 0.0,
+                "assembling": 0.0,
+                "public": 0.0
+            },
+            {
+                "smt": 0.0,
+                "tht": 0.0,
+                "assembling": 0.0,
+                "public": 0.0
+            },
+            {
+                "smt": 0.0,
+                "tht": 0.0,
+                "assembling": 0.0,
+                "public": 0.0
+            },
+            {
+                "smt": 0.0,
+                "tht": 0.0,
+                "assembling": 0.0,
+                "public": 0.0
+            },
+            {
+                "smt": 0.0,
+                "tht": 0.0,
+                "assembling": 0.0,
+                "public": 0.0
+            },
+            {
+                "smt": 736.6991907004215,
+                "tht": 63.19705263177533,
+                "assembling": 23.61738917250009,
+                "public": 14.246888953499973
+            },
+            {
+                "smt": 1119.4210607517803,
+                "tht": 94.94389422796696,
+                "assembling": 35.87364165000009,
+                "public": 21.45659493600002
+            },
+            {
+                "smt": 745.0800782710277,
+                "tht": 73.24686223862282,
+                "assembling": 30.05175957749982,
+                "public": 18.157009657499888
+            },
+            {
+                "smt": 0.0,
+                "tht": 0.0,
+                "assembling": 0.0,
+                "public": 0.0
+            }
+        ]
+    }
+}

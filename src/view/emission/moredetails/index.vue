@@ -17,7 +17,7 @@
                     <p class="name">{{detailData.product_name}}</p>
                     <p class="acount">
                         <span class="icon_box"></span>
-                        <span class="value_box">Total PCF value：{{detailData.pcf_total}}kg CO2e</span>    
+                        <span class="value_box">Total PCF value：{{detailData.pcf_total && (detailData.pcf_total).toFixed(3)}}kg CO2e</span>    
                     </p>
                     <ul class="bottom_list">
                         <li>
@@ -35,7 +35,7 @@
                         <li>
                             <p>
                                 <span class="icon_box icon3"></span>
-                                <span>Weight:{{detailData.weight}}</span>
+                                <span>Weight:{{detailData.product_id == '6ES75111CK010AB0' ? 1.229:1.551}}kg</span>
                             </p>
                         </li>
                         <li>
@@ -60,14 +60,14 @@
                     <p class="icon_img"></p>
                     <p class="icon_right">
                         <span>Scope 1&2：</span>
-                        <span class="add_weight">{{detailData.pcf_scope12.public+detailData.pcf_scope12.smt+detailData.pcf_scope12.tht+detailData.pcf_scope12.assembling}}kg</span>
+                        <span class="add_weight">{{Number(detailData.pcf_scope12.public+detailData.pcf_scope12.smt+detailData.pcf_scope12.tht+detailData.pcf_scope12.assembling).toFixed(3)}}kg</span>
                         <span>CO2e</span>
                     </p>
                 </div>
                 <ul class="ul_list">
                     <li v-for="(item,index) in list" :key="index" :class="'list_li list_li'+index">
                         <p>{{item.name}}：</p>
-                        <p><span class="num">{{item.num}}kg</span> CO2e</p>
+                        <p><span class="num">{{Number(item.num).toFixed(3)}}kg</span> CO2e</p>
                     </li>
                 </ul>
             </div>
@@ -91,7 +91,7 @@
                             </div>
                             <div class="right">
                                 <p class="name">{{item.material_name}}</p>
-                                <p class="number">{{item.pcf}}</p>
+                                <p class="number">{{item.pcf && (item.pcf).toFixed(3)}}</p>
                             </div>
                         </li>
                     </ul>
@@ -141,6 +141,24 @@ export default {
                     "material_name": "asdasd",
                     "pcf": 0,
                     "image_url": "null"
+                },
+                {
+                    "material_id": "asdasd",
+                    "material_name": "asdasd",
+                    "pcf": 2,
+                    "image_url": "null"
+                },
+                {
+                    "material_id": "asdasd",
+                    "material_name": "asdasd",
+                    "pcf": 4,
+                    "image_url": "null"
+                },
+                {
+                    "material_id": "asdasd",
+                    "material_name": "asdasd",
+                    "pcf": 6,
+                    "image_url": "null"
                 }
                 ]
 
@@ -150,6 +168,12 @@ export default {
     },
     created(){
         console.log(this.$route,"//");
+        // var sum = 0
+        // this.detailData.pcf_scope3.forEach(e=>{
+            
+        //     sum+= e.pcf
+        // })
+        // this.scope3Total = sum
         var obj = {
             product_id :this.$route.query.id,
             serial :this.$route.query.serial,
@@ -190,9 +214,11 @@ export default {
                 this.list[1].num = res.data.data.pcf_scope12.tht;
                 this.list[2].num = res.data.data.pcf_scope12.assembling;
                 this.list[3].num = res.data.data.pcf_scope12.public;
-                this.scope3Total = res.data.data.pcf_scope3.reduce((pre,next)=>{
-                    return pre+next
+                var sum = 0;
+                 res.data.data.pcf_scope3.forEach(e=>{
+                    sum+= e.pcf
                 })
+                this.scope3Total = Number(sum).toFixed(3)
             }
         })
     },
@@ -205,7 +231,7 @@ export default {
         },
         timestampToTime(timestamp) {
             console.log(timestamp,this.detailData,"[]===")
-            var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
             console.log(date,"[][]")
             var Y = date.getFullYear() + '-';
             console.log(Y,"===")
@@ -451,16 +477,20 @@ export default {
             }
             .ul_list2 {
                 margin-top: 20px;
+                width: 100%;
                 ul {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    width: 100%;
+                    flex-wrap: wrap;
                     li {
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
                         padding:10px;
                         border: 1px solid #cdcdcd;
+                        width: 20%;
                         .left {
                             width: 78px;
                             height: 52px;

@@ -66,7 +66,7 @@ export default {
           y: 'center',
           orient: 'vertical', // 设置图例排列纵向显示
           align: 'left', // 设置图例中文字位置在icon标识符的右侧
-          left: '40%',
+          left: '50%',
           top: 'center',
           itemGap: 10, // 设置图例之间的间距
           padding: [0, 0, 0, 0], // 设置图例与圆环图之间的间距
@@ -82,7 +82,7 @@ export default {
             })
             var p = ((value / total) * 100).toFixed(1) // 求出百分比,保留2位小数
             // return `${name}  ${value}件  ${p}%`
-            return `{a|${name}}{b|${value}CO2e}{c|${p}%}` // 返回出图例所显示的内容是名称+百分比
+            return `{a|${name}}\n{b|${value}CO2e}{c|${p}%}` // 返回出图例所显示的内容是名称+百分比
           },
           // 自定义图例文字样式
           textStyle: {
@@ -101,7 +101,8 @@ export default {
                 color: '#666666',
                 fontSize: 12
               }
-            }
+            },
+            lineHeight:18
           }
         },
 

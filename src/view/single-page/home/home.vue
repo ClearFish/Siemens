@@ -152,13 +152,13 @@ export default {
   },
   mounted() {
     // this.homeData = mockData.data[this.count];
-    setInterval(() => {
-      this.count++;
-      // console.log(this.count);
-      this.dataTotal = mockData.data;
-      this.homeData = mockData.data[this.count];
-      console.log(this.homeData,"999")
-    }, 500 * 3600);
+    // setInterval(() => {
+    //   this.count++;
+    //   // console.log(this.count);
+    //   this.dataTotal = mockData.data;
+    //   this.homeData = mockData.data[this.count];
+    //   console.log(this.homeData,"999")
+    // }, 500 * 3600);
   },
   methods: {
     ...mapMutations(["setProducts"]),
@@ -170,7 +170,9 @@ export default {
         console.log(res, "00999");
         if (res.data.code == 200) {
           this.dataTotal = res.data.data;
-          this.homeData = res.data[this.count];
+          this.homeData = res.data.data[this.count];
+          console.log(this.dataTotal,"接口");
+
         } else {
           this.dataTotal = mockData.data;
           this.homeData = mockData.data[this.count];
@@ -449,7 +451,7 @@ export default {
                 height: 85px;
                 background: url("../../../assets/images/6ES75111CK010AB0.jpg") no-repeat
                   center;
-                background-size: cover;
+                background-size: cover !important;
               }
             }
           }

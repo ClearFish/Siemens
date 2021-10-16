@@ -52,9 +52,9 @@
           <template slot-scope="{ row }" slot="name">
             <strong>{{ row.name }}</strong>
           </template>
-          <!-- <template slot-scope="{ row, index }" slot="action">
-                        <Button type="text" size="small" @click="gotoDetails(row.ProductID)">More Details</Button>
-                    </template> -->
+          <template slot-scope="{ row}" slot="pcf">
+            <span>{{ row.pcf && Number(row.pcf).toFixed(3) }}kg CO2e</span>
+          </template>
         </Table>
       </div>
       <div class="page_box">
@@ -76,42 +76,43 @@ export default {
         page_number: 1,
         page_total: null,
       },
-      columns1: [
-        {
-          align: "center",
-          title: "No.",
-          key: "number",
-        },
-        {
-          title: "BOM Line Ti",
-          align: "center",
-          key: "ti",
-        },
-        {
-          title: "Suppliers",
-          align: "center",
-          key: "suppliers",
-        },
-        {
-          title: "Commodity",
-          align: "center",
-          key: "commodity",
-        },
-        {
-          title: "PCF VALUE",
-          align: "center",
-          key: "pcf",
-        },
-      ],
-      data1: [
-        {
-          number: "123123",
-          ti: "345234523423234",
-          suppliers: "2016-10-03",
-          commodity: "12312",
-          pcf: "asdasdasd123",
-        },
-      ],
+        columns1: [
+            {
+            align: "center",
+            title: "No.",
+            key: "number",
+            },
+            {
+            title: "BOM Line Ti",
+            align: "center",
+            key: "ti",
+            },
+            {
+            title: "Suppliers",
+            align: "center",
+            key: "suppliers",
+            },
+            {
+            title: "Commodity",
+            align: "center",
+            key: "commodity",
+            },
+            {
+            title: "PCF VALUE",
+            align: "center",
+            key: "pcf",
+            slot:"pcf"
+            }
+        ],
+        data1: [
+            {
+            number: "123123",
+            ti: "345234523423234",
+            suppliers: "2016-10-03",
+            commodity: "12312",
+            pcf: "123123.4423423",
+            },
+        ],
     };
   },
   created() {
@@ -120,11 +121,7 @@ export default {
     //     item.pcf = item.pcf+'kg CO2e'
     // })
     console.log(this.data1, "////");
-    var data = this.data1;
-    data.map((item) => {
-      item.pcf = item.pcf + "kg CO2e";
-    });
-    console.log(data, "[]===", this.data1);
+    console.log( "[]===", this.data1);
     this.getData();
   },
   methods: {
@@ -138,7 +135,7 @@ export default {
     getData() {
       getDetailBom({ ...this.formInline }).then((res) => {
         if (res.data.code == 200) {
-          this.formInline.page_total = res.data.data.pagination.page_total;
+          this.formInline.page_total = res.data.data.pagination.page_total * res.data.data.pagination.page_size;
           this.data1 = res.data.data.items;
         }
       });

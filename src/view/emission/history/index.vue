@@ -60,6 +60,9 @@
           <template slot-scope="{ row }" slot="name">
             <strong>{{ row.name }}</strong>
           </template>
+          <template slot-scope="{ row }" slot="date">
+              <span>{{timestampToTime(row.pcf_calculation_datetime)}}</span>
+          </template>
           <template slot-scope="{ row, index }" slot="action">
             <Button
               type="text"
@@ -67,6 +70,9 @@
               @click="gotoDetails(row.product_id, row.serial, index)"
               >More Details</Button
             >
+          </template>
+          <template slot-scope="{ row }" slot="pcf_total">
+            <span>{{ row.pcf_total && Number(row.pcf_total).toFixed(3) }}kg CO2e</span>
           </template>
         </Table>
       </div>
@@ -92,7 +98,7 @@ export default {
         end_datetime: "",
         page_size: 10,
         page_number: 1,
-        page_total: 20,
+        page_total: null,
       },
       options:{
           disabledDate (date) {
@@ -120,11 +126,13 @@ export default {
           title: "Generation Time",
           align: "center",
           key: "pcf_calculation_datetime",
+          slot:"date"
         },
         {
           title: "PCF VALUE",
           align: "center",
           key: "pcf_total",
+          slot:"pcf_total"
         },
         {
           title: "Details",
@@ -134,13 +142,13 @@ export default {
         },
       ],
       data1: [
-        // {
-        //   number: 0,
-        //   product_id: "123123",
-        //   serial: "345234523423234",
-        //   pcf_calculation_datetime: "2016-10-03",
-        //   pcf_total: 0,
-        // },
+        {
+          number: 0,
+          product_id: "123123",
+          serial: "345234523423234",
+          pcf_calculation_datetime: "2016-10-03",
+          pcf_total: 0.00326565,
+        },
       ],
     };
   },
@@ -160,6 +168,19 @@ export default {
         },
       });
     },
+    timestampToTime(timestamp) {
+        console.log(timestamp,this.detailData,"[]===")
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        console.log(date,"[][]")
+        var Y = date.getFullYear() + '-';
+        console.log(Y,"===")
+        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        var D = date.getDate() + ' ';
+        var h = date.getHours() + ':';
+        var m = date.getMinutes() + ':';
+        var s = date.getSeconds();
+        return Y + M + D + h + m + s;
+    },
     searchData() {
       console.log(this.formInline, "/.//");
       var obj = {
@@ -176,7 +197,7 @@ export default {
       };
       getHistory({ ...obj }).then((res) => {
         if (res.data.code == 200) {
-          this.formInline.page_total = res.data.data.pagination.page_total;
+          this.formInline.page_total = res.data.data.pagination.page_total * res.data.data.pagination.page_size;
           this.formInline.page_number = res.data.data.pagination.page_number;
           this.data1 = res.data.data.items;
         }

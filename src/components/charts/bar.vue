@@ -21,7 +21,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.value,"[]===");
+    // console.log(this.value,"[]===");
     // var arr = [['product', 'SMT', 'THT', 'Assembling','Public utilities']];
     this.$nextTick(() => {
       let xAxisData = Object.keys(this.value)
