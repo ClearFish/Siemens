@@ -100,7 +100,9 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.initCharts();
+      setTimeout(() => {
+        this.initCharts();
+      }, 100);
     });
   },
   beforeDestroy() {

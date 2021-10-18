@@ -132,6 +132,7 @@
                   style="height: 300px"
                   :value="barValue"
                   text="每周用户活跃量"
+                  v-if="barValue.length"
                 />
               </Card>
             </div>
