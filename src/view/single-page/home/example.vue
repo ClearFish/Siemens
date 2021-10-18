@@ -1,111 +1,139 @@
 <template>
-    <div ref="dom"></div>
+  <div ref="dom"></div>
 </template>
 
 <script>
-import echarts from 'echarts'
-import { on, off } from '@/libs/tools'
+import echarts from "echarts";
+import { on, off } from "@/libs/tools";
 export default {
-  name: 'serviceRequests',
-  props:['xdata','data1','data2'],
-  data () {
+  name: "serviceRequests",
+  props: ["xdata", "data1", "data2"],
+  data() {
     return {
-      dom: null
-    }
+      dom: null,
+    };
   },
   methods: {
-    resize () {
-      this.dom.resize()
-    }
+    resize() {
+      this.dom.resize();
+    },
   },
-  mounted () {
+  mounted() {
     const option = {
       tooltip: {
-        trigger: 'axis',
+        trigger: "axis",
         axisPointer: {
-          type: 'cross',
+          type: "cross",
           label: {
-            backgroundColor: '#006D80'
-          }
+            backgroundColor: "#006D80",
+          },
         },
-        formatter:function(val) {
-          return '<div><span>Emission Scope 1&2：</span>'+(val[0].data).toFixed(3)+'</div>' +
-                  '<div><span>Emission Scope 3：</span>'+(val[1].data).toFixed(3)+'</div>'
-        }
+        formatter: function (val) {
+          return (
+            "<div><span>Emission Scope 1&2：</span>" +
+            val[0].data.toFixed(3) +
+            "</div>" +
+            "<div><span>Emission Scope 3：</span>" +
+            val[1].data.toFixed(3) +
+            "</div>"
+          );
+        },
       },
-      color:["#A4DC94","#00D3C9"],
+      color: ["#A4DC94", "#00D3C9"],
       grid: {
-        top: '3%',
-        left: '1.2%',
-        right: '2%',
-        bottom: '3%',
-        containLabel: true
+        top: "10%",
+        left: "1.2%",
+        right: "2%",
+        bottom: "3%",
+        containLabel: true,
       },
       xAxis: [
         {
-          type: 'category',
+          type: "category",
           boundaryGap: false,
           // data: ['Q1', 'Q2', 'Q3', 'Q4']
-          data:this.xdata
-        }
+          data: this.xdata,
+        },
       ],
+      legend: {
+        data: ["Emission Scope 1&2", "Emission Scope 3"],
+        icon: "circle",
+        left: "right",
+        top: 0,
+      },
       yAxis: [
         {
-          type: 'value'
-        }
+          type: "value",
+        },
       ],
       series: [
         {
-          name: 'Emission Scope 1&2',
-          type: 'line',
-          stack: '总量',
-          areaStyle: { normal: {
-            color:new echarts.graphic.LinearGradient(0,0,0,1,[
-                            {
-                                offset:0,
-                                color:'#A4DC94'
-                            },
-                            {
-                                offset:1,
-                                color:'#fff'
-                            }
-                        ],false)
-          } },
-          lineStyle:{
-              normal:{
-                  width:3,
-                  color:'#A4DC94'
-
-              }
+          name: "Emission Scope 1&2",
+          type: "line",
+          stack: "总量",
+          areaStyle: {
+            normal: {
+              color: new echarts.graphic.LinearGradient(
+                0,
+                0,
+                0,
+                1,
+                [
+                  {
+                    offset: 0,
+                    color: "#A4DC94",
+                  },
+                  {
+                    offset: 1,
+                    color: "#fff",
+                  },
+                ],
+                false
+              ),
+            },
+          },
+          lineStyle: {
+            normal: {
+              width: 3,
+              color: "#A4DC94",
+            },
           },
           // data: [120, 132, 101, 134]
-          data:this.data1
+          data: this.data1,
         },
         {
-          name: 'Emission Scope 3',
-          type: 'line',
-          stack: '总量',
-          areaStyle: { normal: {
-            color:new echarts.graphic.LinearGradient(0,0,0,1,[
-                            {
-                                offset:0,
-                                color:'#00D3C9'
-                            },
-                            {
-                                offset:1,
-                                color:'#fff'
-                            }
-                        ],false)
-          } },
-          lineStyle:{
-              normal:{
-                  width:3,
-                  color:'#00D3C9'
-
-              }
+          name: "Emission Scope 3",
+          type: "line",
+          stack: "总量",
+          areaStyle: {
+            normal: {
+              color: new echarts.graphic.LinearGradient(
+                0,
+                0,
+                0,
+                1,
+                [
+                  {
+                    offset: 0,
+                    color: "#00D3C9",
+                  },
+                  {
+                    offset: 1,
+                    color: "#fff",
+                  },
+                ],
+                false
+              ),
+            },
+          },
+          lineStyle: {
+            normal: {
+              width: 3,
+              color: "#00D3C9",
+            },
           },
           // data: [257, 358, 278, 234]
-           data:this.data2
+          data: this.data2,
         },
         // {
         //   name: '游戏/视频',
@@ -140,16 +168,16 @@ export default {
         //   } },
         //   data: [820, 645, 546, 745, 872, 624, 258]
         // }
-      ]
-    }
+      ],
+    };
     this.$nextTick(() => {
-      this.dom = echarts.init(this.$refs.dom)
-      this.dom.setOption(option)
-      on(window, 'resize', this.resize)
-    })
+      this.dom = echarts.init(this.$refs.dom);
+      this.dom.setOption(option);
+      on(window, "resize", this.resize);
+    });
   },
-  beforeDestroy () {
-    off(window, 'resize', this.resize)
-  }
-}
+  beforeDestroy() {
+    off(window, "resize", this.resize);
+  },
+};
 </script>

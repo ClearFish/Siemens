@@ -61,7 +61,7 @@
             <strong>{{ row.name }}</strong>
           </template>
           <template slot-scope="{ row }" slot="date">
-              <span>{{timestampToTime(row.pcf_calculation_datetime)}}</span>
+            <span>{{ timestampToTime(row.pcf_calculation_datetime) }}</span>
           </template>
           <template slot-scope="{ row, index }" slot="action">
             <Button
@@ -72,7 +72,10 @@
             >
           </template>
           <template slot-scope="{ row }" slot="pcf_total">
-            <span>{{ row.pcf_total && Number(row.pcf_total).toFixed(3) }}kg CO2e</span>
+            <span
+              >{{ row.pcf_total && Number(row.pcf_total).toFixed(3) }}kg
+              CO2e</span
+            >
           </template>
         </Table>
       </div>
@@ -100,10 +103,10 @@ export default {
         page_number: 1,
         page_total: null,
       },
-      options:{
-          disabledDate (date) {
-                return date && date.valueOf() > Date.now();
-            }
+      options: {
+        disabledDate(date) {
+          return date && date.valueOf() > Date.now();
+        },
       },
       columns1: [
         {
@@ -126,13 +129,13 @@ export default {
           title: "Generation Time",
           align: "center",
           key: "pcf_calculation_datetime",
-          slot:"date"
+          slot: "date",
         },
         {
           title: "PCF VALUE",
           align: "center",
           key: "pcf_total",
-          slot:"pcf_total"
+          slot: "pcf_total",
         },
         {
           title: "Details",
@@ -169,17 +172,20 @@ export default {
       });
     },
     timestampToTime(timestamp) {
-        console.log(timestamp,this.detailData,"[]===")
-        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-        console.log(date,"[][]")
-        var Y = date.getFullYear() + '-';
-        console.log(Y,"===")
-        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-        var D = date.getDate() + ' ';
-        var h = date.getHours() + ':';
-        var m = date.getMinutes() + ':';
-        var s = date.getSeconds();
-        return Y + M + D + h + m + s;
+      console.log(timestamp, this.detailData, "[]===");
+      var date = new Date(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      console.log(date, "[][]");
+      var Y = date.getFullYear() + "-";
+      console.log(Y, "===");
+      var M =
+        (date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1) + "-";
+      var D = date.getDate() + " ";
+      var h = date.getHours() + ":";
+      var m = date.getMinutes() + ":";
+      var s = date.getSeconds();
+      return Y + M + D + h + m + s;
     },
     searchData() {
       console.log(this.formInline, "/.//");
@@ -197,7 +203,9 @@ export default {
       };
       getHistory({ ...obj }).then((res) => {
         if (res.data.code == 200) {
-          this.formInline.page_total = res.data.data.pagination.page_total * res.data.data.pagination.page_size;
+          this.formInline.page_total =
+            res.data.data.pagination.page_total *
+            res.data.data.pagination.page_size;
           this.formInline.page_number = res.data.data.pagination.page_number;
           this.data1 = res.data.data.items;
         }

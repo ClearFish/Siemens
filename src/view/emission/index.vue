@@ -48,7 +48,12 @@
               <p class="title">Emission History</p>
               <p class="sup_title">Based on the average product volume</p>
             </div>
-            <Button type="text" @click="gotoHitory">Load More</Button>
+            <Button
+              type="text"
+              @click="gotoHitory"
+              style="color: #006d80; font-size: 14px"
+              >Load More</Button
+            >
           </div>
           <div class="bottom_content">
             <div class="canvas_box">
@@ -76,10 +81,10 @@
                     </p>
                   </div>
                 </div>
-                <div class="right_canvas">
+                <!-- <div class="right_canvas">
                   <p class="first_p">Emission Scope 1&2</p>
                   <p>Emission Scope 3</p>
-                </div>
+                </div> -->
               </div>
               <div>
                 <Card shadow>
@@ -155,10 +160,10 @@
                     </p>
                   </div>
                 </div>
-                <div class="right_canvas">
+                <!-- <div class="right_canvas">
                   <p class="first_p">Emission Scope 1&2</p>
                   <p>Emission Scope 3</p>
-                </div>
+                </div> -->
               </div>
               <div>
                 <Card shadow>
@@ -200,7 +205,11 @@
             <span>CO2e</span>
           </p>
           <!-- <Card shadow> -->
-          <chart-pie style="height: 180px" :value="pieData2"></chart-pie>
+          <chart-pie
+            style="height: 180px"
+            type="pie2"
+            :value="pieData2"
+          ></chart-pie>
           <!-- </Card> -->
           <div class="right_progress">
             <div class="top">
@@ -243,7 +252,9 @@
           </div>
           <div class="right_progress">
             <div class="top">
-              <p class="top_left">Public utilities：{{ pieData2[3].value }}kg</p>
+              <p class="top_left">
+                Public utilities：{{ pieData2[3].value }}kg
+              </p>
               <p class="top_percent">
                 {{ (pieData2[3].value / pieData[0].value).toFixed(3) * 100 }}%
               </p>
@@ -294,10 +305,10 @@ export default {
         { title: "Supplies", id: 3, count: 0 },
       ],
       options: {
-            disabledDate (date) {
-                return date && date.valueOf() > Date.now();
-            }
+        disabledDate(date) {
+          return date && date.valueOf() > Date.now();
         },
+      },
       pieData: [
         {
           value: null,
@@ -310,7 +321,11 @@ export default {
         { value: null, name: "SMT", itemStyle: { color: "#006D80" } },
         { value: null, name: "THT", itemStyle: { color: "#00D3C9" } },
         { value: null, name: "Assembling", itemStyle: { color: "#A4DC94" } },
-        {value: null,name: "Public utilities",itemStyle: { color: "#FFE898" }}
+        {
+          value: null,
+          name: "Public utilities",
+          itemStyle: { color: "#FFE898" },
+        },
       ],
       firstFilter: "day",
       secondFilter: "day",
@@ -350,7 +365,7 @@ export default {
     // this.barValue = valueList;
 
     //   面积
-    this.dataChrts2 = mock2Data.data;
+    // this.dataChrts2 = mock2Data.data;
     var obj = {
       year: this.querForm.year,
       factory: this.querForm.factory,
@@ -360,7 +375,6 @@ export default {
     this.queryData();
   },
   methods: {
-
     firstChose(type) {
       this.firstFilter = type;
       var obj = {
@@ -407,7 +421,7 @@ export default {
           this.topList[3].count = res.data.data.supplier_count;
         }
       });
-      
+
       this.getPcfData({
         year: this.querForm.year.getFullYear(),
         factory: this.querForm.factory,
@@ -433,31 +447,30 @@ export default {
       };
       getPcfTotal({ ...obj }).then((res) => {
         if (res.data.code == 200) {
-        
           this.totalData = res.data.data;
-          console.log(this.totalData,"totalData,jiekou");
-           this.pieData[0].value = Number(
-                (
-                this.totalData.pcf_scope12.smt +
-                this.totalData.pcf_scope12.tht +
-                this.totalData.pcf_scope12.assembling +
-                this.totalData.pcf_scope12.public
-                ).toFixed(3)
-            );
-            this.pieData[1].value = Number(this.totalData.pcf_scope3.toFixed(3));
+          console.log(this.totalData, "totalData,jiekou");
+          this.pieData[0].value = Number(
+            (
+              this.totalData.pcf_scope12.smt +
+              this.totalData.pcf_scope12.tht +
+              this.totalData.pcf_scope12.assembling +
+              this.totalData.pcf_scope12.public
+            ).toFixed(3)
+          );
+          this.pieData[1].value = Number(this.totalData.pcf_scope3.toFixed(3));
 
-            this.pieData2[0].value = Number(
-                this.totalData.pcf_scope12.smt.toFixed(3)
-            );
-            this.pieData2[1].value = Number(
-                this.totalData.pcf_scope12.tht.toFixed(3)
-            );
-            this.pieData2[2].value = Number(
-                this.totalData.pcf_scope12.assembling.toFixed(3)
-            );
-            this.pieData2[3].value = Number(
-                this.totalData.pcf_scope12.public.toFixed(3)
-            );
+          this.pieData2[0].value = Number(
+            this.totalData.pcf_scope12.smt.toFixed(3)
+          );
+          this.pieData2[1].value = Number(
+            this.totalData.pcf_scope12.tht.toFixed(3)
+          );
+          this.pieData2[2].value = Number(
+            this.totalData.pcf_scope12.assembling.toFixed(3)
+          );
+          this.pieData2[3].value = Number(
+            this.totalData.pcf_scope12.public.toFixed(3)
+          );
         } else {
           this.totalData = toalmock;
         }
@@ -468,7 +481,7 @@ export default {
       getPcfbyscope({ ...obj }).then((res) => {
         if (res.data.code == 200) {
           this.dataChrts = res.data.data;
-          console.log(this.dataChrts,'接口')
+          console.log(this.dataChrts, "接口");
         } else {
           //   面积图
           this.dataChrts = mockData.data;
@@ -489,7 +502,7 @@ export default {
             console.log(arr);
             return arr;
           });
-          // console.log(valueList,"[]]]-=---");
+          console.log(valueList, "[]]]-接口返回process=---");
           valueList[0] = [
             "product",
             "SMT",
@@ -498,7 +511,7 @@ export default {
             "Public utilities",
           ];
           this.barValue = valueList;
-          console.log(this.barValue,'接口barValue')
+          console.log(this.barValue, "接口barValue");
         }
       });
     },
@@ -507,7 +520,7 @@ export default {
       getPcfbyproduct({ ...obj }).then((res) => {
         if (res.data.code == 200) {
           this.dataChrts2 = res.data.data;
-          console.log(this.dataChrts2,'dataChrts2Value')
+          console.log(this.dataChrts2, "dataChrts2Value");
         } else {
           //   面积图
           this.dataChrts2 = mock2Data.data;
