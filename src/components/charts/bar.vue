@@ -9,40 +9,34 @@ import { on, off } from "@/libs/tools";
 echarts.registerTheme("tdTheme", tdTheme);
 export default {
   name: "ChartBar",
-  props: ["value"],
+  props: {
+    value: Array,
+    text: String,
+    subtext: String,
+  },
   data() {
     return {
       dom: null,
     };
   },
+  watch: {
+    value: {
+      handler: function (val, oldval) {
+        if (val != oldval) {
+          this.initCharts();
+        }
+      },
+      deep: true,
+    },
+  },
   methods: {
     resize() {
       this.dom.resize();
     },
-  },
-  mounted() {
-    console.log(this.value, "[]=bar组件里面==");
-    // var arr = [['product', 'SMT', 'THT', 'Assembling','Public utilities']];
-    this.$nextTick(() => {
-      let xAxisData = Object.keys(this.value);
-      let seriesData = Object.values(this.value);
+    initCharts() {
+      let value = this.value;
+      console.log(value, "[]=bar组件里面==");
       let option = {
-        // title: {
-        //   text: this.text,
-        //   subtext: this.subtext,
-        //   x: 'center'
-        // },
-        // xAxis: {
-        //   type: 'category',
-        //   data: xAxisData
-        // },
-        // yAxis: {
-        //   type: 'value'
-        // },
-        // series: [{
-        //   data: seriesData,
-        //   type: 'bar'
-        // }]
         color: ["#006D80", "#00D3C9", "#A4DC94", "#FFE898"],
         dataZoom: [
           {
@@ -79,7 +73,7 @@ export default {
           },
         },
         dataset: {
-          source: this.value,
+          source: value,
           // [
           //   ['product', 'SMT', 'THT', 'Assembling','Public utilities'],
           //   ['Q1', 43.3, 85.8, 93.7,33.7],
@@ -102,6 +96,11 @@ export default {
       this.dom = echarts.init(this.$refs.dom, "tdTheme");
       this.dom.setOption(option);
       on(window, "resize", this.resize);
+    },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.initCharts();
     });
   },
   beforeDestroy() {

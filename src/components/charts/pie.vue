@@ -20,6 +20,16 @@ export default {
       dom: null,
     };
   },
+  watch: {
+    value: {
+      handler: function (val, oldval) {
+        if (val != oldval) {
+          this.initCharts();
+        }
+      },
+      deep: true,
+    },
+  },
   methods: {
     resize() {
       this.dom.resize();
@@ -27,7 +37,11 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      let legend = this.value.map((_) => _.name);
+      this.initCharts();
+    });
+  },
+  methods: {
+    initCharts() {
       let valus = this.value;
       let self = this;
       let option = {
@@ -138,7 +152,7 @@ export default {
       this.dom = echarts.init(this.$refs.dom, "tdTheme");
       this.dom.setOption(option);
       on(window, "resize", this.resize);
-    });
+    },
   },
   beforeDestroy() {
     off(window, "resize", this.resize);

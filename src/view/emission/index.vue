@@ -330,8 +330,15 @@ export default {
       firstFilter: "day",
       secondFilter: "day",
       thirdFilter: "day",
-      dataChrts: {},
-      dataChrts2: {},
+      dataChrts: {
+        periods: [],
+        scope12_sequence: [],
+        scope3_sequence: [],
+      },
+      dataChrts2: {
+        periods: [],
+        product_pcf_sequences: [],
+      },
       barValue: [],
       productList: [{ name: "SEWC", id: "SEWC" }],
     };
@@ -362,6 +369,7 @@ export default {
       return arr;
     });
     valueList[0] = ["product", "SMT", "THT", "Assembling", "Public utilities"];
+    // console.log(valueList,"999mocklist")
     // this.barValue = valueList;
 
     //   面积
@@ -481,6 +489,9 @@ export default {
       getPcfbyscope({ ...obj }).then((res) => {
         if (res.data.code == 200) {
           this.dataChrts = res.data.data;
+          // this.$set(this.dataChrts, "periods", res.data.data.periods);
+          // this.$set(this.dataChrts,"scope12_sequence",res.data.data.scope12_sequence);
+          // this.$set(this.dataChrts,"scope3_sequence",res.data.data.scope3_sequence);
           console.log(this.dataChrts, "接口");
         } else {
           //   面积图
@@ -492,26 +503,34 @@ export default {
     getProgressData(obj) {
       getPcfbyprocess({ ...obj }).then((res) => {
         if (res.data.code == 200) {
-          var valueList = res.data.data.periods.map((item, index) => {
-            var arr = [];
-            arr.push(item);
-            arr.push(res.data.data.process_pcf_sequence[index].smt);
-            arr.push(res.data.data.process_pcf_sequence[index].tht);
-            arr.push(res.data.data.process_pcf_sequence[index].assembling);
-            arr.push(res.data.data.process_pcf_sequence[index].public);
-            console.log(arr);
-            return arr;
-          });
-          console.log(valueList, "[]]]-接口返回process=---");
-          valueList[0] = [
-            "product",
-            "SMT",
-            "THT",
-            "Assembling",
-            "Public utilities",
-          ];
-          this.barValue = valueList;
-          console.log(this.barValue, "接口barValue");
+          var resData = res.data.data;
+          console.log(
+            resData.periods.length,
+            resData.process_pcf_sequence.length,
+            "res.data.data.periods,res.data.data.process_pcf_sequence"
+          );
+          if (resData.periods.length && resData.process_pcf_sequence.length) {
+            var valueList = resData.periods.map((item, index) => {
+              var arr = [];
+              arr.push(item);
+              arr.push(resData.process_pcf_sequence[index].smt);
+              arr.push(resData.process_pcf_sequence[index].tht);
+              arr.push(resData.process_pcf_sequence[index].assembling);
+              arr.push(resData.process_pcf_sequence[index].public);
+              console.log(arr);
+              return arr;
+            });
+            console.log(valueList, "[]]]-接口返回process=---");
+            valueList[0] = [
+              "product",
+              "SMT",
+              "THT",
+              "Assembling",
+              "Public utilities",
+            ];
+            this.barValue = valueList;
+            console.log(this.barValue, "接口barValue");
+          }
         }
       });
     },
@@ -520,6 +539,8 @@ export default {
       getPcfbyproduct({ ...obj }).then((res) => {
         if (res.data.code == 200) {
           this.dataChrts2 = res.data.data;
+          // this.$set(this.dataChrts2, "periods", res.data.data.periods);
+          // this.$set(this.dataChrts2,"product_pcf_sequences",res.data.data.product_pcf_sequences);
           console.log(this.dataChrts2, "dataChrts2Value");
         } else {
           //   面积图

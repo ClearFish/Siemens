@@ -15,7 +15,10 @@
           <p class="logo_box"></p>
           <p class="title">GREEN Connect</p>
         </div>
-        <div class="router_box">
+        <div
+          class="router_box"
+          style="flex: 1; display: flex; justify-content: center"
+        >
           <Menu
             mode="horizontal"
             :theme="theme1"
@@ -29,7 +32,7 @@
             </Menu-item> -->
           </Menu>
         </div>
-        <div class="lange">
+        <div class="lange" style="width: 229px">
           <!-- <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local"/> -->
         </div>
       </Header>

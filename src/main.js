@@ -15,9 +15,49 @@ import '@/assets/icons/iconfont.css'
 import TreeTable from 'tree-table-vue'
 import VOrgTree from 'v-org-tree'
 import 'v-org-tree/dist/v-org-tree.css'
+import Keycloak from 'keycloak-js'
 // 实际打包时应该不引入mock
 /* eslint-disable */
 if (process.env.NODE_ENV !== 'production') require('@/mock')
+
+const initOptions = {
+  url: '/',
+  realm: 'demo',
+  clientId: 'vue-demo',
+  onLoad:'login-required'
+}
+const keycloak = Keycloak(initOptions);
+
+// keycloak.init({ onLoad: initOptions.onLoad, promiseType: 'native' }).then((authenticated) =>{
+//   console.log('keycloak',authenticated)
+//   if(!authenticated) {
+//     window.location.reload();
+//   } else {
+//     Vue.prototype.$keycloak = keycloak
+//     console.log('Authenticated')
+//   }
+
+//   new Vue({
+//     render: h => h(App),
+//   }).$mount('#app')
+
+//   setInterval(() =>{
+//     keycloak.updateToken(70).then((refreshed)=>{
+//       if (refreshed) {
+//         console.log('Token refreshed');
+//       } else {
+//         console.log('Token not refreshed, valid for '
+//             + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
+//       }
+//     }).catch(error => {
+//       console.log('Failed to refresh token', error)
+//     })
+//   }, 60000)
+
+// }).catch(error => {
+//   console.log('Authenticated Failed', error)
+// })
+
 
 Vue.use(iView, {
   i18n: (key, value) => i18n.t(key, value)

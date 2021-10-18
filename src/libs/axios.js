@@ -1,6 +1,8 @@
 import axios from 'axios'
 import store from '@/store'
-// import { Spin } from 'iview'
+import Vue from "vue"
+// import { Spin } from 'iview'\
+console.log(store,Vue.prototype,"-====")
 const addErrorLog = errorInfo => {
   const { statusText, status, request: { responseURL } } = errorInfo
   let info = {
