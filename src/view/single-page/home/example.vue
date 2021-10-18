@@ -17,6 +17,7 @@ export default {
     xdata: {
       handler: function (val, oldval) {
         if (val != oldval) {
+          console.log(val,"改变了")
           this.resetEcharts(val,this.data1,this.data2);
         }
       },
@@ -28,6 +29,7 @@ export default {
       this.dom.resize();
     },
     resetEcharts(xdata,data1,data2) {
+      console.log(xdata,data1,data2,"///gaibianzhi ")
       const option = {
         tooltip: {
           trigger: "axis",
@@ -179,6 +181,7 @@ export default {
           // }
         ],
       };
+      this.dom.clear()
        this.dom.setOption(option,true)
     },
     initCharts() {

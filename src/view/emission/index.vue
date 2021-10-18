@@ -385,6 +385,7 @@ export default {
   },
   methods: {
     firstChose(type) {
+      // this.dataChrts = mockCopy.data
       this.firstFilter = type;
       var obj = {
         year: this.querForm.year.getFullYear(),
