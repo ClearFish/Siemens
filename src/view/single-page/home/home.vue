@@ -4,7 +4,14 @@
       <Poptip placement="top" class="point1">
         <p class="point point1"></p>
         <div slot="content">
-          <p>{{ homeData.scope2  &&  homeData.scope2.assembling.toFixed(3) == '0.000' ? 0 : homeData.scope2.assembling.toFixed(3)}}kg</p>
+          <p>
+            {{
+              homeData.scope2 &&
+              homeData.scope2.assembling.toFixed(3) == "0.000"
+                ? 0
+                : homeData.scope2.assembling.toFixed(3)
+            }}kg
+          </p>
           <p>CO2e</p>
         </div>
       </Poptip>
@@ -12,52 +19,104 @@
         <p class="point point2"></p>
         <div class="has_get fadeout">
           <p class="text">+</p>
-          <p>{{homeData.scope2 && homeData.scope2.smt.toFixed(3) == '0.000' ? 0 : homeData.scope2.smt.toFixed(3)}}kg</p>
+          <p>
+            {{
+              homeData.scope2 && homeData.scope2.smt.toFixed(3) == "0.000"
+                ? 0
+                : homeData.scope2.smt.toFixed(3)
+            }}kg
+          </p>
         </div>
         <div slot="content">
-          <p>{{ homeData.scope2 && homeData.scope2.smt.toFixed(3) == '0.000' ? 0 : homeData.scope2.smt.toFixed(3)}}kg</p>
+          <p>
+            {{
+              homeData.scope2 && homeData.scope2.smt.toFixed(3) == "0.000"
+                ? 0
+                : homeData.scope2.smt.toFixed(3)
+            }}kg
+          </p>
           <p>CO2e</p>
         </div>
       </Poptip>
       <Poptip placement="top" class="point3">
         <p class="point point3"></p>
         <div slot="content">
-          <p>{{ homeData.scope1.toFixed(3) == '0.000' ? 0 : homeData.scope1.toFixed(3)}}kg</p>
+          <p>
+            {{
+              homeData.scope1.toFixed(3) == "0.000"
+                ? 0
+                : homeData.scope1.toFixed(3)
+            }}kg
+          </p>
           <p>CO2e</p>
         </div>
       </Poptip>
       <Poptip placement="top" class="point4">
         <p class="point point4"></p>
         <div slot="content">
-          <p>{{ homeData.scope2 && homeData.scope2.public.toFixed(3) == '0.000' ? 0  :homeData.scope2.public.toFixed(3)}}kg</p>
+          <p>
+            {{
+              homeData.scope2 && homeData.scope2.public.toFixed(3) == "0.000"
+                ? 0
+                : homeData.scope2.public.toFixed(3)
+            }}kg
+          </p>
           <p>CO2e</p>
         </div>
       </Poptip>
       <Poptip placement="top" class="point5">
         <p class="point point5"></p>
         <div slot="content">
-          <p>{{ homeData.scope2 && homeData.scope2.tht.toFixed(3) == '0.000' ?0 : homeData.scope2.tht.toFixed(3) }}kg</p>
+          <p>
+            {{
+              homeData.scope2 && homeData.scope2.tht.toFixed(3) == "0.000"
+                ? 0
+                : homeData.scope2.tht.toFixed(3)
+            }}kg
+          </p>
           <p>CO2e</p>
         </div>
       </Poptip>
       <Poptip placement="top" class="point6">
         <p class="point point6"></p>
         <div slot="content">
-          <p>{{ homeData.scope3 && homeData.scope3[0].pcf.toFixed(3) == '0.000' ?0 : homeData.scope3[0].pcf.toFixed(3)}}kg</p>
+          <p>
+            {{
+              homeData.scope3 && homeData.scope3[0].pcf.toFixed(3) == "0.000"
+                ? 0
+                : homeData.scope3[0].pcf.toFixed(3)
+            }}kg
+          </p>
           <p>CO2e</p>
         </div>
       </Poptip>
       <Poptip placement="top" class="point7">
         <p class="point point7"></p>
         <div slot="content">
-          <p>{{ homeData.scope3 && homeData.scope3[1] ? homeData.scope3[1].pcf.toFixed(3) == '0.000'?0: homeData.scope3[1].pcf.toFixed(3) :0}}kg</p>
+          <p>
+            {{
+              homeData.scope3 && homeData.scope3[1]
+                ? homeData.scope3[1].pcf.toFixed(3) == "0.000"
+                  ? 0
+                  : homeData.scope3[1].pcf.toFixed(3)
+                : 0
+            }}kg
+          </p>
           <p>CO2e</p>
         </div>
       </Poptip>
       <Poptip placement="top" class="point8">
         <p class="point point8"></p>
         <div slot="content">
-          <p>{{ homeData.scope3 && homeData.scope3[2] ? homeData.scope3[2].pcf.toFixed(3) == '0.000'?0: homeData.scope3[2].pcf.toFixed(3) :0}}kg</p>
+          <p>
+            {{
+              homeData.scope3 && homeData.scope3[2]
+                ? homeData.scope3[2].pcf.toFixed(3) == "0.000"
+                  ? 0
+                  : homeData.scope3[2].pcf.toFixed(3)
+                : 0
+            }}kg
+          </p>
           <p>CO2e</p>
         </div>
       </Poptip>
@@ -76,7 +135,18 @@
             <p class="title">Serial No：{{ homeData.serial }}</p>
           </div>
           <div class="right">
-            <p class="img_box" :style="{background: 'url('+ require('../../../assets/images/' + homeData.product_id + '.jpg')+')', backgroundSize:'cover'}"></p>
+            <p
+              class="img_box"
+              :style="{
+                background:
+                  'url(' +
+                  require('../../../assets/images/' +
+                    homeData.product_id +
+                    '.jpg') +
+                  ')',
+                backgroundSize: 'cover',
+              }"
+            ></p>
             <!-- <img :src="'../../../assets/images/'+homeData.product_id+'.jpg'" alt=""> -->
           </div>
         </div>
@@ -86,12 +156,14 @@
             <span
               >{{
                 homeData.scope2 &&
-                  (homeData.scope1 +
+                (
+                  homeData.scope1 +
                   homeData.scope2.assembling +
                   homeData.scope2.public +
                   homeData.scope2.smt +
                   homeData.scope2.tht +
-                  Number(homeData.transportation)).toFixed(3)
+                  Number(homeData.transportation)
+                ).toFixed(3)
               }}kg
             </span>
             <span>CO2e</span>
@@ -101,17 +173,22 @@
             <span
               >{{
                 homeData.scope2 &&
-                 ( homeData.scope1 +
+                (
+                  homeData.scope1 +
                   homeData.scope2.assembling +
                   homeData.scope2.public +
                   homeData.scope2.smt +
-                  homeData.scope2.tht).toFixed(3)
+                  homeData.scope2.tht
+                ).toFixed(3)
               }}kg</span
             >
             CO2e
           </p>
           <p class="bottom_acount chang_color">
-            Emission Scope 3：<span>{{ (Number(homeData.scope3_total)).toFixed(3) }}kg</span> CO2e
+            Emission Scope 3：<span
+              >{{ Number(homeData.scope3_total).toFixed(3) }}kg</span
+            >
+            CO2e
           </p>
         </div>
       </div>
@@ -163,7 +240,7 @@ export default {
   methods: {
     ...mapMutations(["setProducts"]),
     getlist() {
-      console.log(123123, mockData);
+      // console.log(123123, mockData);
       this.dataTotal = mockData.data;
       this.homeData = mockData.data[this.count];
       getHomeData().then((res) => {
@@ -171,8 +248,7 @@ export default {
         if (res.data.code == 200) {
           this.dataTotal = res.data.data;
           this.homeData = res.data.data[this.count];
-          console.log(this.dataTotal,"接口");
-
+          console.log(this.dataTotal, "接口");
         } else {
           this.dataTotal = mockData.data;
           this.homeData = mockData.data[this.count];
@@ -185,7 +261,7 @@ export default {
         };
         return obj;
       });
-      console.log(idList, "--==");
+      // console.log(idList, "--==");
       this.setProducts(idList);
     },
     showDialog() {
@@ -449,8 +525,8 @@ export default {
               .img_box {
                 width: 85px;
                 height: 85px;
-                background: url("../../../assets/images/6ES75111CK010AB0.jpg") no-repeat
-                  center;
+                background: url("../../../assets/images/6ES75111CK010AB0.jpg")
+                  no-repeat center;
                 background-size: cover !important;
               }
             }

@@ -195,7 +195,7 @@
             <span>CO2e</span>
           </p>
           <!-- <Card shadow> -->
-          <chart-pie style="height: 120px" :value="pieData"></chart-pie>
+          <chart-pie style="height: 180px" :value="pieData"></chart-pie>
           <!-- </Card> -->
         </div>
         <div class="right_top right_bottom">
@@ -216,11 +216,19 @@
             <div class="top">
               <p class="top_left">SMT：{{ pieData2[0].value }}kg</p>
               <p class="top_percent">
-                {{ (pieData2[0].value / pieData[0].value).toFixed(3) * 100 }}%
+                {{
+                  pieData[0].value == 0
+                    ? "0.000"
+                    : (pieData2[0].value / pieData[0].value).toFixed(3) * 100
+                }}%
               </p>
             </div>
             <Progress
-              :percent="(pieData2[0].value / pieData[0].value).toFixed(3) * 100"
+              :percent="
+                pieData[0].value == 0
+                  ? 0
+                  : (pieData2[0].value / pieData[0].value).toFixed(3) * 100
+              "
               hide-info
               status="normal"
             />
@@ -229,11 +237,19 @@
             <div class="top">
               <p class="top_left">THT：{{ pieData2[1].value }}kg</p>
               <p class="top_percent">
-                {{ (pieData2[1].value / pieData[0].value).toFixed(3) * 100 }}%
+                {{
+                  pieData[0].value == 0
+                    ? "0.000"
+                    : (pieData2[1].value / pieData[0].value).toFixed(3) * 100
+                }}%
               </p>
             </div>
             <Progress
-              :percent="(pieData2[1].value / pieData[0].value).toFixed(3) * 100"
+              :percent="
+                pieData[0].value == 0
+                  ? 0
+                  : (pieData2[1].value / pieData[0].value).toFixed(3) * 100
+              "
               hide-info
               status="active"
             />
@@ -242,11 +258,20 @@
             <div class="top">
               <p class="top_left">Assembling：{{ pieData2[2].value }}kg</p>
               <p class="top_percent">
-                {{ (pieData2[2].value / pieData[0].value).toFixed(3) * 100 }}%
+                {{
+                  pieData[0].value == 0
+                    ? "0.000"
+                    : (pieData2[2].value / pieData[0].value).toFixed(3) * 100
+                }}%
               </p>
             </div>
             <Progress
-              :percent="(pieData2[2].value / pieData[0].value).toFixed(3) * 100"
+              :percent="
+                (pieData[0].value == 0
+                  ? 0
+                  : pieData2[2].value / pieData[0].value
+                ).toFixed(3) * 100
+              "
               hide-info
               status="wrong"
             />
@@ -257,11 +282,20 @@
                 Public utilities：{{ pieData2[3].value }}kg
               </p>
               <p class="top_percent">
-                {{ (pieData2[3].value / pieData[0].value).toFixed(3) * 100 }}%
+                {{
+                  pieData[0].value == 0
+                    ? "0.000"
+                    : (pieData2[3].value / pieData[0].value).toFixed(3) * 100
+                }}%
               </p>
             </div>
             <Progress
-              :percent="(pieData2[3].value / pieData[0].value).toFixed(3) * 100"
+              :percent="
+                (pieData[0].value == 0
+                  ? 0
+                  : pieData2[3].value / pieData[0].value
+                ).toFixed(3) * 100
+              "
               hide-info
               status="success"
             />
@@ -312,18 +346,18 @@ export default {
       },
       pieData: [
         {
-          value: null,
+          value: 0,
           name: "Scope 1& Scope 2",
           itemStyle: { color: "#006D80" },
         },
-        { value: null, name: "Scope 3", itemStyle: { color: "#00D3C9" } },
+        { value: 0, name: "Scope 3", itemStyle: { color: "#00D3C9" } },
       ],
       pieData2: [
-        { value: null, name: "SMT", itemStyle: { color: "#006D80" } },
-        { value: null, name: "THT", itemStyle: { color: "#00D3C9" } },
-        { value: null, name: "Assembling", itemStyle: { color: "#A4DC94" } },
+        { value: 0, name: "SMT", itemStyle: { color: "#006D80" } },
+        { value: 0, name: "THT", itemStyle: { color: "#00D3C9" } },
+        { value: 0, name: "Assembling", itemStyle: { color: "#A4DC94" } },
         {
-          value: null,
+          value: 0,
           name: "Public utilities",
           itemStyle: { color: "#FFE898" },
         },
@@ -346,7 +380,7 @@ export default {
   },
   created() {
     //   面积图
-    // this.dataChrts = mockData.data;
+    this.dataChrts = mockData.data;
     var obj = {
       year: this.querForm.year,
       factory: this.querForm.factory,
@@ -371,16 +405,16 @@ export default {
     });
     valueList[0] = ["product", "SMT", "THT", "Assembling", "Public utilities"];
     // console.log(valueList,"999mocklist")
-    // this.barValue = valueList;
+    this.barValue = valueList;
 
     //   面积
-    // this.dataChrts2 = mock2Data.data;
+    this.dataChrts2 = mock2Data.data;
     var obj = {
       year: this.querForm.year,
       factory: this.querForm.factory,
       frequency: this.thirdFilter,
     };
-    // this.totalData = toalmock.data;
+    this.totalData = toalmock.data;
     this.queryData();
   },
   methods: {

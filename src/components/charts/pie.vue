@@ -97,7 +97,12 @@ export default {
                 value = item.value;
               }
             });
-            var p = ((value / total) * 100).toFixed(3); // 求出百分比,保留2位小数
+            console.log(total, "totaltotaltotaltotal");
+            if (total == 0) {
+              var p = "0.000";
+            } else {
+              var p = ((value / total) * 100).toFixed(3); // 求出百分比,保留2位小数
+            }
             if (self.type == "pie2") {
               return `{a|${name}}         {c|${p}%}`;
             } else {
@@ -150,7 +155,7 @@ export default {
           },
         ],
       };
-      this.dom.setOption(option,true);
+      this.dom.setOption(option, true);
     },
     initCharts() {
       let valus = this.value;
@@ -207,9 +212,14 @@ export default {
                 value = item.value;
               }
             });
-            var p = ((value / total) * 100).toFixed(3); // 求出百分比,保留2位小数
+            console.log(total, "totaltotaltotaltotal");
+            if (total == 0) {
+              var p = "0.000";
+            } else {
+              var p = ((value / total) * 100).toFixed(3); // 求出百分比,保留2位小数
+            }
             if (self.type == "pie2") {
-              return `{a|${name}}         {c|${p}%}`;
+              return `{a|${name}}{c|${p}%}`;
             } else {
               return `{a|${name}}\n{b|${value}CO2e}{c|${p}%}`; // 返回出图例所显示的内容是名称+百分比
             }

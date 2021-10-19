@@ -57,6 +57,13 @@
       </div>
       <div class="table_box">
         <Table :columns="columns1" :data="data1">
+          <template slot-scope="{ index }" slot="tableIndex">
+            <span>{{
+              formInline.page_number == 1
+                ? index + 1
+                : (index + 1) * ((formInline.page_number - 1) * 10)
+            }}</span>
+          </template>
           <template slot-scope="{ row }" slot="name">
             <strong>{{ row.name }}</strong>
           </template>
@@ -101,7 +108,7 @@ export default {
         end_datetime: "",
         page_size: 10,
         page_number: 1,
-        page_total: null,
+        page_total: 2,
       },
       options: {
         disabledDate(date) {
@@ -110,10 +117,12 @@ export default {
       },
       columns1: [
         {
-          type: "index",
+          // type: "index",
+          key: "number",
           width: 60,
           align: "center",
           title: "No.",
+          slot: "tableIndex",
         },
         {
           title: "Product ID",

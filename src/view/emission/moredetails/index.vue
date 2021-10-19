@@ -121,7 +121,7 @@
               </div>
               <div class="right">
                 <p class="name">{{ item.material_name }}</p>
-                <p class="number">{{ item.pcf && item.pcf.toFixed(3) }}</p>
+                <p class="number">{{ item.pcf && item.pcf.toFixed(3) }}kg</p>
               </div>
             </li>
           </ul>
@@ -168,7 +168,8 @@ export default {
         pcf_scope3: [
           {
             material_id: "asdasd",
-            material_name: "asdasd",
+            material_name:
+              "Assembling Assembling Assembling Assembling Assembling Assembling",
             pcf: 0,
             image_url: "null",
           },
@@ -176,6 +177,18 @@ export default {
             material_id: "asdasd",
             material_name: "asdasd",
             pcf: 2,
+            image_url: "null",
+          },
+          {
+            material_id: "asdasd",
+            material_name: "asdasd",
+            pcf: 4,
+            image_url: "null",
+          },
+          {
+            material_id: "asdasd",
+            material_name: "asdasd",
+            pcf: 6,
             image_url: "null",
           },
           {
@@ -522,7 +535,7 @@ export default {
         width: 100%;
         ul {
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-start;
           align-items: center;
           width: 100%;
           flex-wrap: wrap;
@@ -532,7 +545,10 @@ export default {
             align-items: center;
             padding: 10px;
             border: 1px solid #cdcdcd;
-            width: 20%;
+            width: 22%;
+            margin-right: 3%;
+            margin-bottom: 20px;
+            overflow: hidden;
             .left {
               width: 78px;
               height: 52px;
@@ -548,10 +564,15 @@ export default {
             }
             .right {
               margin-left: 10px;
+              flex: 1;
               .name {
+                width: 100%;
                 font-size: 14px;
                 color: #000;
                 opacity: 0.6;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
               }
               .number {
                 font-size: 14px;

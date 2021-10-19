@@ -2,8 +2,9 @@ import axios from 'axios'
 import store from '@/store'
 import Vue from "vue"
 // import { Spin } from 'iview'\
-console.log(store,Vue.prototype,"-====")
+// console.log(store,Vue.prototype,"-====")
 const addErrorLog = errorInfo => {
+  // console.log(errorInfo,"009errorInfoerrorInfoerrorInfo999")
   const { statusText, status, request: { responseURL } } = errorInfo
   let info = {
     type: 'ajax',
@@ -41,6 +42,7 @@ class HttpRequest {
       if (!Object.keys(this.queue).length) {
         // Spin.show() // 不建议开启，因为界面不友好
       }
+      config.headers['Authorization'] = 'Bearer ' +localStorage.getItem('token')
       this.queue[url] = true
       return config
     }, error => {
@@ -54,6 +56,7 @@ class HttpRequest {
     }, error => {
       this.destroy(url)
       let errorInfo = error.response
+      // console.log(errorInfo,error,"[]=-=-----errorInfoerrorInfo")
       if (!errorInfo) {
         const { request: { statusText, status }, config } = JSON.parse(JSON.stringify(error))
         errorInfo = {

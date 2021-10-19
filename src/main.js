@@ -21,7 +21,7 @@ import Keycloak from 'keycloak-js'
 if (process.env.NODE_ENV !== 'production') require('@/mock')
 
 const initOptions = {
-  url: '/',
+  url: 'http://127.0.0.1:8080/auth',
   realm: 'demo',
   clientId: 'vue-demo',
   onLoad:'login-required'
@@ -33,7 +33,8 @@ const keycloak = Keycloak(initOptions);
 //   if(!authenticated) {
 //     window.location.reload();
 //   } else {
-//     Vue.prototype.$keycloak = keycloak
+//     Vue.prototype.$keycloak = keycloak;
+//     localStorage.setItem('token',keycloak.token)
 //     console.log('Authenticated')
 //   }
 
@@ -45,6 +46,7 @@ const keycloak = Keycloak(initOptions);
 //     keycloak.updateToken(70).then((refreshed)=>{
 //       if (refreshed) {
 //         console.log('Token refreshed');
+//         localStorage.setItem('token',keycloak.token)
 //       } else {
 //         console.log('Token not refreshed, valid for '
 //             + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
