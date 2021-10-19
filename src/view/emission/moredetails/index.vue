@@ -203,6 +203,24 @@ export default {
             pcf: 6,
             image_url: "null",
           },
+          {
+            material_id: "asdasd",
+            material_name: "asdasd",
+            pcf: 6,
+            image_url: "null",
+          },
+          {
+            material_id: "asdasd",
+            material_name: "asdasd",
+            pcf: 4,
+            image_url: "null",
+          },
+          {
+            material_id: "asdasd",
+            material_name: "asdasd",
+            pcf: 6,
+            image_url: "null",
+          },
         ],
       },
       scope3Total: null,
@@ -545,9 +563,9 @@ export default {
             align-items: center;
             padding: 10px;
             border: 1px solid #cdcdcd;
-            width: 22%;
-            margin-right: 3%;
-            margin-bottom: 20px;
+            width: 207px;
+            margin-right: 15px;
+            margin-bottom: 15px;
             overflow: hidden;
             .left {
               width: 78px;
@@ -564,7 +582,7 @@ export default {
             }
             .right {
               margin-left: 10px;
-              flex: 1;
+              width: 89px;
               .name {
                 width: 100%;
                 font-size: 14px;
