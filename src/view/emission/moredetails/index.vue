@@ -85,7 +85,7 @@
                 ).toFixed(3)
               }}kg</span
             >
-            <span>CO2e</span>
+            <span> CO2e</span>
           </p>
         </div>
         <ul class="ul_list">
@@ -595,6 +595,7 @@ export default {
               .number {
                 font-size: 14px;
                 color: #000;
+                font-weight: 800;
               }
             }
           }
