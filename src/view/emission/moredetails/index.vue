@@ -111,7 +111,13 @@
               <span>CO2e</span>
             </p>
           </div>
-          <Button type="text" size="small" @click="gotoValus">Load More</Button>
+          <Button
+            type="text"
+            size="small"
+            @click="gotoValus"
+            style="font-size: 14px; font-weight: 600"
+            >Load More</Button
+          >
         </div>
         <div class="ul_list2">
           <ul>
@@ -120,7 +126,22 @@
                 <img src="../../../assets/images/more _details.png" alt="" />
               </div>
               <div class="right">
-                <p class="name">{{ item.material_name }}</p>
+                <p class="name" v-if="item.material_name.length < 10">
+                  {{ item.material_name }}
+                </p>
+                <Tooltip placement="top" v-else>
+                  <p class="name">{{ item.material_name }}</p>
+                  <div
+                    slot="content"
+                    style="
+                      word-wrap: break-word;
+                      white-space: pre-wrap;
+                      width: 100%;
+                    "
+                  >
+                    {{ item.material_name }}
+                  </div>
+                </Tooltip>
                 <p class="number">{{ item.pcf && item.pcf.toFixed(3) }}kg</p>
               </div>
             </li>
@@ -596,6 +617,12 @@ export default {
                 font-size: 14px;
                 color: #000;
                 font-weight: 800;
+              }
+              .ivu-tooltip {
+                width: 100%;
+                .ivu-tooltip-rel {
+                  width: 100%;
+                }
               }
             }
           }
