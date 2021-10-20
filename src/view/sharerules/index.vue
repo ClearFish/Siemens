@@ -65,8 +65,7 @@ export default {
     .gif_bg {
       width: 80%;
       height: 100%;
-      background: url("../../assets/images/pcf_share_rules.gif") no-repeat
-        center;
+      background: url("../../assets/images/shar.gif") no-repeat center;
       background-size: 100% 100%;
     }
   }

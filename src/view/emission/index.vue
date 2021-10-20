@@ -51,7 +51,7 @@
             <Button
               type="text"
               @click="gotoHitory"
-              style="color: #006d80; font-size: 14px"
+              style="color: #006d80; font-size: 14px; font-weight: 600"
               >Load More</Button
             >
           </div>

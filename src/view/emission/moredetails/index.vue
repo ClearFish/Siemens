@@ -29,29 +29,49 @@
             <li>
               <p>
                 <span class="icon_box icon1"></span>
-                <span>Date:{{ timestampToTime(detailData.date) }}</span>
+                <span
+                  >Date :
+                  <span style="font-weight: 600">{{
+                    timestampToTime(detailData.date)
+                  }}</span></span
+                >
               </p>
             </li>
             <li>
               <p>
                 <span class="icon_box icon2"></span>
-                <span>Product ID:{{ detailData.product_id }}</span>
+                <span
+                  >Product ID :
+                  <span style="font-weight: 600">{{
+                    detailData.product_id
+                  }}</span></span
+                >
               </p>
             </li>
             <li>
               <p>
                 <span class="icon_box icon3"></span>
                 <span
-                  >Weight:{{
-                    detailData.product_id == "6ES75111CK010AB0" ? 1.229 : 1.551
-                  }}kg</span
+                  >Weight :
+                  <span style="font-weight: 600"
+                    >{{
+                      detailData.product_id == "6ES75111CK010AB0"
+                        ? 1.229
+                        : 1.551
+                    }}kg</span
+                  ></span
                 >
               </p>
             </li>
             <li>
               <p>
                 <span class="icon_box icon4"></span>
-                <span>Cost Per Piece:{{ detailData.cost }}</span>
+                <span
+                  >Cost Per Piece :
+                  <span style="font-weight: 600">{{
+                    detailData.cost
+                  }}</span></span
+                >
               </p>
             </li>
           </ul>
@@ -383,6 +403,8 @@ export default {
       align-items: center;
       margin-top: 20px;
       .left_content {
+        flex: 1;
+        margin-right: 20px;
         .name {
           color: #11435c;
           font-size: 36px;
@@ -401,8 +423,8 @@ export default {
         }
         .acount {
           margin-top: 20px;
-          font-size: 14px;
-          color: #000000;
+          font-size: 24px;
+          color: rgb(17, 67, 92);
           display: flex;
           align-items: center;
           span {
@@ -418,10 +440,12 @@ export default {
           }
         }
         .bottom_list {
-          margin-top: 20px;
+          margin-top: 10px;
+          padding-top: 10px;
           display: flex;
           justify-content: flex-start;
           align-items: center;
+          border-top: 1px solid #e5e8eb;
           li {
             margin-right: 15px;
             p {
@@ -429,7 +453,7 @@ export default {
               color: #000;
               display: flex;
               align-items: center;
-              span {
+              .icon_box {
                 display: block;
               }
               .icon_box {
