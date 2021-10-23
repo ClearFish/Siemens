@@ -2,7 +2,7 @@ export default {
   /**
    * @description 配置显示在浏览器标签的title
    */
-  title: 'iView-admin',
+  title: 'SIEMENS',
   /**
    * @description token在Cookie中存储的天数，默认1天
    */
@@ -18,7 +18,8 @@ export default {
    */
   baseUrl: {
     dev: '',
-    pro: 'http://139.24.142.187:8082'
+    // pro: 'http://139.24.142.187:8082',
+    pro:window.location.protocol+'//'+ window.location.host+':'+window.location.port
   },
   /**
    * @description 默认打开的首页的路由name值，默认为home

@@ -21,44 +21,44 @@ import Keycloak from 'keycloak-js'
 if (process.env.NODE_ENV !== 'production') require('@/mock')
 
 const initOptions = {
-  url: 'http://127.0.0.1:8080/auth',
-  realm: 'demo',
-  clientId: 'vue-demo',
+  url: 'http://139.24.142.187:8080/auth',
+  realm: 'Sustainium',
+  clientId: 'Sustainium-GUI',
   onLoad:'login-required'
 }
 const keycloak = Keycloak(initOptions);
 
-// keycloak.init({ onLoad: initOptions.onLoad, promiseType: 'native' }).then((authenticated) =>{
-//   console.log('keycloak',authenticated)
-//   if(!authenticated) {
-//     window.location.reload();
-//   } else {
-//     Vue.prototype.$keycloak = keycloak;
-//     localStorage.setItem('token',keycloak.token)
-//     console.log('Authenticated')
-//   }
+keycloak.init({ onLoad: initOptions.onLoad, promiseType: 'native' }).then((authenticated) =>{
+  console.log('keycloak',authenticated)
+  if(!authenticated) {
+    window.location.reload();
+  } else {
+    Vue.prototype.$keycloak = keycloak;
+    localStorage.setItem('token',keycloak.token)
+    console.log('Authenticated')
+  }
 
-//   new Vue({
-//     render: h => h(App),
-//   }).$mount('#app')
+  new Vue({
+    render: h => h(App),
+  }).$mount('#app')
 
-//   setInterval(() =>{
-//     keycloak.updateToken(70).then((refreshed)=>{
-//       if (refreshed) {
-//         console.log('Token refreshed');
-//         localStorage.setItem('token',keycloak.token)
-//       } else {
-//         console.log('Token not refreshed, valid for '
-//             + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
-//       }
-//     }).catch(error => {
-//       console.log('Failed to refresh token', error)
-//     })
-//   }, 60000)
+  setInterval(() =>{
+    keycloak.updateToken(70).then((refreshed)=>{
+      if (refreshed) {
+        console.log('Token refreshed');
+        localStorage.setItem('token',keycloak.token)
+      } else {
+        console.log('Token not refreshed, valid for '
+            + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
+      }
+    }).catch(error => {
+      console.log('Failed to refresh token', error)
+    })
+  }, 60000)
 
-// }).catch(error => {
-//   console.log('Authenticated Failed', error)
-// })
+}).catch(error => {
+  console.log('Authenticated Failed', error)
+})
 
 
 Vue.use(iView, {

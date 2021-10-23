@@ -380,7 +380,7 @@ export default {
   },
   created() {
     //   面积图
-    this.dataChrts = mockData.data;
+    // this.dataChrts = mockData.data;
     var obj = {
       year: this.querForm.year,
       factory: this.querForm.factory,
@@ -405,16 +405,16 @@ export default {
     });
     valueList[0] = ["product", "SMT", "THT", "Assembling", "Public utilities"];
     // console.log(valueList,"999mocklist")
-    this.barValue = valueList;
+    // this.barValue = valueList;
 
     //   面积
-    this.dataChrts2 = mock2Data.data;
+    // this.dataChrts2 = mock2Data.data;
     var obj = {
       year: this.querForm.year,
       factory: this.querForm.factory,
       frequency: this.thirdFilter,
     };
-    this.totalData = toalmock.data;
+    // this.totalData = toalmock.data;
     this.queryData();
   },
   methods: {
