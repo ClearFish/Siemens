@@ -9,7 +9,7 @@
     </div>
     <div class="content_box">
       <div class="top_title">
-        <p class="title">Emission History</p>
+        <p class="title">More Details</p>
       </div>
       <div class="top_content">
         <div class="left_content">

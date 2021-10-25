@@ -21,21 +21,22 @@ import Keycloak from 'keycloak-js'
 if (process.env.NODE_ENV !== 'production') require('@/mock')
 
 const initOptions = {
-  url: 'http://139.24.142.187:8080/auth',
+  // url: 'http://139.24.142.187:8080/auth',
+  url:window.location.protocol+'//'+ window.location.host+':'+window.location.port+'/auth',
   realm: 'Sustainium',
   clientId: 'Sustainium-GUI',
   onLoad:'login-required'
 }
 const keycloak = Keycloak(initOptions);
 
-keycloak.init({ onLoad: initOptions.onLoad, promiseType: 'native' }).then((authenticated) =>{
+keycloak.init({ onLoad: initOptions.onLoad, promiseType: 'native' }).then( async(authenticated) =>{
   console.log('keycloak',authenticated)
   if(!authenticated) {
     window.location.reload();
   } else {
     Vue.prototype.$keycloak = keycloak;
-    localStorage.setItem('token',keycloak.token)
-    console.log('Authenticated')
+    await localStorage.setItem('token',keycloak.token)
+    console.log('Authenticated',keycloak.token)
   }
 
   new Vue({

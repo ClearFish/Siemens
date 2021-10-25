@@ -170,6 +170,7 @@
                 <Card shadow>
                   <example
                     style="height: 310px"
+                    v-if="dataChrts2.product_pcf_sequences.length"
                     :xdata="dataChrts2.periods"
                     :data1="
                       dataChrts2.product_pcf_sequences[0].product_pcf_sequence
@@ -374,6 +375,7 @@ export default {
         periods: [],
         product_pcf_sequences: [],
       },
+      totalData: {},
       barValue: [],
       productList: [{ name: "SEWC", id: "SEWC" }],
     };
@@ -419,7 +421,6 @@ export default {
   },
   methods: {
     firstChose(type) {
-      // this.dataChrts = mockCopy.data
       this.firstFilter = type;
       var obj = {
         year: this.querForm.year.getFullYear(),

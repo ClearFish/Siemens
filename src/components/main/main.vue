@@ -13,7 +13,7 @@
       <Header class="header-con">
         <div class="left_box">
           <p class="logo_box"></p>
-          <p class="title">GREEN Connect</p>
+          <p class="title">GREEN</p>
         </div>
         <div
           class="router_box"
@@ -171,8 +171,12 @@ export default {
       });
     },
     handleSelect(name) {
-      console.log(name);
-      this.$router.push("/" + name);
+      console.log(name, this.$route, "[===");
+      try {
+        this.$router.push("/" + name);
+      } catch (err) {
+        console.log(err);
+      }
     },
     handleCollapsedChange(state) {
       this.collapsed = state;

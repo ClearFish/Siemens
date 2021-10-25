@@ -12,6 +12,10 @@ const router = new Router({
   routes,
   mode: 'history'
 })
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+return originalPush.call(this, location).catch(err => err)
+}
 // const LOGIN_PAGE_NAME = 'login'
 
 // const turnTo = (to, access, next) => {
@@ -51,6 +55,12 @@ const router = new Router({
 //     }
 //   }
 // })
+router.beforeEach((to, from, next)=>{
+  const token = localStorage.getItem("token");
+  if(token) {
+    next()
+  }
+})
 
 router.afterEach(to => {
   setTitle(to, router.app)
