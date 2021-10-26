@@ -1,5 +1,4 @@
 const path = require('path')
-
 const resolve = dir => {
   return path.join(__dirname, dir)
 }
@@ -26,6 +25,16 @@ module.exports = {
   // then change this to '/my-app/'
   baseUrl: BASE_URL,
   assetsDir: 'static2',
+  // configureWebpack:{
+  //   plugins:[
+  //     new HtmlWebpackPlugin({
+  //       filename: 'index.html',
+  //       template: 'public/index.html',
+  //       favicon: 'src/assets/images/favicon.ico',
+  //       inject: true
+  //       }),
+  //     ],
+  // },
   // tweak internal webpack configuration.
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   // 如果你不需要使用eslint，把lintOnSave设为false即可
