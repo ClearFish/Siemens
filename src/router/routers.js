@@ -32,7 +32,7 @@ export default [
     redirect: '/home'
   },
   {
-    path: '/',
+    path: '/emission',
     name: 'emission',
     component: Main,
     meta: {
@@ -83,7 +83,7 @@ export default [
     ]
   },
   {
-    path: '/',
+    path: '/portfolio',
     name: 'portfolio',
     component: Main,
     meta: {

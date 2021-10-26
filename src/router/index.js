@@ -76,7 +76,10 @@ router.beforeEach((to, from, next)=>{
       } else {
         Vue.prototype.$keycloak = keycloak;
         localStorage.setItem('token',keycloak.token)
-        next()
+        next({
+          path:'/home',
+          hash:''
+        })
         console.log('Authenticated',keycloak.token)
       }
       // setInterval(() =>{
