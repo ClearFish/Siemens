@@ -1,59 +1,59 @@
 <template>
   <div class="big_box">
     <div class="top">
-      <p class="title" @click="goBack">Factory Emission</p>
+      <p class="title" @click="goBack">{{ $t("Factory_Emission2") }}</p>
       <p class="change_color">/</p>
-      <p class="change_color">Emission History</p>
+      <p class="change_color">{{ $t("Emission_History") }}</p>
     </div>
     <div class="content_box">
       <div class="top_title">
-        <p class="title">Emission History</p>
+        <p class="title">{{ $t("Emission_History") }}</p>
         <div class="export">
           <p class="export_icon"></p>
-          <p class="export_text">Table Export</p>
+          <p class="export_text">{{ $t("Table_Export") }}</p>
         </div>
       </div>
       <div class="form_box">
-        <Form ref="formInline" :model="formInline" inline :label-width="80">
-          <FormItem prop="productId" label="Product Id">
+        <Form ref="formInline" :model="formInline" inline :label-width="100">
+          <FormItem prop="productId" :label="$t('Product_Id')">
             <Input
               type="text"
               v-model="formInline.product_id"
-              placeholder="Product ID"
+              :placeholder="$t('Product_Id')"
             ></Input>
           </FormItem>
-          <FormItem prop="productId" label="Serial No">
+          <FormItem prop="productId" :label="$t('Serial_No')">
             <Input
               type="text"
               v-model="formInline.serial"
-              placeholder="Serial No"
+              :placeholder="$t('Serial_No')"
             ></Input>
           </FormItem>
 
-          <FormItem prop="productId" label="Start Time">
+          <FormItem prop="productId" :label="$t('Start_Time')">
             <DatePicker
               type="date"
-              placeholder="Select date"
+              :placeholder="$t('Select_start_date')"
               style="width: 200px"
               v-model="formInline.start_datetime"
               :options="options"
               format="yyyy-MM-dd"
             ></DatePicker>
           </FormItem>
-          <FormItem prop="productId" label="End Time">
+          <FormItem prop="productId" :label="$t('End_Time')">
             <DatePicker
               type="date"
               format="yyyy-MM-dd"
-              placeholder="Select date"
+              :placeholder="$t('Select_end_date')"
               style="width: 200px"
               :options="options"
               v-model="formInline.end_datetime"
             ></DatePicker>
           </FormItem>
         </Form>
-        <Button icon="ios-search" type="primary" @click="searchData"
-          >Search</Button
-        >
+        <Button icon="ios-search" type="primary" @click="searchData">{{
+          $t("Search")
+        }}</Button>
       </div>
       <div class="table_box">
         <Table :columns="columns1" :data="data1">
@@ -75,7 +75,7 @@
               type="text"
               size="small"
               @click="gotoDetails(row.product_id, row.serial, index)"
-              >More Details</Button
+              >{{ $t("More_Details") }}</Button
             >
           </template>
           <template slot-scope="{ row }" slot="pcf_total">
@@ -121,33 +121,33 @@ export default {
           key: "number",
           width: 60,
           align: "center",
-          title: "No.",
+          title: this.$t("No"),
           slot: "tableIndex",
         },
         {
-          title: "Product ID",
+          title: this.$t("Product_Id"),
           align: "center",
           key: "product_id",
         },
         {
-          title: "Serial No",
+          title: this.$t("Serial_No"),
           align: "center",
           key: "serial",
         },
         {
-          title: "Generation Time",
+          title: this.$t("Generation_Time"),
           align: "center",
           key: "pcf_calculation_datetime",
           slot: "date",
         },
         {
-          title: "PCF VALUE",
+          title: this.$t("PCF_VALUE"),
           align: "center",
           key: "pcf_total",
           slot: "pcf_total",
         },
         {
-          title: "Details",
+          title: this.$t("Details"),
           slot: "action",
           width: 150,
           align: "center",

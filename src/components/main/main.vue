@@ -25,8 +25,10 @@
             :active-name="this.$route.name"
             @on-select="handleSelect"
           >
-            <Menu-item name="home"> GREEN Concept </Menu-item>
-            <Menu-item name="emission"> Factory Emission </Menu-item>
+            <Menu-item name="home"> {{ $t("GREEN_Connect") }} </Menu-item>
+            <Menu-item name="emission">
+              {{ $t("Factory_Emission") }}
+            </Menu-item>
             <!-- <Menu-item name="/portfolio">
                 Product Portfolio
             </Menu-item> -->

@@ -88,5 +88,16 @@ export default {
   Search:"Search",
   BOM_Line_Ti:"BOM Line Ti",
   Suppliers:"Suppliers",
-  
+
+  Product_Carbon_Footprint:"Product Carbon Footprint",
+  Emission_Per_Piece:"Emission Per Piece",
+  Emission_Scope_1_2:"Emission Scope 1 & 2",
+  Emission_Scope_3:"Emission Scope 3",
+  Emission_Scope_3_M:"Emission Scope 3",
+  Emission_Scope_1_2_C:"Scope 1& Scope 2",
+  Table_Export:"Table Export",
+  Scope_12:"Scope 1&2",
+  Commodity:"Commodity",
+  Select_start_date:"Select Start Date",
+  Select_end_date:"Select End Date"
 }

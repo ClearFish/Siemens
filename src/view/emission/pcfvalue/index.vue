@@ -1,23 +1,27 @@
 <template>
   <div class="big_box">
     <div class="top">
-      <p class="title" @click="goBack(-3)">Factory Emission</p>
+      <p class="title" @click="goBack(-3)">{{ $t("Factory_Emission2") }}</p>
       <p class="title add_margin">/</p>
-      <p class="title add_margin" @click="goBack(-2)">Emission History</p>
+      <p class="title add_margin" @click="goBack(-2)">
+        {{ $t("Emission_History") }}
+      </p>
       <p class="title add_margin">/</p>
-      <p class="title add_margin" @click="goBack(-1)">More Details</p>
+      <p class="title add_margin" @click="goBack(-1)">
+        {{ $t("More_Details_C") }}
+      </p>
       <p class="change_color">/</p>
-      <p class="change_color">Specific PCF Value</p>
+      <p class="change_color">{{ $t("Specific_PCF_Value") }}</p>
     </div>
     <div class="content_box">
       <div class="top_title">
         <p class="title">
           Product ID：{{ formInline.product_id }}
-          <span style="margin-left: 20px">Specific PCF Value</span>
+          <span style="margin-left: 20px">{{ $t("Specific_PCF_Value") }}</span>
         </p>
         <div class="export">
           <p class="export_icon"></p>
-          <p class="export_text">Table Export</p>
+          <p class="export_text">{{ $t("Table_Export") }}</p>
         </div>
       </div>
       <div class="form_box">
@@ -28,24 +32,24 @@
           :label-width="90"
           label-position="right"
         >
-          <FormItem prop="productId" label="BOM Line Ti">
+          <FormItem prop="productId" :label="$t('BOM_Line_Ti')">
             <Input
               type="text"
               v-model="formInline.bom_line_ti"
-              placeholder="Product ID"
+              :placeholder="$t('BOM_Line_Ti')"
             ></Input>
           </FormItem>
-          <FormItem prop="productId" label="Suppliers">
+          <FormItem prop="productId" :label="$t('Suppliers')">
             <Input
               type="text"
               v-model="formInline.suppliers"
-              placeholder="Suppliers"
+              :placeholder="$t('Suppliers')"
             ></Input>
           </FormItem>
         </Form>
-        <Button icon="ios-search" type="primary" @click="getData"
-          >Search</Button
-        >
+        <Button icon="ios-search" type="primary" @click="getData">{{
+          $t("Search")
+        }}</Button>
       </div>
       <div class="table_box">
         <Table :columns="columns1" :data="data1">
@@ -86,27 +90,27 @@ export default {
       columns1: [
         {
           align: "center",
-          title: "No.",
+          title: this.$t("No"),
           key: "number",
           slot: "tableIndex",
         },
         {
-          title: "BOM Line Ti",
+          title: this.$t("BOM_Line_Ti"),
           align: "center",
           key: "ti",
         },
         {
-          title: "Suppliers",
+          title: this.$t("Suppliers"),
           align: "center",
           key: "suppliers",
         },
         {
-          title: "Commodity",
+          title: this.$t("Commodity"),
           align: "center",
           key: "commodity",
         },
         {
-          title: "PCF VALUE",
+          title: this.$t("PCF_VALUE"),
           align: "center",
           key: "pcf",
           slot: "pcf",

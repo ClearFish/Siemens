@@ -123,16 +123,16 @@
       <div class="box_click" @click="showDialog"></div>
       <div class="share_rules" @click="showRules">
         <div class="left"></div>
-        <p class="right">PCF共享机制</p>
+        <p class="right">{{ $t("PCF_Share") }}</p>
       </div>
     </div>
-    <Modal v-model="show" title="Product Carbon Footprint">
+    <Modal v-model="show" :title="$t('Product_Carbon_Footprint')">
       <div class="content">
         <div class="top">
           <div class="left">
-            <p class="title">Product ID</p>
+            <p class="title">{{ $t("Product_Id") }}</p>
             <p class="number">{{ homeData.product_id }}</p>
-            <p class="title">Serial No：{{ homeData.serial }}</p>
+            <p class="title">{{ $t("Serial_No") }}：{{ homeData.serial }}</p>
           </div>
           <div class="right">
             <p
@@ -151,7 +151,7 @@
           </div>
         </div>
         <div class="bottom">
-          <p class="first_title">Emission Per Piece</p>
+          <p class="first_title">{{ $t("Emission_Per_Piece") }}</p>
           <p class="acount">
             <span
               >{{
@@ -169,7 +169,7 @@
             <span>CO2e</span>
           </p>
           <p class="bottom_acount">
-            Emission Scope 1 & 2:
+            {{ $t("Emission_Scope_1_2") }}:
             <span
               >{{
                 homeData.scope2 &&
@@ -185,7 +185,7 @@
             CO2e
           </p>
           <p class="bottom_acount chang_color">
-            Emission Scope 3：<span
+            {{ $t("Emission_Scope_3") }}：<span
               >{{ Number(homeData.scope3_total).toFixed(3) }}kg</span
             >
             CO2e

@@ -1,7 +1,7 @@
 <template>
   <div class="big_box">
     <div class="top">
-      <p>Factory Emission</p>
+      <p>{{ $t("Factory_Emission") }}</p>
       <DatePicker
         type="year"
         placeholder="Select year"
@@ -27,7 +27,7 @@
     <div class="content_box">
       <div class="left">
         <div class="top">
-          <p class="title">Factory Statistics</p>
+          <p class="title">{{ $t("Factory_Statistics") }}</p>
           <div class="list">
             <ul>
               <li v-for="(item, index) in topList" :key="index">
@@ -45,39 +45,41 @@
         <div class="bottom">
           <div class="bottom_top">
             <div class="left">
-              <p class="title">Emission History</p>
-              <p class="sup_title">Based on the average product volume</p>
+              <p class="title">{{ $t("Emission_History") }}</p>
+              <p class="sup_title">
+                {{ $t("Based_on_the_average_product_volume") }}
+              </p>
             </div>
             <Button
               type="text"
               @click="gotoHitory"
               style="color: #006d80; font-size: 14px; font-weight: 600"
-              >Load More</Button
+              >{{ $t("Load_More") }}</Button
             >
           </div>
           <div class="bottom_content">
             <div class="canvas_box">
               <div class="top_canvas">
                 <div class="left_canvas">
-                  <p class="name">Emission</p>
+                  <p class="name">{{ $t("Emission") }}</p>
                   <div class="types">
                     <p
                       @click="firstChose('quarter')"
                       :class="firstFilter == 'quarter' ? 'active' : ''"
                     >
-                      Quarter
+                      {{ $t("Quarter") }}
                     </p>
                     <p
                       @click="firstChose('month')"
                       :class="firstFilter == 'month' ? 'active' : ''"
                     >
-                      Month
+                      {{ $t("Month") }}
                     </p>
                     <p
                       @click="firstChose('day')"
                       :class="firstFilter == 'day' ? 'active' : ''"
                     >
-                      Day
+                      {{ $t("Day") }}
                     </p>
                   </div>
                 </div>
@@ -100,25 +102,25 @@
             <div class="canvas_box">
               <div class="top_canvas">
                 <div class="left_canvas">
-                  <p class="name">Emission</p>
+                  <p class="name">{{ $t("Emission") }}</p>
                   <div class="types">
                     <p
                       @click="secondChose('quarter')"
                       :class="secondFilter == 'quarter' ? 'active' : ''"
                     >
-                      Quarter
+                      {{ $t("Quarter") }}
                     </p>
                     <p
                       @click="secondChose('month')"
                       :class="secondFilter == 'month' ? 'active' : ''"
                     >
-                      Month
+                      {{ $t("Month") }}
                     </p>
                     <p
                       @click="secondChose('day')"
                       :class="secondFilter == 'day' ? 'active' : ''"
                     >
-                      Day
+                      {{ $t("Day") }}
                     </p>
                   </div>
                 </div>
@@ -145,19 +147,19 @@
                       @click="thirdChose('quarter')"
                       :class="thirdFilter == 'quarter' ? 'active' : ''"
                     >
-                      Quarter
+                      {{ $t("Quarter") }}
                     </p>
                     <p
                       @click="thirdChose('month')"
                       :class="thirdFilter == 'month' ? 'active' : ''"
                     >
-                      Month
+                      {{ $t("Month") }}
                     </p>
                     <p
                       @click="thirdChose('day')"
                       :class="thirdFilter == 'day' ? 'active' : ''"
                     >
-                      Day
+                      {{ $t("Day") }}
                     </p>
                   </div>
                 </div>
@@ -187,8 +189,8 @@
       </div>
       <div class="right">
         <div class="right_top">
-          <p class="title">CO2e Emission</p>
-          <p class="sup_title">Total Emission</p>
+          <p class="title">{{ $t("CO2e_Emission") }}</p>
+          <p class="sup_title">{{ $t("Total_Emission") }}</p>
           <p class="title_count">
             <span class="title_add"
               >{{ totalData.pcf_total.toFixed(3) }}kg
@@ -200,8 +202,8 @@
           <!-- </Card> -->
         </div>
         <div class="right_top right_bottom">
-          <p class="title">Scope 1& Scope 2 CO2e Emission</p>
-          <p class="sup_title">Total Emission</p>
+          <p class="title">{{ $t("Scope_1_Scope_2_CO2e_Emission") }}</p>
+          <p class="sup_title">{{ $t("Total_Emission") }}</p>
           <p class="title_count">
             <span class="title_add">{{ pieData[0].value }}kg </span>
             <span>CO2e</span>
@@ -215,7 +217,7 @@
           <!-- </Card> -->
           <div class="right_progress">
             <div class="top">
-              <p class="top_left">SMT：{{ pieData2[0].value }}kg</p>
+              <p class="top_left">{{ $t("SMT") }}：{{ pieData2[0].value }}kg</p>
               <p class="top_percent">
                 {{
                   pieData[0].value == 0
@@ -236,7 +238,7 @@
           </div>
           <div class="right_progress">
             <div class="top">
-              <p class="top_left">THT：{{ pieData2[1].value }}kg</p>
+              <p class="top_left">{{ $t("THT") }}：{{ pieData2[1].value }}kg</p>
               <p class="top_percent">
                 {{
                   pieData[0].value == 0
@@ -257,7 +259,9 @@
           </div>
           <div class="right_progress">
             <div class="top">
-              <p class="top_left">Assembling：{{ pieData2[2].value }}kg</p>
+              <p class="top_left">
+                {{ $t("Assembling") }}：{{ pieData2[2].value }}kg
+              </p>
               <p class="top_percent">
                 {{
                   pieData[0].value == 0
@@ -280,7 +284,7 @@
           <div class="right_progress">
             <div class="top">
               <p class="top_left">
-                Public utilities：{{ pieData2[3].value }}kg
+                {{ $t("Public_utilities") }}：{{ pieData2[3].value }}kg
               </p>
               <p class="top_percent">
                 {{
@@ -335,10 +339,10 @@ export default {
       },
       countData: {},
       topList: [
-        { title: "Modules", id: 0, count: 0 },
-        { title: "Total Products", id: 1, count: 0 },
-        { title: "Total Components", id: 2, count: 0 },
-        { title: "Supplies", id: 3, count: 0 },
+        { title: this.$t("Modules"), id: 0, count: 0 },
+        { title: this.$t("Total_Products"), id: 1, count: 0 },
+        { title: this.$t("Total_Components"), id: 2, count: 0 },
+        { title: this.$t("Supplies"), id: 3, count: 0 },
       ],
       options: {
         disabledDate(date) {
@@ -348,18 +352,22 @@ export default {
       pieData: [
         {
           value: 0,
-          name: "Scope 1& Scope 2",
+          name: this.$t("Emission_Scope_1_2_C"),
           itemStyle: { color: "#006D80" },
         },
-        { value: 0, name: "Scope 3", itemStyle: { color: "#00D3C9" } },
+        { value: 0, name: this.$t("Scope3"), itemStyle: { color: "#00D3C9" } },
       ],
       pieData2: [
-        { value: 0, name: "SMT", itemStyle: { color: "#006D80" } },
-        { value: 0, name: "THT", itemStyle: { color: "#00D3C9" } },
-        { value: 0, name: "Assembling", itemStyle: { color: "#A4DC94" } },
+        { value: 0, name: this.$t("SMT"), itemStyle: { color: "#006D80" } },
+        { value: 0, name: this.$t("THT"), itemStyle: { color: "#00D3C9" } },
         {
           value: 0,
-          name: "Public utilities",
+          name: this.$t("Assembling"),
+          itemStyle: { color: "#A4DC94" },
+        },
+        {
+          value: 0,
+          name: this.$t("Public_utilities"),
           itemStyle: { color: "#FFE898" },
         },
       ],
@@ -382,7 +390,7 @@ export default {
   },
   created() {
     //   面积图
-    // this.dataChrts = mockData.data;
+    this.dataChrts = mockData.data;
     var obj = {
       year: this.querForm.year,
       factory: this.querForm.factory,
@@ -405,18 +413,24 @@ export default {
       //   console.log(arr);
       return arr;
     });
-    valueList[0] = ["product", "SMT", "THT", "Assembling", "Public utilities"];
+    valueList[0] = [
+      "product",
+      this.$t("SMT"),
+      this.$t("THT"),
+      this.$t("Assembling"),
+      this.$t("Public_utilities"),
+    ];
     // console.log(valueList,"999mocklist")
-    // this.barValue = valueList;
+    this.barValue = valueList;
 
     //   面积
-    // this.dataChrts2 = mock2Data.data;
+    this.dataChrts2 = mock2Data.data;
     var obj = {
       year: this.querForm.year,
       factory: this.querForm.factory,
       frequency: this.thirdFilter,
     };
-    // this.totalData = toalmock.data;
+    this.totalData = toalmock.data;
     this.queryData();
   },
   methods: {
@@ -560,10 +574,10 @@ export default {
             console.log(valueList, "[]]]-接口返回process=---");
             valueList[0] = [
               "product",
-              "SMT",
-              "THT",
-              "Assembling",
-              "Public utilities",
+              this.$t("SMT"),
+              this.$t("THT"),
+              this.$t("Assembling"),
+              this.$t("Public_utilities"),
             ];
             this.barValue = valueList;
             console.log(this.barValue, "接口barValue");

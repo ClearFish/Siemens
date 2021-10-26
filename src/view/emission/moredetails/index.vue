@@ -1,26 +1,28 @@
 <template>
   <div class="big_box">
     <div class="top">
-      <p class="title" @click="goBack(-2)">Factory Emission</p>
+      <p class="title" @click="goBack(-2)">{{ $t("Factory_Emission2") }}</p>
       <p class="title add_margin">/</p>
-      <p class="title add_margin" @click="goBack(-1)">Emission History</p>
+      <p class="title add_margin" @click="goBack(-1)">
+        {{ $t("Emission_History") }}
+      </p>
       <p class="change_color">/</p>
-      <p class="change_color">More Details</p>
+      <p class="change_color">{{ $t("More_Details_C") }}</p>
     </div>
     <div class="content_box">
       <div class="top_title">
-        <p class="title">More Details</p>
+        <p class="title">{{ $t("More_Details_C") }}</p>
       </div>
       <div class="top_content">
         <div class="left_content">
           <div class="serial_num">
-            <p>Serial No：{{ detailData.serial }}</p>
+            <p>{{ $t("Serial_No") }}：{{ detailData.serial }}</p>
           </div>
           <p class="name">{{ detailData.product_name }}</p>
           <p class="acount">
             <span class="icon_box"></span>
             <span class="value_box"
-              >Total PCF value：{{
+              >{{ $t("Total_PCF_value") }}：{{
                 detailData.pcf_total && detailData.pcf_total.toFixed(3)
               }}kg CO2e</span
             >
@@ -30,7 +32,7 @@
               <p>
                 <span class="icon_box icon1"></span>
                 <span
-                  >Date :
+                  >{{ $t("Date") }} :
                   <span style="font-weight: 600">{{
                     timestampToTime(detailData.date)
                   }}</span></span
@@ -41,7 +43,7 @@
               <p>
                 <span class="icon_box icon2"></span>
                 <span
-                  >Product ID :
+                  >{{ $t("Product_Id") }} :
                   <span style="font-weight: 600">{{
                     detailData.product_id
                   }}</span></span
@@ -52,7 +54,7 @@
               <p>
                 <span class="icon_box icon3"></span>
                 <span
-                  >Weight :
+                  >{{ $t("Weight") }} :
                   <span style="font-weight: 600"
                     >{{
                       detailData.product_id == "6ES75111CK010AB0"
@@ -67,7 +69,7 @@
               <p>
                 <span class="icon_box icon4"></span>
                 <span
-                  >Cost Per Piece :
+                  >{{ $t("Cost_Per_Piece") }} :
                   <span style="font-weight: 600">{{
                     detailData.cost
                   }}</span></span
@@ -88,13 +90,13 @@
     </div>
     <div class="content_box">
       <div class="top_title">
-        <p class="title">Specific PCS Value</p>
+        <p class="title">{{ $t("Specific_PCF_Value") }}</p>
       </div>
       <div class="center_cont">
         <div class="cont_title">
           <p class="icon_img"></p>
           <p class="icon_right">
-            <span>Scope 1&2：</span>
+            <span>{{ $t("Scope_12") }}：</span>
             <span class="add_weight"
               >{{
                 Number(
@@ -126,7 +128,7 @@
           <div class="cont_title">
             <p class="icon_img"></p>
             <p class="icon_right">
-              <span>Scope 3：</span>
+              <span>{{ $t("Scope3") }}：</span>
               <span class="add_weight">{{ scope3Total }}kg</span>
               <span>CO2e</span>
             </p>
@@ -136,7 +138,7 @@
             size="small"
             @click="gotoValus"
             style="font-size: 14px; font-weight: 600"
-            >Load More</Button
+            >{{ $t("Load_More") }}</Button
           >
         </div>
         <div class="ul_list2">
@@ -177,10 +179,10 @@ export default {
   data() {
     return {
       list: [
-        { name: "SMT", num: "" },
-        { name: "THT", num: "" },
-        { name: "Assembling", num: "" },
-        { name: "Public utilities", num: "" },
+        { name: this.$t("SMT"), num: "" },
+        { name: this.$t("THT"), num: "" },
+        { name: this.$t("Assembling"), num: "" },
+        { name: this.$t("Public_utilities"), num: "" },
       ],
       list2: [
         { name: "SMT", num: "0.1kg" },

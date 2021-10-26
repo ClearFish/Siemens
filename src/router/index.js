@@ -4,6 +4,7 @@ import routes from './routers'
 // import store from '@/store'
 import iView from 'iview'
 import { setToken, getToken, canTurnTo, setTitle } from '@/libs/util'
+import Keycloak from 'keycloak-js'
 // import config from '@/config'
 // const { homeName } = config
 
@@ -55,10 +56,46 @@ return originalPush.call(this, location).catch(err => err)
 //     }
 //   }
 // })
+const initOptions = {
+  // url: 'http://139.24.142.187:8080/auth',
+  url:window.location.protocol+'//'+ window.location.host+':'+window.location.port+'/auth',
+  realm: 'Sustainium',
+  clientId: 'Sustainium-GUI',
+  onLoad:'login-required'
+}
 router.beforeEach((to, from, next)=>{
   const token = localStorage.getItem("token");
   if(token) {
     next()
+  }else{
+    const keycloak = Keycloak(initOptions);
+    keycloak.init({ onLoad: initOptions.onLoad, promiseType: 'native' }).then((authenticated) =>{
+      console.log('keycloak',authenticated)
+      if(!authenticated) {
+        window.location.reload();
+      } else {
+        Vue.prototype.$keycloak = keycloak;
+        localStorage.setItem('token',keycloak.token)
+        next()
+        console.log('Authenticated',keycloak.token)
+      }
+      // setInterval(() =>{
+      //   keycloak.updateToken(70).then((refreshed)=>{
+      //     if (refreshed) {
+      //       console.log('Token refreshed');
+      //       localStorage.setItem('token',keycloak.token)
+      //     } else {
+      //       console.log('Token not refreshed, valid for '
+      //           + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
+      //     }
+      //   }).catch(error => {
+      //     console.log('Failed to refresh token', error)
+      //   })
+      // }, 60000)
+
+    }).catch(error => {
+      console.log('Authenticated Failed', error)
+    })
   }
 })
 

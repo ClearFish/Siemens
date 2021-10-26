@@ -17,8 +17,8 @@ export default {
     xdata: {
       handler: function (val, oldval) {
         if (val != oldval) {
-          console.log(val,"改变了")
-          this.resetEcharts(val,this.data1,this.data2);
+          console.log(val, "改变了");
+          this.resetEcharts(val, this.data1, this.data2);
         }
       },
       deep: true,
@@ -28,8 +28,9 @@ export default {
     resize() {
       this.dom.resize();
     },
-    resetEcharts(xdata,data1,data2) {
-      console.log(xdata,data1,data2,"///gaibianzhi ")
+    resetEcharts(xdata, data1, data2) {
+      console.log(xdata, data1, data2, "///gaibianzhi ");
+      var _this = this;
       const option = {
         tooltip: {
           trigger: "axis",
@@ -41,10 +42,10 @@ export default {
           },
           formatter: function (val) {
             return (
-              "<div><span>Emission Scope 1&2：</span>" +
+              `<div><span>${_this.$t("Emission_Scope_1_2")}：</span>` +
               val[0].data.toFixed(3) +
               "</div>" +
-              "<div><span>Emission Scope 3：</span>" +
+              `<div><span>${_this.$t("Emission_Scope_3_M")}：</span>` +
               val[1].data.toFixed(3) +
               "</div>"
             );
@@ -67,7 +68,10 @@ export default {
           },
         ],
         legend: {
-          data: ["Emission Scope 1&2", "Emission Scope 3"],
+          data: [
+            _this.$t("Emission_Scope_1_2"),
+            _this.$t("Emission_Scope_3_M"),
+          ],
           icon: "circle",
           left: "right",
           top: 0,
@@ -79,7 +83,7 @@ export default {
         ],
         series: [
           {
-            name: "Emission Scope 1&2",
+            name: _this.$t("Emission_Scope_1_2"),
             type: "line",
             stack: "总量",
             areaStyle: {
@@ -113,7 +117,7 @@ export default {
             data: data1,
           },
           {
-            name: "Emission Scope 3",
+            name: _this.$t("Emission_Scope_3_M"),
             type: "line",
             stack: "总量",
             areaStyle: {
@@ -181,10 +185,11 @@ export default {
           // }
         ],
       };
-      this.dom.clear()
-       this.dom.setOption(option,true)
+      this.dom.clear();
+      this.dom.setOption(option, true);
     },
     initCharts() {
+      var _this = this;
       const option = {
         tooltip: {
           trigger: "axis",
@@ -196,10 +201,10 @@ export default {
           },
           formatter: function (val) {
             return (
-              "<div><span>Emission Scope 1&2：</span>" +
+              `<div><span>${_this.$t("Emission_Scope_1_2")}：</span>` +
               val[0].data.toFixed(3) +
               "</div>" +
-              "<div><span>Emission Scope 3：</span>" +
+              `<div><span>${_this.$t("Emission_Scope_3_M")}：</span>` +
               val[1].data.toFixed(3) +
               "</div>"
             );
@@ -222,7 +227,10 @@ export default {
           },
         ],
         legend: {
-          data: ["Emission Scope 1&2", "Emission Scope 3"],
+          data: [
+            _this.$t("Emission_Scope_1_2"),
+            _this.$t("Emission_Scope_3_M"),
+          ],
           icon: "circle",
           left: "right",
           top: 0,
@@ -234,7 +242,7 @@ export default {
         ],
         series: [
           {
-            name: "Emission Scope 1&2",
+            name: _this.$t("Emission_Scope_1_2"),
             type: "line",
             stack: "总量",
             areaStyle: {
@@ -268,7 +276,7 @@ export default {
             data: this.data1,
           },
           {
-            name: "Emission Scope 3",
+            name: _this.$t("Emission_Scope_3_M"),
             type: "line",
             stack: "总量",
             areaStyle: {

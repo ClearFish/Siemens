@@ -27,39 +27,39 @@ const initOptions = {
   clientId: 'Sustainium-GUI',
   onLoad:'login-required'
 }
-const keycloak = Keycloak(initOptions);
+// const keycloak = Keycloak(initOptions);
 
-keycloak.init({ onLoad: initOptions.onLoad, promiseType: 'native' }).then( async(authenticated) =>{
-  console.log('keycloak',authenticated)
-  if(!authenticated) {
-    window.location.reload();
-  } else {
-    Vue.prototype.$keycloak = keycloak;
-    await localStorage.setItem('token',keycloak.token)
-    console.log('Authenticated',keycloak.token)
-  }
+// keycloak.init({ onLoad: initOptions.onLoad, promiseType: 'native' }).then( async(authenticated) =>{
+//   console.log('keycloak',authenticated)
+//   if(!authenticated) {
+//     window.location.reload();
+//   } else {
+//     Vue.prototype.$keycloak = keycloak;
+//     await localStorage.setItem('token',keycloak.token)
+//     console.log('Authenticated',keycloak.token)
+//   }
 
-  new Vue({
-    render: h => h(App),
-  }).$mount('#app')
+//   new Vue({
+//     render: h => h(App),
+//   }).$mount('#app')
 
-  setInterval(() =>{
-    keycloak.updateToken(70).then((refreshed)=>{
-      if (refreshed) {
-        console.log('Token refreshed');
-        localStorage.setItem('token',keycloak.token)
-      } else {
-        console.log('Token not refreshed, valid for '
-            + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
-      }
-    }).catch(error => {
-      console.log('Failed to refresh token', error)
-    })
-  }, 60000)
+//   setInterval(() =>{
+//     keycloak.updateToken(70).then((refreshed)=>{
+//       if (refreshed) {
+//         console.log('Token refreshed');
+//         localStorage.setItem('token',keycloak.token)
+//       } else {
+//         console.log('Token not refreshed, valid for '
+//             + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
+//       }
+//     }).catch(error => {
+//       console.log('Failed to refresh token', error)
+//     })
+//   }, 60000)
 
-}).catch(error => {
-  console.log('Authenticated Failed', error)
-})
+// }).catch(error => {
+//   console.log('Authenticated Failed', error)
+// })
 
 
 Vue.use(iView, {
